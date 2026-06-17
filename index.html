@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+<header>
+    <!-- navbar -->
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li><a href="#" class="active">صفحه اصلی</a></li>
+            <li><a href="#">دوره های تخصصی</a></li>
+            <li><a href="#">فایل لایه باز</a></li>
+            <li><a href="#">جعبه ابزار</a></li>
+            <li><a href="#">تماس با ما</a></li>
+        </ul>
+        <div class="header-left">
+            <div class="search-container">
+                <div class="search-icon" id="searchBtn">
+                    <img src="img/header-image/search.png" alt="جستجو">
+                </div>
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" placeholder="جستجو کنید...">
+                    <button class="search-close" id="searchClose">✕</button>
+                </div>
+            </div>
+            <div class="cart-box">
+                <img src="img/header-image/shopping-cart-svgrepo-com.svg" alt="سبد خرید">
+            </div>
+            <div class="login-box">
+                <div class="arrow-circle">
+                    <div class="circle">
+                        <img src="img/header-image/left-arrow login.png" alt="">
+                    </div>
+                </div>
+                <span>ورود / ثبت نام</span>
+            </div>
+        </div>
+    </nav>
+    <!-- slider -->
+    <section class="slider-section">
+        <div class="slider">
+            <div class="slide active">
+                <img src="img/slider/slider6.png" alt="">
+            </div>
+            <div class="slide">
+                <img src="img/slider/slider3.png" alt="">
+            </div>
+            <div class="slide">
+                <img src="img/slider/slider5.png" alt="">
+            </div>
+            <div class="slide">
+                <img src="img/slider/slider2.png" alt="">
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+            </div>
+        </div>
+    </section>
+</header>
+    <main>
+        <!-- courses -->
+        <section class="courses-section">
+            <div class="courses-header">
+                <div class="category-menu">
+                    <div class="moving-line"></div>
+                    <a href="" class="menu-item active" onclick="moveLine(event,this)" data-category="فتوشاپ"> فتوشاپ</a>
+                    <a href="#" class="menu-item" onclick="moveLine(event,this)" data-category="هوش مصنوعی">هوش مصنوعی</a>
+                    <a href="#" class="menu-item" onclick="moveLine(event,this)" data-category="پریمیر">پریمیر </a>
+                    <a href="#" class="menu-item" onclick="moveLine(event,this)" data-category="افتر افکت">افتر افکت</a>
+                    <a href="#" class="menu-item" onclick="moveLine(event,this)" data-category="جعبه ابزار"> جعبه ابزار</a>
+                </div>
+            </div>
+            <div class="all">
+                <a href="#" class="view-all">مشاهده همه</a>
+            </div>
+            <div class="slider-wrapper">
+                <button class="slider-btn next">
+                    <img src="img/right-chevron copy2.png" alt="">
+                </button>
+                <div class="courses-slider" id="courses-slider">
+                </div>
+                <button class="slider-btn prev">
+                    <img src="img/left-chevron copy2.png" alt="">
+                </button>
+            </div>
+        </section>
+        <!-- نظرات هنرجوها -->
+        <section class="testimonials-section">
+            <div class="testimonials-header">
+                <div class="header-text">
+                    <p class="subtitle">
+                        <span class="purple">نظرات</span> هنرجوهای من
+                    </p>
+                    <p class="experience">
+                        تجربه کسایی که چه در دوره حضوری چه در دوره آنلاین شرکت کردند رو ببینید
+                    </p>
+                </div>
+                <a href="#" class="view-all-reviews">
+                    مشاهده همه نظرات
+                </a>
+            </div>
+            <div class="images-wrapper">
+                <button class="testimonial-btn t-next">
+                    <img src="img/right-chevron copy.png" alt="">
+                </button>
+                <div class="images-slider" id="images-slider">
+
+                    <div class="img-box">
+                        <img src="img/Student Reviews/Student Reviews1.jpg" alt="نظرات هنرجوها">
+                    </div>
+                    <div class="img-box">
+                        <img src="img/Student Reviews/Student Reviews2.jpg" alt="نظرات هنرجوها">
+                    </div>
+                    <div class="img-box">
+                        <img src="" alt="">
+                    </div>
+                    <div class="img-box">
+                        <img src="" alt="">
+                    </div>
+                    <div class="img-box">
+                        <img src="" alt="">
+                    </div>
+                </div>
+                <button class="testimonial-btn t-prev">
+                    <img src="img/left-chevron copy.png" alt="">
+                </button>
+            </div>
+        </section>
+        <!-- portfolio -->
+        <section class="portfolio-section">
+            <div class="portfolio-header">
+                <div class="header-text">
+                    <p class="subtitle">
+                        <span class="purple">نمونه‌کارهای</span> هنرجوهای من
+                    </p>
+                    <p class="experience">
+                        پروژه هایی که با آموزش های دوره توسط هنرجوها ساخته شده
+                    </p>
+                </div>
+                <a href="#" class="view-all-portfolio">مشاهده همه نمونه ها</a>
+            </div>
+            <div class="portfolio-wrapper">
+                <button class="portfolio-btn p-next">
+                    <img src="img/right-chevron copy.png" alt="">
+                </button>
+                <div class="portfolio-slider" id="portfolio-slider">
+                    <div class="portfolio-box" 
+                         data-gallery="gallery1" 
+                         data-main-img="img/Portfolio/06 ملیسا (2).jpg">
+                        <img src="img/Portfolio/06 ملیسا (2).jpg" alt="نمونه کار ملیسا">
+                    </div>
+                    <div class="portfolio-box" 
+                         data-gallery="gallery2" 
+                         data-main-img="img/Portfolio/08 کیانا (1).jpg">
+                        <img src="img/Portfolio/08 کیانا (1).jpg" alt="نمونه کار کیانا">
+                    </div>
+                    <div class="portfolio-box" 
+                         data-gallery="gallery3" 
+                         data-main-img="img/Portfolio/03 فاطمه  (2).jpg">
+                        <img src="img/Portfolio/03 فاطمه  (2).jpg" alt="نمونه کار فاطمه">
+                    </div>
+                    <div class="portfolio-box" 
+                         data-gallery="gallery4" 
+                         data-main-img="img/Portfolio/01 مهتا (3).jpg">
+                        <img src="img/Portfolio/01 مهتا (3).jpg" alt="نمونه کار مه تا">
+                    </div>
+                    <div class="portfolio-box" 
+                         data-gallery="gallery5" 
+                         data-main-img="img/Portfolio/09 میرزاده (3).jpg">
+                        <img src="img/Portfolio/09 میرزاده (3).jpg" alt="نمونه کار میرزاده">
+                    </div>
+                    <div class="portfolio-box"
+                        data-gallery="gallery6"
+                        data-main-img="img/Portfolio/02 ابرام (1).jpg">
+                        <img src="img/Portfolio/02 ابرام (1).jpg" alt="نمونه کار ابرام">
+                    </div>
+                    <div class="portfolio-box">
+                        <img src="img/Portfolio/04 امیر.jpg" alt="نمونه کار امیر">
+                    </div>
+                    <div class="portfolio-box">
+                        <img src="img/Portfolio/05 ثنا.jpg" alt="نمونه کار ثنا">
+                    </div>
+                    <div class="portfolio-box">
+                        <img src="img/Portfolio/07 متین.jpg" alt="نمونه کار متین">
+                    </div>
+                </div>
+                <button class="portfolio-btn p-prev">
+                    <img src="img/left-chevron copy.png" alt="">
+                </button>
+            </div>
+        </section>
+        <div id="modalOverlay" class="modal-overlay">
+            <div class="modal-container">
+                <button class="modal-close" id="closeModalBtn">✕</button>
+                <div class="main-image-section">
+                    <button class="modal-nav-btn" id="prevImageBtn">
+                        <img src="img/arrow-right-solid-svgrepo-com.svg" alt="">
+                    </button>
+                    <img id="modalMainImg" class="modal-main-img" src="" alt="تصویر بزرگ">
+                    <button class="modal-nav-btn" id="nextImageBtn">
+                        <img src="img/arrow-right-solid-svgrepo-com (1).svg" alt="">
+                    </button>
+                </div>
+                <div class="thumbnail-wrapper">
+                    <div class="thumbnail-gallery" id="thumbnailGallery"></div>
+                </div>
+            </div>
+        </div>
+        <!-- psd -->
+        <section class="psd-section">
+            <div class="psd-header">
+              <div>
+                <h2>فایل‌های <span>لایه باز</span></h2>
+                <p>فایل‌های آماده طراحی لایه باز با قابلیت ویرایش و شخصی‌سازی</p>
+              </div>
+              <button class="view-all-btn">مشاهده همه فایل‌ها</button>
+            </div>
+            <ul class="psd-menu" id="psd-menu">
+              <li class="active">پست و استوری</li>
+              <li>کارت ویزیت</li>
+              <li>بنر سایت</li>
+              <li>تراکت</li>
+              <li>پریست عکس</li>
+            </ul>
+            <div class="psd-slider-wrap">
+                <button class="psd-nav-btn psd-prev" id="psd-prev">
+                    <img src="img/right-chevron copy2.png" alt="">
+                </button>
+                <div class="psd-overflow">
+                    <div class="psd-slider" id="psd-slider"></div>
+                </div>
+                <button class="psd-nav-btn psd-next" id="psd-next">
+                    <img src="img/right-chevron copy2.png" alt="">
+                </button>
+            </div>
+          </section>
+          <!-- about me -->
+          <section class="aboutMe-section">
+            <div class="about">
+                <h2>درباره من</h2>
+            </div>
+            <div class="banner">
+                <img src="img/BG درباره من.jpg" alt="about">
+                <div class="banner-text">
+                    <h1> محسن حسینی  </h1>
+                    <p class="tie">(طراح و ادیتور | مدرس نرم افزار)
+                    </p>
+                    <p class="p1">از سال 95 کارم رو با فتوشاپ شروع کردم و کم کم به دنیای طراحی علاقه مند شدم. <br>
+                        همین علاقه باعت شد موشن و ادیت ویدیو با پریمیر و افتر افکت رو هم ادامه بدم <br>
+                        به کسب و کارها کمک کردم تا با محتوای خوب دیده بشن و نتیجه بگیرند
+                    </p>
+                    <p class="p2">از سال 1401 تا به امروز، حضوری و آنلاین دوره های پروژه محور طراحی و ادیت برگزار می کنم. <br>
+                        با مجموعه های آموزشی مختلف (آموزشگاه ها ، مجتمع فنی و ...) همکاری داشتم ، همچنین <br>
+                        نمونه کارهای هنرجوها و نظزاتشون گویای سطح و کیفیت آموزش ها هست ...
+                    </p>
+                    <p class="p3">
+                        خوشحال میشم تو این مسیر کمکی به علاقه مندان این حوزه کرده باشم.
+                    </p>
+                    <img src="img/فریم عکس من.png" alt="">
+                </div>
+                <div class="skills-boxes">
+                    <div class="skill-box">
+                        <img src="img/capcut-svgrepo-com.svg" alt="">
+                    </div>
+                    <div class="skill-box">Ae</div>
+                    <div class="skill-box">Ps</div>
+                    <div class="skill-box">Pr</div>
+                </div>
+            </div>
+          </section>
+          <section class="gallery">
+            <a href="https://example1.com">
+                <img src="img/بنر اینستا.jpg" alt="اینستاگرام">
+            </a>
+            <a href="https://example2.com">
+                <img src="img/بنر تلرگام.jpg" alt="Image 2">
+            </a>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-overlay"></div>
+        <div class="footer-content">
+          <div class="footer-col">
+            <h3>دوره ها</h3>
+            <ul>
+              <li><a href="">  فتوشاپ و طراحی</a></li>
+              <li><a href="">پریمیر و تدوین</a></li>
+              <li><a href="">افتر افکت و موشن</a> </li>
+              <li><a href="">هوش مصنوعی ها</a> </li>
+              <li><a href="">ادیت با موبایل</a> </li>
+            </ul>
+          </div>
+          <div class="footer-col center">
+            <h2>MOHSENGFX.IR</h2>
+            <p>
+                <a href="">بازگشت به صفحه اصلی</a>
+            </p>
+            <div class="socials">
+              <a href="#" class="youtube">
+                <img src="img/youtube-you-tube-video-svgrepo-com.svg" alt="">
+              </a>
+              <a href="#" class="telegram">
+                <img src="img/telegram-svgrepo-com.svg" alt="">
+              </a>
+              <a href="#" class="instagram">
+                <img src="img/instagram-alt-svgrepo-com.svg" alt="">
+              </a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h3>لینک های مهم</h3>
+            <ul>
+              <li><a href="">دوره های پروژه محور</a>  </li>
+              <li><a href="">فایل لایه باز</a>  </li>
+              <li><a href="">جعبه ابزار طراحی و ادیت</a></li>
+              <li><a href="">نمونه کار های هنرجویان</a>  </li>
+              <li><a href=""> تماس با ما</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    <script src="js/script.js" defer></script>
+</body>
+</html>
