@@ -1,6 +1,6 @@
 /* ============================================================
-               ROOT & RESET
-            ============================================================ */
+           ROOT & RESET
+           ============================================================ */
 :root {
     --purple: #46038b;
     --navy: #154894;
@@ -71,17 +71,14 @@ body {
 }
 
 /* ============================================================
-               HEADER — (مورد تایید)
-            ============================================================ */
-
+           HEADER
+           ============================================================ */
 .navbar {
     width: min(1400px, 92%);
     margin: 18px auto 0;
-    padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
     flex-wrap: wrap;
     gap: 10px;
 }
@@ -89,7 +86,6 @@ body {
 .nav-menu {
     list-style: none;
     display: flex;
-    justify-content: flex-start;
     gap: 12px;
     flex-wrap: wrap;
 }
@@ -122,7 +118,6 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    direction: rtl;
     flex-wrap: wrap;
 }
 
@@ -330,8 +325,8 @@ body {
 }
 
 /* ============================================================
-               BREADCRUMB
-            ============================================================ */
+           BREADCRUMB
+           ============================================================ */
 .breadcrumb-bar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -371,10 +366,9 @@ body {
     font-weight: 700;
 }
 
-
 /* ============================================================
-               CHECKOUT LAYOUT
-            ============================================================ */
+           CHECKOUT LAYOUT
+           ============================================================ */
 .checkout-wrap {
     max-width: 1160px;
     margin: 32px auto;
@@ -382,12 +376,11 @@ body {
     display: grid;
     grid-template-columns: 1fr 400px;
     gap: 26px;
-    align-items: start;
 }
 
 /* ============================================================
-               PROGRESS STEPS
-            ============================================================ */
+           PROGRESS STEPS
+           ============================================================ */
 .checkout-steps {
     display: flex;
     align-items: center;
@@ -485,8 +478,8 @@ body {
 }
 
 /* ============================================================
-               SECTION CARD
-            ============================================================ */
+           SECTION CARD
+           ============================================================ */
 .sec-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -536,8 +529,8 @@ body {
 }
 
 /* ============================================================
-               INVOICE TABLE
-            ============================================================ */
+           INVOICE TABLE
+           ============================================================ */
 .table-contain {
     overflow: hidden;
     border-radius: 28px;
@@ -545,25 +538,16 @@ body {
 }
 
 .table-contain:hover {
-    overflow: hidden;
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.185);
     transform: translatey(-2px);
     border-radius: 28px;
     transition: 0.2s;
 }
 
-
 .inv-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
-
-
-
-}
-
-.inv-table thead {
-    border-radius: 20px;
 }
 
 .inv-table thead tr {
@@ -615,10 +599,6 @@ body {
     margin-top: 2px;
 }
 
-
-
-
-
 .price-orig {
     text-decoration: line-through;
     color: #919191;
@@ -644,8 +624,8 @@ body {
 }
 
 /* ============================================================
-               PAYMENT METHOD TABS
-            ============================================================ */
+           PAYMENT METHOD TABS
+           ============================================================ */
 .method-tabs {
     display: flex;
     border-bottom: 2px solid var(--border);
@@ -690,8 +670,8 @@ body {
 }
 
 /* ============================================================
-               GATEWAY GRID
-            ============================================================ */
+           GATEWAY GRID
+           ============================================================ */
 .gateway-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -749,29 +729,9 @@ body {
     color: #4f46e5;
 }
 
-.gw-ip {
-    background: #fff7ed;
-    color: #ea580c;
-}
-
-.gw-np {
-    background: #ecfdf5;
-    color: var(--green);
-}
-
 .gw-wl {
     background: #fdf4ff;
     color: #a21caf;
-}
-
-.gw-ml {
-    background: #fff8e1;
-    color: #b45309;
-}
-
-.gw-sm {
-    background: #eff6ff;
-    color: #1d4ed8;
 }
 
 .gw-name {
@@ -802,8 +762,8 @@ body {
 }
 
 /* ============================================================
-               CARD FORM
-            ============================================================ */
+           CARD FORM
+           ============================================================ */
 .card-form-section {
     margin-top: 16px;
     padding-top: 16px;
@@ -849,8 +809,8 @@ body {
 }
 
 /* ============================================================
-               OFFLINE TRANSFER
-            ============================================================ */
+           OFFLINE TRANSFER
+           ============================================================ */
 .bank-info-box {
     background: #f9f8ff;
     border: 1px solid #dcd4fe;
@@ -898,32 +858,6 @@ body {
     background: var(--lavender);
 }
 
-/* ============================================================
-               INSTALLMENT
-            ============================================================ */
-.inst-card {
-    background: linear-gradient(135deg, #fff8ee, #fff3f0);
-    border: 1px solid #ffd591;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 14px;
-}
-
-.inst-amount {
-    color: var(--purple);
-    font-size: 17px;
-    font-weight: 800;
-}
-
-.inst-note {
-    color: var(--text-mute);
-    font-size: 12px;
-    margin-top: 6px;
-}
-
-/* ============================================================
-               UPLOAD
-            ============================================================ */
 .upload-area {
     border: 2px dashed var(--border);
     border-radius: 12px;
@@ -967,8 +901,8 @@ body {
 }
 
 /* ============================================================
-               FORM
-            ============================================================ */
+           FORM
+           ============================================================ */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1063,8 +997,8 @@ body {
 }
 
 /* ============================================================
-               COUPON
-            ============================================================ */
+           COUPON
+           ============================================================ */
 .coupon-zone {
     margin-top: 18px;
     padding-top: 16px;
@@ -1173,8 +1107,8 @@ body {
 }
 
 /* ============================================================
-               TERMS
-            ============================================================ */
+           TERMS
+           ============================================================ */
 .terms-box {
     background: #fff;
     border: 2px solid var(--border);
@@ -1232,11 +1166,11 @@ body {
 }
 
 /* ============================================================
-               ORDER SIDEBAR
-            ============================================================ */
+           ORDER SIDEBAR
+           ============================================================ */
 .order-summary {
     position: sticky;
-    top: 82px;
+    top: 20px;
     background: #fff;
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
@@ -1275,22 +1209,6 @@ body {
     font-size: 10.5px;
     opacity: .65;
     margin-top: 1px;
-}
-
-
-
-@keyframes timerUrgent {
-
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: .4;
-        transform: scale(1.08);
-    }
 }
 
 .os-items {
@@ -1472,29 +1390,6 @@ body {
     transform: none;
 }
 
-.os-security {
-    margin: 0 18px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.os-sec-row {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 11px;
-    color: var(--text-mute);
-}
-
-.os-sec-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--green);
-    flex-shrink: 0;
-}
-
 .os-trust {
     background: var(--bg);
     border-top: 1px solid var(--border);
@@ -1531,8 +1426,8 @@ body {
 }
 
 /* ============================================================
-               LOADING OVERLAY
-            ============================================================ */
+           LOADING OVERLAY
+           ============================================================ */
 .loading-ov {
     position: fixed;
     inset: 0;
@@ -1615,8 +1510,8 @@ body {
 }
 
 /* ============================================================
-               SUCCESS MODAL
-            ============================================================ */
+           SUCCESS MODAL
+           ============================================================ */
 .modal-ov {
     position: fixed;
     inset: 0;
@@ -1768,8 +1663,8 @@ body {
 }
 
 /* ============================================================
-               TOAST
-            ============================================================ */
+           TOAST
+           ============================================================ */
 .toast-container {
     position: fixed;
     bottom: 28px;
@@ -1817,8 +1712,8 @@ body {
 }
 
 /* ============================================================
-               FOOTER — (مورد تایید)
-            ============================================================ */
+           FOOTER
+           ============================================================ */
 .footer {
     position: relative;
     overflow: hidden;
@@ -1971,8 +1866,8 @@ body {
 }
 
 /* ============================================================
-               RESPONSIVE
-            ============================================================ */
+           RESPONSIVE
+           ============================================================ */
 @media (max-width: 1024px) {
     .checkout-wrap {
         grid-template-columns: 1fr;
@@ -2104,16 +1999,6 @@ body {
 
     .card-grid {
         grid-template-columns: 1fr 80px;
-    }
-
-    .sec-strip {
-        gap: 14px;
-        padding: 8px 14px;
-    }
-
-    .sec-strip-item:nth-child(3),
-    .sec-strip-item:nth-child(4) {
-        display: none;
     }
 
     .modal-box {

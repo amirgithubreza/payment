@@ -2,7 +2,7 @@
 
 /* ── STATE ──────────────────────────────── */
 const S = {
-    method: 'online',
+    method: 'offline',
     gateway: 'zarinpal',
     couponApplied: false,
     discountPct: 0,
@@ -10,8 +10,6 @@ const S = {
     taxRate: 0.09,
     couponAmt: 512000,
     saving: 1880000,
-    timerSecs: 15 * 60,
-    timerInterval: null,
     searchOpen: false,
 };
 
@@ -24,27 +22,29 @@ const searchToggle = $('searchToggle');
 const searchInput = $('searchInput');
 const searchClose = $('searchClose');
 
-searchToggle.addEventListener('click', () => {
-    S.searchOpen = !S.searchOpen;
-    searchInput.classList.toggle('active', S.searchOpen);
-    searchClose.classList.toggle('show', S.searchOpen);
-    if (S.searchOpen) setTimeout(() => searchInput.focus(), 100);
-});
+if (searchToggle && searchInput && searchClose) {
+    searchToggle.addEventListener('click', () => {
+        S.searchOpen = !S.searchOpen;
+        searchInput.classList.toggle('active', S.searchOpen);
+        searchClose.classList.toggle('show', S.searchOpen);
+        if (S.searchOpen) setTimeout(() => searchInput.focus(), 100);
+    });
 
-searchClose.addEventListener('click', () => {
-    S.searchOpen = false;
-    searchInput.classList.remove('active');
-    searchClose.classList.remove('show');
-    searchInput.value = '';
-});
+    searchClose.addEventListener('click', () => {
+        S.searchOpen = false;
+        searchInput.classList.remove('active');
+        searchClose.classList.remove('show');
+        searchInput.value = '';
+    });
 
-searchInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-        const q = searchInput.value.trim();
-        if (q) showToast(`جستجو: "${q}"`, 'info');
-    }
-    if (e.key === 'Escape') searchClose.click();
-});
+    searchInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+            const q = searchInput.value.trim();
+            if (q) showToast(`جستجو: "${q}"`, 'info');
+        }
+        if (e.key === 'Escape') searchClose.click();
+    });
+}
 
 /* ── METHOD TABS ────────────────────────── */
 $$('#methodTabs .tab-btn').forEach(btn => {
@@ -55,17 +55,16 @@ $$('#methodTabs .tab-btn').forEach(btn => {
         S.method = this.dataset.method;
         $('panel-' + S.method).classList.add('active');
         updatePayBtn();
-        updateInstallment();
     });
 });
 
 function updatePayBtn() {
     const labels = {
-        online: '<i class="fa-solid fa-lock"></i> پرداخت امن آنلاین',
-        offline: '<i class="fa-solid fa-upload"></i> ثبت فیش واریزی',
-        installment: '<i class="fa-solid fa-calendar-check"></i> درخواست پرداخت اقساطی'
+        online: 'پرداخت امن آنلاین',
+        offline: 'ثبت فیش واریزی'
     };
-    $('payBtnLabel').innerHTML = labels[S.method] || labels.online;
+    const btn = $('payBtnLabel');
+    if (btn) btn.innerHTML = labels[S.method] || labels.offline;
 }
 
 /* ── GATEWAY SELECT ─────────────────────── */
@@ -76,56 +75,77 @@ $$('#gatewayGrid .gw-opt').forEach(opt => {
         this.querySelector('input[type="radio"]').checked = true;
         S.gateway = this.dataset.gw;
         const showCard = ['zarinpal', 'idpay', 'nextpay', 'mellat', 'saman'].includes(S.gateway);
-        $('cardFormSection').classList.toggle('show', showCard);
+        const cardSection = $('cardFormSection');
+        if (cardSection) cardSection.classList.toggle('show', showCard);
     });
 });
 
 /* ── CARD FORMATTING ────────────────────── */
-$('cardNumber').addEventListener('input', function () {
-    let v = this.value.replace(/\D/g, '').substring(0, 16);
-    this.value = v.replace(/(\d{4})(?=\d)/g, '$1-');
-    const brands = $$('#cardBrands i');
-    brands.forEach(b => b.classList.remove('ab'));
-    if (v.startsWith('4')) brands[0].classList.add('ab');
-    else if (v.startsWith('5')) brands[1].classList.add('ab');
-});
+const cardNumber = $('cardNumber');
+if (cardNumber) {
+    cardNumber.addEventListener('input', function () {
+        let v = this.value.replace(/\D/g, '').substring(0, 16);
+        this.value = v.replace(/(\d{4})(?=\d)/g, '$1-');
+        const brands = $$('#cardBrands i');
+        brands.forEach(b => b.classList.remove('ab'));
+        if (v.startsWith('4')) brands[0].classList.add('ab');
+        else if (v.startsWith('5')) brands[1].classList.add('ab');
+    });
+}
 
-$('cardExpiry').addEventListener('input', function () {
-    let v = this.value.replace(/\D/g, '').substring(0, 4);
-    this.value = v.length > 2 ? v.substring(0, 2) + '/' + v.substring(2) : v;
-});
+const cardExpiry = $('cardExpiry');
+if (cardExpiry) {
+    cardExpiry.addEventListener('input', function () {
+        let v = this.value.replace(/\D/g, '').substring(0, 4);
+        this.value = v.length > 2 ? v.substring(0, 2) + '/' + v.substring(2) : v;
+    });
+}
 
-$('cardCvv').addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, '').substring(0, 4);
-});
+const cardCvv = $('cardCvv');
+if (cardCvv) {
+    cardCvv.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '').substring(0, 4);
+    });
+}
 
 /* ── FILE UPLOAD ────────────────────────── */
-const uploadBox = $('uploadBox'),
-    receiptFile = $('receiptFile'),
-    previewImg = $('previewImg'),
-    removeFileBtn = $('removeFileBtn');
+const uploadBox = $('uploadBox');
+const receiptFile = $('receiptFile');
+const previewImg = $('previewImg');
+const removeFileBtn = $('removeFileBtn');
 
-uploadBox.addEventListener('click', () => receiptFile.click());
+if (uploadBox) {
+    uploadBox.addEventListener('click', () => { if (receiptFile) receiptFile.click(); });
+}
 
-receiptFile.addEventListener('change', function () {
-    const file = this.files[0];
-    if (!file) return;
-    const r = new FileReader();
-    r.onload = e => {
-        previewImg.src = e.target.result;
-        previewImg.style.display = 'block';
-        removeFileBtn.style.display = 'inline-block';
-        uploadBox.style.display = 'none';
-    };
-    r.readAsDataURL(file);
-});
+if (receiptFile) {
+    receiptFile.addEventListener('change', function () {
+        const file = this.files[0];
+        if (!file) return;
+        const r = new FileReader();
+        r.onload = e => {
+            if (previewImg) {
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+            }
+            if (removeFileBtn) removeFileBtn.style.display = 'inline-block';
+            if (uploadBox) uploadBox.style.display = 'none';
+        };
+        r.readAsDataURL(file);
+    });
+}
 
-removeFileBtn.addEventListener('click', () => {
-    receiptFile.value = '';
-    previewImg.style.display = 'none';
-    removeFileBtn.style.display = 'none';
-    uploadBox.style.display = 'block';
-});
+if (removeFileBtn) {
+    removeFileBtn.addEventListener('click', () => {
+        if (receiptFile) receiptFile.value = '';
+        if (previewImg) {
+            previewImg.style.display = 'none';
+            previewImg.src = '';
+        }
+        if (removeFileBtn) removeFileBtn.style.display = 'none';
+        if (uploadBox) uploadBox.style.display = 'block';
+    });
+}
 
 /* ── PRICING ────────────────────────────── */
 function calcFinal() {
@@ -139,102 +159,144 @@ function toman(n) { return n.toLocaleString('fa-IR'); }
 
 function updatePrices() {
     const { disc, tax, final } = calcFinal();
-    $('taxDisplay').textContent = toman(tax) + ' ت';
-    $('totalAmountEl').textContent = toman(final);
+    const taxEl = $('taxDisplay');
+    const totalEl = $('totalAmountEl');
+    const savingEl = $('savingAmtEl');
+    const couponLine = $('couponSummLine');
+    const couponDisp = $('couponSavingDisp');
+
+    if (taxEl) taxEl.textContent = toman(tax) + ' ت';
+    if (totalEl) totalEl.textContent = toman(final);
+
     if (disc > 0) {
-        $('couponSavingDisp').textContent = '− ' + toman(disc) + ' ت';
-        const line = $('couponSummLine');
-        line.style.maxHeight = '40px';
-        line.style.opacity = '1';
-        $('savingAmtEl').textContent = toman(S.saving + disc);
+        if (couponDisp) couponDisp.textContent = '− ' + toman(disc) + ' ت';
+        if (couponLine) {
+            couponLine.style.maxHeight = '40px';
+            couponLine.style.opacity = '1';
+        }
+        if (savingEl) savingEl.textContent = toman(S.saving + disc);
     } else {
-        $('savingAmtEl').textContent = toman(S.saving);
+        if (savingEl) savingEl.textContent = toman(S.saving);
+        if (couponLine) {
+            couponLine.style.maxHeight = '0';
+            couponLine.style.opacity = '0';
+        }
     }
-    updateInstallment();
+
+    const wordsEl = $('totalWords');
+    if (wordsEl) {
+        const num = calcFinal().final;
+        const w = numberToWords(num);
+        wordsEl.textContent = w + ' تومان';
+    }
 }
 
-function updateInstallment() {
-    const { final } = calcFinal();
-    $('instAmount').textContent = toman(Math.round(final / 4));
+function numberToWords(n) {
+    const units = ['', 'یک', 'دو', 'سه', 'چهار', 'پنج', 'شش', 'هفت', 'هشت', 'نه'];
+    const teens = ['ده', 'یازده', 'دوازده', 'سیزده', 'چهارده', 'پانزده', 'شانزده', 'هفده', 'هجده', 'نوزده'];
+    const tens = ['', 'ده', 'بیست', 'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود'];
+    const scales = ['', 'هزار', 'میلیون', 'میلیارد'];
+
+    if (n === 0) return 'صفر';
+    let parts = [];
+    let num = Math.floor(n);
+    let scaleIdx = 0;
+    while (num > 0) {
+        let chunk = num % 1000;
+        if (chunk > 0) {
+            let chunkStr = '';
+            let h = Math.floor(chunk / 100);
+            let r = chunk % 100;
+            if (h > 0) {
+                chunkStr += (h === 1 ? 'صد' : units[h] + 'صد');
+                if (r > 0) chunkStr += ' و ';
+            }
+            if (r > 0) {
+                if (r < 10) {
+                    chunkStr += units[r];
+                } else if (r < 20) {
+                    chunkStr += teens[r - 10];
+                } else {
+                    let t = Math.floor(r / 10);
+                    let u = r % 10;
+                    chunkStr += tens[t];
+                    if (u > 0) chunkStr += ' و ' + units[u];
+                }
+            }
+            if (scaleIdx > 0) chunkStr += ' ' + scales[scaleIdx];
+            parts.unshift(chunkStr);
+        }
+        num = Math.floor(num / 1000);
+        scaleIdx++;
+    }
+    return parts.join(' و ');
 }
 
 /* ── COUPON ─────────────────────────────── */
-const couponInput = $('couponInput'),
-    couponOk = $('couponOk'),
-    couponErr = $('couponErr'),
-    couponBtn = $('couponBtn'),
-    couponBtnTxt = $('couponBtnTxt');
+const couponInput = $('couponInput');
+const couponOk = $('couponOk');
+const couponErr = $('couponErr');
+const couponBtn = $('couponBtn');
+const couponBtnTxt = $('couponBtnTxt');
 
-couponInput.addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
-couponInput.addEventListener('input', () => {
-    if (!S.couponApplied) {
-        couponOk.classList.remove('show');
-        couponErr.classList.remove('show');
-    }
-});
+if (couponInput) {
+    couponInput.addEventListener('keydown', e => { if (e.key === 'Enter') applyCoupon(); });
+    couponInput.addEventListener('input', () => {
+        if (!S.couponApplied) {
+            if (couponOk) couponOk.classList.remove('show');
+            if (couponErr) couponErr.classList.remove('show');
+        }
+    });
+}
 
 function applyCoupon() {
     if (S.couponApplied) return;
+    if (!couponInput) return;
     const code = couponInput.value.trim().toUpperCase();
-    couponOk.classList.remove('show');
-    couponErr.classList.remove('show');
+    if (couponOk) couponOk.classList.remove('show');
+    if (couponErr) couponErr.classList.remove('show');
     if (!code) { shakeEl(couponInput); return; }
-    couponBtnTxt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> بررسی...';
-    couponBtn.disabled = true;
+    if (couponBtnTxt) couponBtnTxt.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> بررسی...';
+    if (couponBtn) couponBtn.disabled = true;
+
     setTimeout(() => {
         if (COUPONS.includes(code)) {
             S.couponApplied = true;
-            couponOk.innerHTML =
-                `<i class="fa-solid fa-circle-check"></i> کد <strong>${code}</strong> اعمال شد — <strong>${toman(S.couponAmt)}</strong> تومان تخفیف گرفتید!`;
-            couponOk.classList.add('show');
-            couponInput.disabled = true;
-            couponInput.style.opacity = '.55';
-            couponBtnTxt.innerHTML = '<i class="fa-solid fa-check-double"></i> اعمال شد';
-            couponBtn.style.cursor = 'default';
+            if (couponOk) {
+                couponOk.innerHTML =
+                    `<i class="fa-solid fa-circle-check"></i> کد <strong>${code}</strong> اعمال شد — <strong>${toman(S.couponAmt)}</strong> تومان تخفیف گرفتید!`;
+                couponOk.classList.add('show');
+            }
+            if (couponInput) {
+                couponInput.disabled = true;
+                couponInput.style.opacity = '.55';
+            }
+            if (couponBtnTxt) couponBtnTxt.innerHTML = 'اعمال شد';
+            if (couponBtn) couponBtn.style.cursor = 'default';
             updatePrices();
             showToast('کد تخفیف با موفقیت اعمال شد! 🎉', 'success');
         } else {
-            couponErr.classList.add('show');
+            if (couponErr) couponErr.classList.add('show');
             shakeEl(couponInput);
-            couponBtnTxt.innerHTML = '<i class="fa-solid fa-check-circle"></i> اعمال';
-            couponBtn.disabled = false;
+            if (couponBtnTxt) couponBtnTxt.innerHTML = '<i class="fa-solid fa-check-circle"></i> اعمال';
+            if (couponBtn) couponBtn.disabled = false;
         }
     }, 800);
 }
 window.applyCoupon = applyCoupon;
 
 function shakeEl(el) {
+    if (!el) return;
     el.classList.add('shake');
     el.addEventListener('animationend', () => el.classList.remove('shake'), { once: true });
 }
-
-/* ── TIMER ──────────────────────────────── */
-(function initTimer() {
-    const el = $('timerEl');
-
-    function render() {
-        const m = String(Math.floor(S.timerSecs / 60)).padStart(2, '0');
-        const s = String(S.timerSecs % 60).padStart(2, '0');
-        el.textContent = m + ':' + s;
-        el.classList.toggle('urgent', S.timerSecs <= 60);
-    }
-    render();
-    S.timerInterval = setInterval(() => {
-        if (S.timerSecs <= 0) {
-            clearInterval(S.timerInterval);
-            el.textContent = '00:00'; return;
-        }
-        S.timerSecs--;
-        render();
-    }, 1000);
-})();
 
 /* ── FORM VALIDATION ────────────────────── */
 const FIELDS = [
     { id: 'fname', errId: 'fname-err', test: v => v.length >= 2 },
     { id: 'lname', errId: 'lname-err', test: v => v.length >= 2 },
     { id: 'phone', errId: 'phone-err', test: v => /^09\d{9}$/.test(v) },
-    { id: 'email', errId: 'email-err', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    // { id: 'email', errId: 'email-err', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
 ];
 
 FIELDS.forEach(({ id, errId, test }) => {
@@ -267,50 +329,77 @@ function validateAll() {
 /* ── PAYMENT FLOW ───────────────────────── */
 function startPayment() {
     const chk = $('termsChk');
-    if (!chk.checked) {
-        $('termsBox').classList.add('highlight');
-        chk.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => $('termsBox').classList.remove('highlight'), 2800);
+    if (!chk || !chk.checked) {
+        const termsBox = $('termsBox');
+        if (termsBox) {
+            termsBox.classList.add('highlight');
+            termsBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => termsBox.classList.remove('highlight'), 2800);
+        }
         showToast('لطفاً قوانین و مقررات را تأیید کنید.', 'error');
         return;
     }
+
     if (!validateAll()) {
         const first = document.querySelector('.form-input.invalid');
         if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
         showToast('لطفاً اطلاعات فرم را کامل و صحیح وارد کنید.', 'error');
         return;
     }
-    if (S.method === 'offline') {
-        const d = $('offDate').value.trim(),
-            t = $('offTime').value.trim(),
-            r = $('offRef').value.trim();
-        if (!d || !t || !r || !receiptFile.files[0]) {
-            showToast('لطفاً تمام فیلدها و فیش واریزی را تکمیل کنید.', 'error');
+
+    // اگر روش آنلاین باشد، کارت رو اعتبارسنجی کن
+    if (S.method === 'online') {
+        const cardSection = $('cardFormSection');
+        if (cardSection && cardSection.classList.contains('show')) {
+            const cn = $('cardNumber');
+            const cvv = $('cardCvv');
+            const exp = $('cardExpiry');
+            if (!cn || cn.value.replace(/\D/g, '').length < 16) {
+                showToast('لطفاً شماره کارت ۱۶ رقمی را وارد کنید.', 'error');
+                if (cn) cn.focus();
+                return;
+            }
+            if (!exp || !/^\d{2}\/\d{2}$/.test(exp.value.trim())) {
+                showToast('لطفاً تاریخ انقضای کارت را صحیح وارد کنید.', 'error');
+                if (exp) exp.focus();
+                return;
+            }
+            if (!cvv || cvv.value.trim().length < 3) {
+                showToast('لطفاً کد CVV2 را وارد کنید.', 'error');
+                if (cvv) cvv.focus();
+                return;
+            }
+        } else {
+            showToast('لطفاً درگاه پرداخت را انتخاب کنید.', 'error');
             return;
         }
     }
-    if (S.method === 'online' && $('cardFormSection').classList.contains('show')) {
-        const cn = $('cardNumber').value.replace(/\D/g, '');
-        if (cn.length < 16) {
-            showToast('لطفاً شماره کارت ۱۶ رقمی را وارد کنید.', 'error');
-            $('cardNumber').focus(); return;
+
+    // روش آفلاین
+    if (S.method === 'offline') {
+        const offDate = $('offDate');
+        const offTime = $('offTime');
+        const offRef = $('offRef');
+        if (!offDate || !offTime || !offRef || !offDate.value.trim() || !offTime.value.trim() || !offRef.value
+            .trim()) {
+            showToast('لطفاً تمام فیلدهای واریز را تکمیل کنید.', 'error');
+            return;
         }
-        const ex = $('cardExpiry').value.trim();
-        if (!/^\d{2}\/\d{2}$/.test(ex)) {
-            showToast('لطفاً تاریخ انقضای کارت را صحیح وارد کنید.', 'error');
-            $('cardExpiry').focus(); return;
-        }
-        if ($('cardCvv').value.trim().length < 3) {
-            showToast('لطفاً کد CVV2 را وارد کنید.', 'error');
-            $('cardCvv').focus(); return;
+        if (!receiptFile || !receiptFile.files || !receiptFile.files[0]) {
+            showToast('لطفاً فیش واریزی را بارگذاری کنید.', 'error');
+            return;
         }
     }
 
-    // Go
+    // بارگذاری
     const ov = $('loadingOv');
-    ov.classList.add('on');
-    $('loadBarFill').style.width = '0%';
-    ['ls1', 'ls2', 'ls3'].forEach(id => { $(id).classList.remove('active', 'done'); });
+    if (ov) ov.classList.add('on');
+    const bar = $('loadBarFill');
+    if (bar) bar.style.width = '0%';
+    ['ls1', 'ls2', 'ls3'].forEach(id => {
+        const el = $(id);
+        if (el) { el.classList.remove('active', 'done'); }
+    });
 
     const steps = [
         { id: 'ls1', txt: 'تأیید اطلاعات سفارش', delay: 0, end: 35 },
@@ -319,15 +408,15 @@ function startPayment() {
     ];
 
     let tick = 0;
-    const bar = $('loadBarFill');
     const iv = setInterval(() => {
         tick += 2;
-        bar.style.width = Math.min(tick, 95) + '%';
+        if (bar) bar.style.width = Math.min(tick, 95) + '%';
         steps.forEach(s => {
-            if (tick >= s.end - 1 && !$(s.id).classList.contains('done')) {
-                $(s.id).classList.remove('active');
-                $(s.id).classList.add('done');
-                $(s.id).innerHTML = '<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> ' + s
+            const el = $(s.id);
+            if (tick >= s.end - 1 && el && !el.classList.contains('done')) {
+                el.classList.remove('active');
+                el.classList.add('done');
+                el.innerHTML = '<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> ' + s
                     .txt;
             }
         });
@@ -335,25 +424,33 @@ function startPayment() {
 
     steps.forEach(s => {
         setTimeout(() => {
-            $(s.id).classList.add('active');
-            $(s.id).innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="color:var(--purple)"></i> ' +
-                s.txt;
+            const el = $(s.id);
+            if (el) {
+                el.classList.add('active');
+                el.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="color:var(--purple)"></i> ' +
+                    s.txt;
+            }
         }, s.delay);
     });
 
     setTimeout(() => {
         clearInterval(iv);
-        bar.style.width = '100%';
+        if (bar) bar.style.width = '100%';
         setTimeout(() => {
-            ov.classList.remove('on');
-            $('trackCode').textContent = 'PTZ-' + Date.now().toString().slice(-8);
-            $('modalOv').classList.add('on');
+            if (ov) ov.classList.remove('on');
+            const tc = $('trackCode');
+            if (tc) tc.textContent = 'PTZ-' + Date.now().toString().slice(-8);
+            const modal = $('modalOv');
+            if (modal) modal.classList.add('on');
         }, 350);
     }, 2700);
 }
 window.startPayment = startPayment;
 
-function closeModal() { $('modalOv').classList.remove('on'); }
+function closeModal() {
+    const modal = $('modalOv');
+    if (modal) modal.classList.remove('on');
+}
 
 function goToPanel() {
     showToast('در حال انتقال به پنل کاربری...', 'success');
@@ -362,21 +459,26 @@ function goToPanel() {
 window.closeModal = closeModal;
 window.goToPanel = goToPanel;
 
-$('modalOv').addEventListener('click', e => { if (e.target === $('modalOv')) closeModal(); });
+const modalOv = $('modalOv');
+if (modalOv) {
+    modalOv.addEventListener('click', e => { if (e.target === modalOv) closeModal(); });
+}
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeModal(); if (S.searchOpen) searchClose.click(); }
+    if (e.key === 'Escape') { closeModal(); if (S.searchOpen && searchClose) searchClose.click(); }
 });
 
 /* ── COPY ───────────────────────────────── */
 function copyText(text, label) {
-    navigator.clipboard.writeText(text).then(() => showToast(`<i class="fa-solid fa-copy"></i> ${label || ''} کپی شد`,
-        'success'));
+    navigator.clipboard.writeText(text).then(() =>
+        showToast(`<i class="fa-solid fa-copy"></i> ${label || ''} کپی شد`, 'success')
+    );
 }
 window.copyText = copyText;
 
 /* ── TOAST ──────────────────────────────── */
 function showToast(msg, type = 'info') {
     const c = $('toastContainer');
+    if (!c) return;
     const t = document.createElement('div');
     const cls = { error: 't-error', success: 't-success', info: '' };
     t.className = 'toast ' + (cls[type] || '');

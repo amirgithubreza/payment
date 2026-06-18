@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>پرداخت امن | آموزشگاه پیشتاز</title>
+  <title>پرداخت | آموزشگاه پیشتاز</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="./css/main.css">
+
 </head>
 
 <body>
 
   <!-- ============================================================
-    HEADER — (مورد تایید)
+    HEADER
     ============================================================ -->
   <header>
     <nav class="navbar">
       <ul class="nav-menu">
-        <li><a href="#" class="active" onclick="showToast('صفحه اصلی', 'info'); return false;">صفحه اصلی</a></li>
+        <li><a href="#" class="active" onclick="showToast('صفحه اصلی', 'info'); return false;">صفحه اصلی</a>
+        </li>
         <li><a href="#" onclick="showToast('دوره‌های تخصصی', 'info'); return false;">دوره‌های تخصصی</a></li>
         <li><a href="#" onclick="showToast('فایل لایه باز', 'info'); return false;">فایل لایه باز</a></li>
         <li><a href="#" onclick="showToast('جعبه ابزار', 'info'); return false;">جعبه ابزار</a></li>
@@ -62,7 +62,7 @@
       <span class="sep"><i class="fa-solid fa-chevron-left"></i></span>
       <a href="#" onclick="showToast('دوره‌ها', 'info'); return false;">دوره‌ها</a>
       <span class="sep"><i class="fa-solid fa-chevron-left"></i></span>
-      <span class="curr">پرداخت امن</span>
+      <span class="curr">پرداخت</span>
     </div>
   </div>
 
@@ -162,7 +162,8 @@
 
         <!-- COUPON -->
         <div class="coupon-zone">
-          <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple)"></i> کد تخفیف دارید؟</div>
+          <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple)"></i> کد تخفیف
+            دارید؟</div>
           <div class="coupon-row">
             <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
               autocomplete="off" />
@@ -190,28 +191,26 @@
           <div class="form-group">
             <label class="form-label">نام <span class="req">*</span></label>
             <input type="text" class="form-input" id="fname" placeholder="نام خود را وارد کنید" />
-            <span class="field-err" id="fname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً نام را وارد
-              کنید</span>
+            <span class="field-err" id="fname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً
+              نام را وارد کنید</span>
           </div>
           <div class="form-group">
             <label class="form-label">نام خانوادگی <span class="req">*</span></label>
             <input type="text" class="form-input" id="lname" placeholder="نام خانوادگی خود را وارد کنید" />
-            <span class="field-err" id="lname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً نام خانوادگی
-              را وارد کنید</span>
+            <span class="field-err" id="lname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً
+              نام خانوادگی را وارد کنید</span>
           </div>
           <div class="form-group">
             <label class="form-label">شماره موبایل <span class="req">*</span></label>
             <input type="tel" class="form-input" id="phone" placeholder="۰۹xxxxxxxxx"
               style="direction:ltr;text-align:right" />
-            <span class="field-err" id="phone-err"><i class="fa-solid fa-triangle-exclamation"></i> شماره موبایل معتبر
-              نیست (مثال: ۰۹۱۲۳۴۵۶۷۸۹)</span>
+            <span class="field-err" id="phone-err"><i class="fa-solid fa-triangle-exclamation"></i> شماره
+              موبایل معتبر نیست (مثال: ۰۹۱۲۳۴۵۶۷۸۹)</span>
           </div>
           <div class="form-group">
-            <label class="form-label">آدرس ایمیل <span class="req">*</span></label>
+            <label class="form-label">آدرس ایمیل</label>
             <input type="email" class="form-input" id="email" placeholder="example@email.com"
               style="direction:ltr;text-align:right" />
-            <span class="field-err" id="email-err"><i class="fa-solid fa-triangle-exclamation"></i> آدرس ایمیل معتبر
-              نیست</span>
           </div>
         </div>
       </div>
@@ -227,17 +226,16 @@
         </div>
 
         <div class="method-tabs" id="methodTabs">
-          <button class="tab-btn active" data-method="online"><i class="fa-solid fa-credit-card"></i> پرداخت
+          <button class="tab-btn active" data-method="offline"><i class="fa-solid fa-building-columns"></i>
+            کارت به کارت</button>
+          <button class="tab-btn" data-method="online"><i class="fa-solid fa-credit-card"></i> پرداخت
             آنلاین</button>
-          <button class="tab-btn" data-method="offline"><i class="fa-solid fa-building-columns"></i> کارت به
-            کارت</button>
-          <button class="tab-btn" data-method="installment"><i class="fa-solid fa-calendar-days"></i> اقساطی</button>
         </div>
 
         <!-- ONLINE PANEL -->
-        <div class="panel active" id="panel-online">
-          <p style="font-size:13px;color:var(--text-mute);margin-bottom:14px">درگاه بانکی مورد نظر خود را انتخاب کنید:
-          </p>
+        <div class="panel" id="panel-online">
+          <p style="font-size:13px;color:var(--text-mute);margin-bottom:14px">درگاه بانکی مورد نظر خود را
+            انتخاب کنید:</p>
           <div class="gateway-grid" id="gatewayGrid">
             <label class="gw-opt chosen" data-gw="zarinpal">
               <span class="rec-tag"><i class="fa-solid fa-star"></i> پیشنهادی</span>
@@ -248,22 +246,6 @@
                 <div class="gw-desc">پشتیبانی تمام بانک‌ها</div>
               </div>
             </label>
-            <label class="gw-opt" data-gw="idpay">
-              <input type="radio" name="gw" value="idpay" />
-              <div class="gw-logo gw-ip"><i class="fa-solid fa-credit-card"></i></div>
-              <div>
-                <div class="gw-name">آیدی‌پی</div>
-                <div class="gw-desc">درگاه پرداخت اینترنتی</div>
-              </div>
-            </label>
-            <label class="gw-opt" data-gw="nextpay">
-              <input type="radio" name="gw" value="nextpay" />
-              <div class="gw-logo gw-np"><i class="fa-solid fa-bolt"></i></div>
-              <div>
-                <div class="gw-name">نکست‌پی</div>
-                <div class="gw-desc">پرداخت سریع و مطمئن</div>
-              </div>
-            </label>
             <label class="gw-opt" data-gw="wallet">
               <input type="radio" name="gw" value="wallet" />
               <div class="gw-logo gw-wl"><i class="fa-solid fa-wallet"></i></div>
@@ -272,28 +254,13 @@
                 <div class="gw-desc">موجودی: ۱۵۰,۰۰۰ تومان</div>
               </div>
             </label>
-            <label class="gw-opt" data-gw="mellat">
-              <input type="radio" name="gw" value="mellat" />
-              <div class="gw-logo gw-ml"><i class="fa-solid fa-landmark"></i></div>
-              <div>
-                <div class="gw-name">بانک ملت</div>
-                <div class="gw-desc">درگاه مستقیم بانکی</div>
-              </div>
-            </label>
-            <label class="gw-opt" data-gw="saman">
-              <input type="radio" name="gw" value="saman" />
-              <div class="gw-logo gw-sm"><i class="fa-solid fa-university"></i></div>
-              <div>
-                <div class="gw-name">بانک سامان</div>
-                <div class="gw-desc">پرداخت مستقیم</div>
-              </div>
-            </label>
           </div>
 
           <!-- Card Form -->
           <div class="card-form-section show" id="cardFormSection">
             <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:10px">
-              <i class="fa-solid fa-lock" style="color:var(--green)"></i> اطلاعات کارت بانکی (رمزگذاری‌شده)
+              <i class="fa-solid fa-lock" style="color:var(--green)"></i> اطلاعات کارت بانکی
+              (رمزگذاری‌شده)
             </div>
             <div class="card-num-wrap">
               <input type="text" class="form-input" id="cardNumber" placeholder="شماره کارت ۱۶ رقمی"
@@ -319,14 +286,17 @@
         </div>
 
         <!-- OFFLINE PANEL -->
-        <div class="panel" id="panel-offline">
+        <div class="panel active" id="panel-offline">
           <div class="bank-info-box">
             <div class="bank-row"><span><i class="fa-solid fa-building-columns"
-                  style="color:var(--purple);width:18px"></i> بانک</span><strong>بانک ملی ایران</strong></div>
+                  style="color:var(--purple);width:18px"></i> بانک</span><strong>بانک ملی
+                ایران</strong></div>
             <div class="bank-row"><span><i class="fa-solid fa-user" style="color:var(--purple);width:18px"></i> صاحب
-                حساب</span><strong>آموزشگاه پیشتاز</strong></div>
+                حساب</span><strong>آموزشگاه
+                پیشتاز</strong></div>
             <div class="bank-row">
-              <span><i class="fa-solid fa-credit-card" style="color:var(--purple);width:18px"></i> شماره کارت</span>
+              <span><i class="fa-solid fa-credit-card" style="color:var(--purple);width:18px"></i> شماره
+                کارت</span>
               <div style="display:flex;align-items:center;gap:8px">
                 <span class="bank-val">6037-9918-0000-1234</span>
                 <button class="copy-btn" onclick="copyText('6037991800001234','شماره کارت')"><i
@@ -342,40 +312,37 @@
               </div>
             </div>
           </div>
-          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;font-weight:500">پس از واریز، اطلاعات زیر را
-            تکمیل کنید:</p>
-          <input type="text" class="form-input" id="offDate" placeholder="تاریخ واریز — مثال: ۱۴۰۴/۰۶/۲۶"
-            style="margin-bottom:10px" />
-          <input type="text" class="form-input" id="offTime" placeholder="ساعت واریز — مثال: ۱۴:۳۰"
-            style="margin-bottom:10px" />
-          <input type="text" class="form-input" id="offRef" placeholder="کد پیگیری / شماره تراکنش"
-            style="margin-bottom:0" />
+          <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;font-weight:500">پس از واریز،
+            اطلاعات زیر را تکمیل کنید:</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+            <div class="form-group">
+              <label class="form-label" style="font-size:12px"><i class="fa-regular fa-calendar"></i>
+                تاریخ واریز</label>
+              <input type="text" class="form-input" id="offDate" placeholder="۱۴۰۴/۰۶/۲۶" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size:12px"><i class="fa-regular fa-clock"></i> ساعت
+                واریز</label>
+              <input type="text" class="form-input" id="offTime" placeholder="۱۴:۳۰" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:10px">
+            <label class="form-label" style="font-size:12px"><i class="fa-regular fa-receipt"></i> کد پیگیری
+              / شماره تراکنش</label>
+            <input type="text" class="form-input" id="offRef" placeholder="مثال: 1234567890" />
+          </div>
+
           <div class="upload-area" id="uploadBox">
-            <div style="font-size:26px;margin-bottom:4px"><i class="fa-solid fa-cloud-arrow-up"
-                style="color:var(--purple)"></i></div>
+            <div style="font-size:28px;margin-bottom:4px;color:var(--purple)"><i class="fa-regular fa-image"></i></div>
             <div style="font-weight:600;font-size:13px">برای بارگذاری فیش واریزی کلیک کنید</div>
-            <div style="font-size:11px;color:var(--text-mute);margin-top:2px">فرمت‌های مجاز: jpg، png، pdf</div>
+            <div style="font-size:11px;color:var(--text-mute);margin-top:2px">فرمت‌های مجاز: jpg، png، pdf
+            </div>
             <input type="file" id="receiptFile" accept="image/*,.pdf" />
           </div>
           <img id="previewImg" class="preview-img" src="" alt="پیش‌نمایش فیش" />
-          <button type="button" id="removeFileBtn" class="btn-remove-file"><i class="fa-solid fa-trash"></i> حذف
-            فایل</button>
-        </div>
-
-        <!-- INSTALLMENT PANEL -->
-        <div class="panel" id="panel-installment">
-          <div class="inst-card">
-            <strong style="font-size:14px;display:block;margin-bottom:6px"><i class="fa-solid fa-calendar-check"
-                style="color:var(--amber)"></i> پرداخت اقساطی با اسنپ‌پی</strong>
-            <div style="font-size:13px">
-              ۴ قسط ماهانه — هر قسط
-              <span class="inst-amount" id="instAmount">—</span> تومان
-            </div>
-            <div class="inst-note"><i class="fa-solid fa-circle-info"></i> پس از ثبت درخواست، لینک پرداخت قسط اول برای
-              شما پیامک می‌شود.</div>
-          </div>
-          <p style="font-size:13px;color:var(--text-mid)">با انتخاب این روش، همکاران ما برای هماهنگی با شما تماس خواهند
-            گرفت.</p>
+          <button type="button" id="removeFileBtn" class="btn-remove-file"><i class="fa-solid fa-trash"></i>
+            حذف فایل</button>
         </div>
       </div>
 
@@ -384,10 +351,11 @@
         <input type="checkbox" id="termsChk" checked />
         <label for="termsChk">
           با خرید این دوره‌ها، <a href="#" onclick="showToast('قوانین و مقررات', 'info'); return false;">قوانین و
-            مقررات</a> آموزشگاه پیشتاز را مطالعه کرده و می‌پذیرم.
+            مقررات</a> آموزشگاه
+          پیشتاز را مطالعه کرده و می‌پذیرم.
           دسترسی بلافاصله پس از تأیید پرداخت فعال می‌شود و <a href="#"
-            onclick="showToast('سیاست بازگشت وجه ۷ روزه', 'info'); return false;">سیاست بازگشت وجه ۷ روزه</a> اعمال
-          می‌گردد.
+            onclick="showToast('سیاست بازگشت وجه ۷ روزه', 'info'); return false;">سیاست بازگشت وجه ۷
+            روزه</a> اعمال می‌گردد.
         </label>
       </div>
 
@@ -462,24 +430,10 @@
         </div>
 
         <button class="os-pay-btn" id="payBtn" onclick="startPayment()">
-          <i class="fa-solid fa-lock"></i>
-          <span id="payBtnLabel">پرداخت امن</span>
+          <span id="payBtnLabel">
+            <i class="fa-solid fa-lock">
+            </i> پرداخت امن</span>
         </button>
-
-        <div class="os-security">
-          <div class="os-sec-row">
-            <div class="os-sec-dot"></div>اتصال رمزنگاری‌شده SSL 256-bit
-          </div>
-          <div class="os-sec-row">
-            <div class="os-sec-dot"></div>تضمین بازگشت وجه ۷ روزه
-          </div>
-          <div class="os-sec-row">
-            <div class="os-sec-dot"></div>دسترسی مادام‌العمر به دوره‌ها
-          </div>
-          <div class="os-sec-row">
-            <div class="os-sec-dot"></div>پشتیبانی ۲۴ ساعته تیم فنی
-          </div>
-        </div>
 
         <div class="os-trust">
           <div class="ot-item">
@@ -505,7 +459,7 @@
   </div><!-- /checkout-wrap -->
 
   <!-- ============================================================
-    FOOTER — (مورد تایید)
+    FOOTER
     ============================================================ -->
   <footer class="footer">
     <div class="footer-overlay"></div>
@@ -515,14 +469,16 @@
         <ul>
           <li><a href="#" onclick="showToast('فتوشاپ و طراحی', 'info'); return false;">فتوشاپ و طراحی</a></li>
           <li><a href="#" onclick="showToast('پریمیر و تدوین', 'info'); return false;">پریمیر و تدوین</a></li>
-          <li><a href="#" onclick="showToast('افتر افکت و موشن', 'info'); return false;">افتر افکت و موشن</a></li>
+          <li><a href="#" onclick="showToast('افتر افکت و موشن', 'info'); return false;">افتر افکت و موشن</a>
+          </li>
           <li><a href="#" onclick="showToast('هوش مصنوعی‌ها', 'info'); return false;">هوش مصنوعی‌ها</a></li>
           <li><a href="#" onclick="showToast('ادیت با موبایل', 'info'); return false;">ادیت با موبایل</a></li>
         </ul>
       </div>
       <div class="footer-col center">
         <h2>MOHSENGFX.IR</h2>
-        <p><a href="#" onclick="showToast('بازگشت به صفحه اصلی', 'info'); return false;">بازگشت به صفحه اصلی</a></p>
+        <p><a href="#" onclick="showToast('بازگشت به صفحه اصلی', 'info'); return false;">بازگشت به صفحه اصلی</a>
+        </p>
         <div class="socials">
           <a href="#" onclick="showToast('یوتیوب', 'info'); return false;" aria-label="یوتیوب"><i
               class="fa-brands fa-youtube"></i></a>
@@ -535,12 +491,13 @@
       <div class="footer-col">
         <h3>لینک‌های مهم</h3>
         <ul>
-          <li><a href="#" onclick="showToast('دوره‌های پروژه محور', 'info'); return false;">دوره‌های پروژه محور</a></li>
+          <li><a href="#" onclick="showToast('دوره‌های پروژه محور', 'info'); return false;">دوره‌های پروژه
+              محور</a></li>
           <li><a href="#" onclick="showToast('فایل لایه باز', 'info'); return false;">فایل لایه باز</a></li>
-          <li><a href="#" onclick="showToast('جعبه ابزار طراحی و ادیت', 'info'); return false;">جعبه ابزار طراحی و
-              ادیت</a></li>
-          <li><a href="#" onclick="showToast('نمونه کارهای هنرجویان', 'info'); return false;">نمونه کارهای هنرجویان</a>
-          </li>
+          <li><a href="#" onclick="showToast('جعبه ابزار طراحی و ادیت', 'info'); return false;">جعبه ابزار
+              طراحی و ادیت</a></li>
+          <li><a href="#" onclick="showToast('نمونه کارهای هنرجویان', 'info'); return false;">نمونه کارهای
+              هنرجویان</a></li>
           <li><a href="#" onclick="showToast('تماس با ما', 'info'); return false;">تماس با ما</a></li>
         </ul>
       </div>
