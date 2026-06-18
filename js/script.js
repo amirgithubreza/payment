@@ -1,4 +1,8 @@
-// v0.1.6
+// v0.1.7
+
+
+
+
 'use strict';
 
 /* ── STATE ────────────────────────────────── */
@@ -323,7 +327,7 @@ function updateSidebar() {
         discText += ` <span style="font-size:10px;color:var(--text-mute);">(شامل تخفیف کد: − ${toman(S.couponAmt)} ت)</span>`;
     }
     $('sideDisc').innerHTML = discText;
-    $('sideCount').textContent = cartItems.length + ' دوره';
+
 
     const couponLine = $('sideCouponLine');
     if (couponLine) couponLine.style.display = 'none';
@@ -811,41 +815,77 @@ $('finalPayBtn')?.addEventListener('click', function () {
     showToast('پرداخت شما با موفقیت انجام شد!', 'success');
 });
 
-/* ── PERSIAN DATEPICKER ───────────────────── */
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const offDateInput = document.getElementById('offDate');
-    if (offDateInput && typeof persianDatepicker !== 'undefined') {
-        // تنظیمات تقویم
-        const picker = new persianDatepicker(offDateInput, {
-            format: 'YYYY/MM/DD',
-            initialValue: false,
-            autoClose: true,
-            onSelect: function (unix) {
-                // بعد از انتخاب تاریخ، اعتبارسنجی خودکار
-                validateOfflineField(offDateInput, 'offDate-err');
-                // به‌روزرسانی فاکتور اگر در مرحله ۴ هستیم
-                if (document.querySelector('.step-panel[data-step="4"].active')) {
-                    updateInvoiceFinal();
-                }
-            },
-            // تنظیمات ظاهری
-            theme: 'default',
-            direction: 'rtl',
-            position: 'auto',
-            toolbox: {
-                calendarSwitch: {
-                    enabled: true,
-                }
-            }
-        });
-        // ذخیره پیکر برای دسترسی در صورت نیاز
-        window._offDatePicker = picker;
-    }
+    if (!offDateInput) return;
 
-    // اگر فیلد تاریخ خالی بود، تاریخ امروز شمسی را به‌عنوان placeholder نمایش بده
-    // (اختیاری)
+    // بررسی وجود flatpickr
+    if (typeof flatpickr !== 'undefined') {
+        try {
+            const picker = flatpickr(offDateInput, {
+                locale: 'fa', // زبان فارسی
+                dateFormat: 'Y/m/d', // فرمت شمسی
+                onChange: function (selectedDates, dateStr) {
+                    offDateInput.value = dateStr;
+                    validateOfflineField(offDateInput, 'offDate-err');
+                    if (document.querySelector('.step-panel[data-step="4"].active')) {
+                        updateInvoiceFinal();
+                    }
+                },
+                onOpen: function () {
+                    // تقویم باز شد
+                }
+            });
+
+            // کلیک روی آیکون تقویم
+            const icon = offDateInput.parentElement?.querySelector('.date-picker-icon');
+            if (icon) {
+                icon.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    picker.open();
+                });
+            }
+
+            // کلیک روی خود فیلد
+            offDateInput.addEventListener('click', function () {
+                picker.open();
+            });
+
+            // ذخیره نمونه برای استفاده‌های بعدی (اختیاری)
+            window._offDatePicker = picker;
+
+        } catch (e) {
+            console.warn('flatpickr راه‌اندازی نشد، استفاده از fallback:', e);
+            useFallbackDatePicker(offDateInput);
+        }
+    } else {
+        // اگر flatpickr در دسترس نبود، از fallback استفاده کن
+        useFallbackDatePicker(offDateInput);
+    }
 });
 
+// تابع fallback (تاریخ میلادی مرورگر)
+function useFallbackDatePicker(inputElement) {
+    inputElement.type = 'date';
+    inputElement.lang = 'fa';
+    inputElement.placeholder = '';
+    // مخفی کردن آیکون اضافی (چون مرورگر خودش آیکون دارد)
+    const icon = inputElement.parentElement?.querySelector('.date-picker-icon');
+    if (icon) icon.style.display = 'none';
+    // اعتبارسنجی
+    inputElement.addEventListener('change', function () {
+        validateOfflineField(this, 'offDate-err');
+        if (document.querySelector('.step-panel[data-step="4"].active')) {
+            updateInvoiceFinal();
+        }
+    });
+}
 /* ── INIT ──────────────────────────────────── */
 renderCart();
 checkStep1Validation();
