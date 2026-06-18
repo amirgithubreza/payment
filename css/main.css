@@ -1,6 +1,6 @@
 /* ============================================================
-           ROOT & RESET
-           ============================================================ */
+   ROOT & RESET
+   ============================================================ */
 :root {
     --purple: #46038b;
     --navy: #154894;
@@ -71,8 +71,8 @@ body {
 }
 
 /* ============================================================
-           HEADER
-           ============================================================ */
+   HEADER
+   ============================================================ */
 .navbar {
     width: min(1400px, 92%);
     margin: 18px auto 0;
@@ -325,8 +325,8 @@ body {
 }
 
 /* ============================================================
-           BREADCRUMB
-           ============================================================ */
+   BREADCRUMB
+   ============================================================ */
 .breadcrumb-bar {
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -367,29 +367,73 @@ body {
 }
 
 /* ============================================================
-           CHECKOUT LAYOUT
-           ============================================================ */
+   CHECKOUT LAYOUT
+   ============================================================ */
 .checkout-wrap {
-    max-width: 1160px;
-    margin: 32px auto;
-    padding: 0 20px 80px;
+    max-width: 1400px;
+    margin: 32px auto 80px;
+    padding: 0 20px;
     display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 26px;
+    grid-template-columns: 1fr 360px;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.checkout-wrap.sidebar-hidden {
+    grid-template-columns: 1fr;
+    max-width: 1000px;
+}
+
+@media (max-width: 1024px) {
+    .checkout-wrap {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-sidebar {
+        position: static !important;
+        order: 0;
+    }
+
+    .checkout-main {
+        order: 1;
+    }
+}
+
+.checkout-sidebar {
+    position: sticky;
+    top: 20px;
+    transition: all 0.4s ease;
+}
+
+.checkout-sidebar.hidden {
+    display: none !important;
 }
 
 /* ============================================================
-           PROGRESS STEPS
-           ============================================================ */
-.checkout-steps {
-    display: flex;
-    align-items: center;
+   STEP HEADER
+   ============================================================ */
+.step-header {
+    position: sticky;
+    top: 20px;
+    z-index: 50;
     background: #fff;
-    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 20px 28px;
-    margin-bottom: 22px;
+    border: 1px solid var(--border);
     box-shadow: var(--shadow-sm);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    transition: box-shadow 0.3s ease;
+}
+
+.step-header:hover {
+    box-shadow: var(--shadow);
+}
+
+.step-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 }
 
 .cstep {
@@ -397,28 +441,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 7px;
+    gap: 4px;
+    cursor: pointer;
     position: relative;
+    padding: 6px 0;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    user-select: none;
 }
 
-.cstep:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 17px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--border);
-    z-index: 0;
+.cstep:hover:not(.disabled) {
+    background: var(--lavender);
 }
 
-.cstep.done:not(:last-child)::after {
-    background: var(--purple);
+.cstep.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.cstep.disabled:hover {
+    background: none;
 }
 
 .cstep-circle {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     border: 2.5px solid #ddd;
     background: #f8f8f8;
@@ -428,9 +475,14 @@ body {
     font-size: 13px;
     font-weight: 800;
     color: #ccc;
-    position: relative;
-    z-index: 1;
-    transition: all var(--transition-slow);
+    transition: all 0.3s ease;
+}
+
+.cstep.active .cstep-circle {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+    box-shadow: 0 0 0 6px rgba(70, 3, 139, 0.12);
 }
 
 .cstep.done .cstep-circle {
@@ -439,37 +491,18 @@ body {
     color: #fff;
 }
 
-.cstep.active .cstep-circle {
-    background: var(--purple);
-    border-color: var(--purple);
-    color: #fff;
-    box-shadow: 0 0 0 8px rgba(70, 3, 139, .1);
-    animation: stepPulse 2s infinite;
-}
-
-@keyframes stepPulse {
-
-    0%,
-    100% {
-        box-shadow: 0 0 0 8px rgba(70, 3, 139, .10);
-    }
-
-    50% {
-        box-shadow: 0 0 0 14px rgba(70, 3, 139, .04);
-    }
+.cstep.disabled .cstep-circle {
+    background: #f0f0f0;
+    border-color: #e0e0e0;
+    color: #ccc;
 }
 
 .cstep-label {
     font-size: 11px;
-    color: #ccc;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--text-mute);
     text-align: center;
-    transition: color var(--transition);
-}
-
-.cstep.done .cstep-label {
-    color: var(--green);
-    font-weight: 700;
+    white-space: nowrap;
 }
 
 .cstep.active .cstep-label {
@@ -477,9 +510,61 @@ body {
     font-weight: 700;
 }
 
+.cstep.done .cstep-label {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.cstep:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 22px;
+    right: calc(50% + 20px);
+    width: calc(100% - 40px);
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.cstep.done:not(:last-child)::after {
+    background: var(--green);
+}
+
+.cstep.active:not(:last-child)::after {
+    background: var(--purple);
+}
+
+.cstep.disabled:not(:last-child)::after {
+    background: #e8e8e8;
+}
+
 /* ============================================================
-           SECTION CARD
-           ============================================================ */
+   STEP PANELS
+   ============================================================ */
+.step-panel {
+    display: none;
+    animation: fadeSlide 0.35s ease;
+}
+
+.step-panel.active {
+    display: block;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   SECTION CARD
+   ============================================================ */
 .sec-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -519,7 +604,6 @@ body {
     font-size: 15px;
     font-weight: 800;
     color: var(--text);
-    letter-spacing: -.2px;
 }
 
 .sec-sub {
@@ -529,8 +613,200 @@ body {
 }
 
 /* ============================================================
-           INVOICE TABLE
-           ============================================================ */
+   FORM
+   ============================================================ */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.form-label .req {
+    color: var(--danger);
+}
+
+.form-input {
+    width: 100%;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    font-family: 'Vazirmatn', sans-serif;
+    outline: none;
+    background: var(--bg);
+    direction: rtl;
+    color: var(--text);
+    transition: all var(--transition);
+}
+
+.form-input:focus {
+    border-color: var(--purple);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.07);
+}
+
+.form-input.invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.06);
+}
+
+.form-input.valid {
+    border-color: var(--green);
+}
+
+.field-err {
+    font-size: 11px;
+    color: var(--danger);
+    display: none;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.field-err.show {
+    display: flex;
+}
+
+.form-input.shake {
+    animation: shake .5s ease;
+    border-color: var(--danger) !important;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-7px);
+    }
+
+    40% {
+        transform: translateX(7px);
+    }
+
+    60% {
+        transform: translateX(-4px);
+    }
+
+    80% {
+        transform: translateX(4px);
+    }
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.step-next-btn,
+.step-prev-btn {
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-weight: 700;
+    font-size: 13px;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(70, 3, 139, 0.15);
+}
+
+.step-next-btn:hover:not(:disabled),
+.step-prev-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(70, 3, 139, 0.25);
+}
+
+.step-next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.step-prev-btn {
+    background: var(--bg);
+    color: var(--text-mid);
+    box-shadow: none;
+    border: 1.5px solid var(--border);
+}
+
+.step-prev-btn:hover {
+    background: #e8e8e8;
+    box-shadow: none;
+}
+
+.add-sample-btn {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-weight: 700;
+    font-size: 12.5px;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.add-sample-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 124, 0, 0.25);
+}
+
+.os-pay-btn {
+    background: linear-gradient(135deg, var(--green), #16963a);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 800;
+    font-family: 'Vazirmatn', sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(30, 124, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.os-pay-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(30, 124, 0, 0.4);
+}
+
+/* ============================================================
+   INVOICE TABLE (سبد خرید)
+   ============================================================ */
 .table-contain {
     overflow: hidden;
     border-radius: 28px;
@@ -547,7 +823,17 @@ body {
 .inv-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
+    font-size: 12.5px;
+    table-layout: fixed;
+}
+
+.inv-table th,
+.inv-table td {
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 12.5px;
+    vertical-align: middle;
+    word-break: break-word;
 }
 
 .inv-table thead tr {
@@ -555,14 +841,9 @@ body {
 }
 
 .inv-table th {
-    padding: 11px 12px;
-    font-size: 11px;
     font-weight: 700;
     color: var(--text-mute);
-    text-align: right;
     border-bottom: 2px solid var(--border);
-    letter-spacing: .3px;
-    text-align: center;
 }
 
 .inv-table tbody tr {
@@ -574,58 +855,120 @@ body {
     background: #faf9ff;
 }
 
-.inv-table td {
-    padding: 14px 12px;
-    color: var(--text);
-    vertical-align: middle;
-}
-
 .course-img {
-    width: 58px;
-    height: 42px;
-    border-radius: 8px;
+    width: 48px;
+    height: 34px;
+    border-radius: 6px;
     object-fit: cover;
-    border: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .course-name {
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 .course-meta {
-    font-size: 11px;
+    font-size: 10.5px;
     color: var(--text-mute);
-    margin-top: 2px;
 }
 
-.price-orig {
+.price-combo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.price-orig-sm {
     text-decoration: line-through;
-    color: #919191;
-    font-size: 11.5px;
+    color: #b0b0b0;
+    font-size: 10.5px;
 }
 
-.price-final {
+.price-final-sm {
     font-weight: 900;
-    font-size: 14px;
-    color: var(--text);
+    font-size: 13px;
+    color: var(--purple);
 }
 
-.disc-badge {
+.price-final-sm.free {
+    color: var(--green);
+}
+
+.qty-control {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
-    background: var(--green);
-    color: var(--white);
+    gap: 4px;
+    background: var(--bg);
     border-radius: 6px;
-    padding: 3px 9px;
-    font-size: 11px;
+    padding: 2px 2px;
+    border: 1px solid var(--border);
+}
+
+.qty-btn {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 14px;
     font-weight: 700;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover:not(:disabled) {
+    background: var(--lavender);
+    color: var(--purple);
+}
+
+.qty-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.qty-input {
+    width: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Vazirmatn', sans-serif;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    -moz-appearance: textfield;
+}
+
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.remove-item-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-mute);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+.remove-item-btn:hover {
+    color: var(--danger);
+    background: var(--danger-light);
 }
 
 /* ============================================================
-           PAYMENT METHOD TABS
-           ============================================================ */
+   PAYMENT METHOD TABS
+   ============================================================ */
 .method-tabs {
     display: flex;
     border-bottom: 2px solid var(--border);
@@ -670,8 +1013,8 @@ body {
 }
 
 /* ============================================================
-           GATEWAY GRID
-           ============================================================ */
+   GATEWAY GRID
+   ============================================================ */
 .gateway-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -702,7 +1045,7 @@ body {
 .gw-opt.chosen {
     border-color: var(--purple);
     background: #f5f0ff;
-    box-shadow: 0 0 0 4px rgba(70, 3, 139, .08);
+    box-shadow: 0 0 0 4px rgba(70, 3, 139, 0.08);
 }
 
 .gw-opt input[type="radio"] {
@@ -758,12 +1101,9 @@ body {
     padding: 2px 10px;
     border-radius: 20px;
     white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(245, 158, 11, .3);
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
 }
 
-/* ============================================================
-           CARD FORM
-           ============================================================ */
 .card-form-section {
     margin-top: 16px;
     padding-top: 16px;
@@ -809,8 +1149,8 @@ body {
 }
 
 /* ============================================================
-           OFFLINE TRANSFER
-           ============================================================ */
+   OFFLINE TRANSFER
+   ============================================================ */
 .bank-info-box {
     background: #f9f8ff;
     border: 1px solid #dcd4fe;
@@ -838,7 +1178,7 @@ body {
     direction: ltr;
     display: inline-block;
     font-weight: 600;
-    letter-spacing: .04em;
+    letter-spacing: 0.04em;
 }
 
 .copy-btn {
@@ -901,107 +1241,10 @@ body {
 }
 
 /* ============================================================
-           FORM
-           ============================================================ */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.form-label {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--text);
-}
-
-.form-label .req {
-    color: var(--danger);
-}
-
-.form-input {
-    width: 100%;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 11px 14px;
-    font-size: 13.5px;
-    font-family: 'Vazirmatn', sans-serif;
-    outline: none;
-    background: var(--bg);
-    direction: rtl;
-    color: var(--text);
-    transition: all var(--transition);
-}
-
-.form-input:focus {
-    border-color: var(--purple);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(70, 3, 139, .07);
-}
-
-.form-input.invalid {
-    border-color: var(--danger);
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, .06);
-}
-
-.form-input.valid {
-    border-color: var(--green);
-}
-
-.field-err {
-    font-size: 11px;
-    color: var(--danger);
-    display: none;
-    align-items: center;
-    gap: 4px;
-    margin-top: 2px;
-}
-
-.field-err.show {
-    display: flex;
-}
-
-.form-input.shake {
-    animation: shake .5s ease;
-    border-color: var(--danger) !important;
-}
-
-@keyframes shake {
-
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-7px);
-    }
-
-    40% {
-        transform: translateX(7px);
-    }
-
-    60% {
-        transform: translateX(-4px);
-    }
-
-    80% {
-        transform: translateX(4px);
-    }
-}
-
-/* ============================================================
-           COUPON
-           ============================================================ */
-.coupon-zone {
-    margin-top: 18px;
-    padding-top: 16px;
+   COUPON
+   ============================================================ */
+.invoice-coupon {
+    margin: 12px 0 16px;
 }
 
 .coupon-label {
@@ -1036,7 +1279,7 @@ body {
 .coupon-input:focus {
     border-color: var(--purple);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(70, 3, 139, .07);
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.07);
 }
 
 .coupon-input.shake {
@@ -1063,15 +1306,12 @@ body {
 
 .coupon-apply-btn:hover {
     background: var(--violet);
-    box-shadow: 0 4px 14px rgba(70, 3, 139, .3);
-    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(70, 3, 139, 0.3);
 }
 
 .coupon-apply-btn:disabled {
-    background: var(--green);
-    cursor: default;
-    transform: none;
-    box-shadow: none;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .coupon-fb {
@@ -1096,19 +1336,19 @@ body {
 
 .coupon-fb.ok {
     background: var(--green-light);
-    border: 1px solid rgba(30, 124, 0, .2);
+    border: 1px solid rgba(30, 124, 0, 0.2);
     color: var(--green);
 }
 
 .coupon-fb.fail {
     background: var(--danger-light);
-    border: 1px solid rgba(220, 38, 38, .2);
+    border: 1px solid rgba(220, 38, 38, 0.2);
     color: var(--danger);
 }
 
 /* ============================================================
-           TERMS
-           ============================================================ */
+   TERMS
+   ============================================================ */
 .terms-box {
     background: #fff;
     border: 2px solid var(--border);
@@ -1118,23 +1358,6 @@ body {
     align-items: flex-start;
     gap: 10px;
     transition: border-color var(--transition);
-}
-
-.terms-box.highlight {
-    border-color: var(--danger);
-    animation: highlightPulse .6s ease 3;
-}
-
-@keyframes highlightPulse {
-
-    0%,
-    100% {
-        box-shadow: 0;
-    }
-
-    50% {
-        box-shadow: 0 0 0 8px rgba(220, 38, 38, .08);
-    }
 }
 
 .terms-box input[type="checkbox"] {
@@ -1157,20 +1380,16 @@ body {
     color: var(--purple);
     font-weight: 700;
     text-decoration: none;
-    transition: color var(--transition);
 }
 
 .terms-box a:hover {
     text-decoration: underline;
-    color: var(--violet);
 }
 
 /* ============================================================
-           ORDER SIDEBAR
-           ============================================================ */
+   ORDER SIDEBAR
+   ============================================================ */
 .order-summary {
-    position: sticky;
-    top: 20px;
     background: #fff;
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
@@ -1180,7 +1399,7 @@ body {
 
 .os-head {
     background: linear-gradient(135deg, var(--navy) 0%, var(--violet) 100%);
-    padding: 18px 22px;
+    padding: 16px 20px;
     color: #fff;
     display: flex;
     align-items: center;
@@ -1191,7 +1410,7 @@ body {
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, .14);
+    background: rgba(255, 255, 255, 0.14);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1200,27 +1419,28 @@ body {
 }
 
 .os-head-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 800;
-    letter-spacing: -.2px;
+    letter-spacing: -0.2px;
 }
 
 .os-head-sub {
-    font-size: 10.5px;
-    opacity: .65;
+    font-size: 10px;
+    opacity: 0.65;
     margin-top: 1px;
 }
 
 .os-items {
-    padding: 0 18px;
-    margin-top: 14px;
+    padding: 12px 16px 4px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .os-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 0;
+    gap: 8px;
+    padding: 8px 0;
     border-bottom: 1px solid var(--border-light);
 }
 
@@ -1229,42 +1449,47 @@ body {
 }
 
 .os-thumb {
-    width: 48px;
-    height: 34px;
-    border-radius: 7px;
+    width: 40px;
+    height: 28px;
+    border-radius: 6px;
     object-fit: cover;
     border: 1px solid var(--border);
     flex-shrink: 0;
 }
 
 .os-cname {
-    font-size: 12px;
+    font-size: 11.5px;
     font-weight: 700;
     flex: 1;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 .os-cprice {
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 900;
     color: var(--purple);
     white-space: nowrap;
 }
 
+.os-cprice.free {
+    color: var(--green);
+}
+
 .os-breakdown {
-    padding: 14px 18px 0;
+    padding: 8px 16px 0;
 }
 
 .os-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12.5px;
-    padding: 4px 0;
+    font-size: 12px;
+    padding: 3px 0;
 }
 
 .osl-label {
     color: var(--text-mute);
+    font-weight: 500;
 }
 
 .osl-val {
@@ -1277,157 +1502,366 @@ body {
     color: var(--red);
 }
 
-.osl-green {
-    font-weight: 700;
-    color: var(--green);
-}
-
 .os-divider {
     height: 1px;
     background: var(--border-light);
-    margin: 8px 0;
+    margin: 6px 0;
 }
 
 .os-total {
-    margin: 12px 18px 0;
+    margin: 8px 16px 0;
     background: var(--lavender);
-    border-radius: 14px;
-    padding: 15px 16px;
+    border-radius: 12px;
+    padding: 12px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid rgba(70, 3, 139, .1);
+    border: 1px solid rgba(70, 3, 139, 0.1);
 }
 
 .ost-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
     color: var(--violet);
 }
 
 .ost-sub {
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--text-mute);
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 .ost-amt {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 900;
     color: var(--purple);
-    letter-spacing: -.5px;
+    letter-spacing: -0.5px;
 }
 
 .ost-unit {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--text-mute);
     text-align: left;
 }
 
 .os-saving {
-    margin: 10px 18px 0;
+    margin: 8px 16px 12px;
     background: var(--green-light);
-    border: 1px solid rgba(30, 124, 0, .18);
-    border-radius: 9px;
-    padding: 9px 13px;
+    border: 1px solid rgba(30, 124, 0, 0.15);
+    border-radius: 8px;
+    padding: 7px 12px;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--green);
 }
 
-.os-pay-btn {
-    margin: 16px 18px;
-    width: calc(100% - 36px);
-    background: linear-gradient(135deg, var(--green), #16963a);
-    color: #fff;
-    border: none;
-    border-radius: 13px;
-    padding: 16px;
-    font-size: 15px;
-    font-weight: 800;
-    font-family: 'Vazirmatn', sans-serif;
-    cursor: pointer;
+/* ============================================================
+   FINAL INVOICE (مرحله ۴)
+   ============================================================ */
+.final-invoice-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.final-invoice {
+    background: #fff;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 32px 36px;
+    max-width: 900px;
+    width: 100%;
+    animation: fadeSlide 0.4s ease;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border-light);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.invoice-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.invoice-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--purple), var(--violet));
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    box-shadow: 0 6px 22px rgba(30, 124, 0, .32);
-    transition: all var(--transition);
-    position: relative;
-    overflow: hidden;
+    font-size: 24px;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(70, 3, 139, 0.25);
 }
 
-.os-pay-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
-    transition: left .6s;
+.invoice-header-left h2 {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text);
+    margin: 0;
 }
 
-.os-pay-btn:hover::before {
-    left: 100%;
+.invoice-number {
+    font-size: 12px;
+    color: var(--text-mute);
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
 }
 
-.os-pay-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(30, 124, 0, .42);
-}
-
-.os-pay-btn:active {
-    transform: translateY(0);
-}
-
-.os-pay-btn:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.os-trust {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 13px 18px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.ot-item {
+.invoice-status {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 3px;
+    align-items: flex-end;
+    gap: 4px;
 }
 
-.ot-ico {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 16px;
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-badge.success {
+    background: var(--green-light);
+    color: var(--green);
+    border: 1px solid rgba(30, 124, 0, 0.15);
+}
+
+.invoice-date,
+.invoice-time {
+    font-size: 11px;
+    color: var(--text-mute);
+}
+
+.invoice-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .invoice-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.invoice-info-box {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    border: 1px solid var(--border-light);
+}
+
+.invoice-info-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple);
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow-sm);
-    color: var(--purple);
+    gap: 6px;
 }
 
-.ot-lbl {
-    font-size: 9.5px;
+.invoice-info-body {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 2;
+}
+
+.invoice-info-body div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0;
+}
+
+.invoice-info-body div span:first-child {
     color: var(--text-mute);
-    text-align: center;
     font-weight: 500;
 }
 
+.invoice-info-body div span:last-child {
+    font-weight: 600;
+}
+
+.invoice-table-wrap {
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-light);
+}
+
+.invoice-table-title {
+    background: var(--bg);
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.invoice-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+}
+
+.invoice-items-table th {
+    background: #f8f7fc;
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-mute);
+    text-align: center;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.invoice-items-table td {
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+.invoice-items-table tr:last-child td {
+    border-bottom: none;
+}
+
+.invoice-items-table .inv-course-name {
+    font-weight: 700;
+    font-size: 12.5px;
+    text-align: right;
+}
+
+.invoice-items-table .inv-course-meta {
+    font-size: 10.5px;
+    color: var(--text-mute);
+}
+
+.invoice-items-table .inv-price-orig {
+    text-decoration: line-through;
+    color: #b0b0b0;
+    font-size: 11px;
+}
+
+.invoice-items-table .inv-price-final {
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--purple);
+}
+
+.invoice-items-table .inv-price-final.free {
+    color: var(--green);
+}
+
+.invoice-items-table .inv-discount-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+.invoice-items-table .inv-discount-badge.zero {
+    background: var(--bg);
+    color: var(--text-mute);
+}
+
+.invoice-summary {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-light);
+}
+
+.invoice-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+.invoice-summary-row.discount {
+    color: var(--red);
+    font-weight: 600;
+}
+
+.invoice-summary-row.grand-total {
+    font-size: 17px;
+    font-weight: 900;
+    color: var(--purple);
+    padding-top: 4px;
+}
+
+.invoice-summary-divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 6px 0;
+}
+
+.invoice-summary-words {
+    font-size: 11px;
+    color: var(--text-mute);
+    text-align: left;
+    margin-top: 4px;
+}
+
+.invoice-payment-time {
+    background: var(--lavender);
+    border-radius: var(--radius);
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    border: 1px solid rgba(70, 3, 139, 0.1);
+}
+
+.invoice-payment-time i {
+    color: var(--purple);
+}
+
+.invoice-payment-time strong {
+    color: var(--purple);
+}
+
+.invoice-actions {
+    margin-top: 8px;
+}
+
 /* ============================================================
-           LOADING OVERLAY
-           ============================================================ */
+   LOADING & MODAL
+   ============================================================ */
 .loading-ov {
     position: fixed;
     inset: 0;
@@ -1509,9 +1943,6 @@ body {
     color: var(--green);
 }
 
-/* ============================================================
-           SUCCESS MODAL
-           ============================================================ */
 .modal-ov {
     position: fixed;
     inset: 0;
@@ -1663,8 +2094,8 @@ body {
 }
 
 /* ============================================================
-           TOAST
-           ============================================================ */
+   TOAST
+   ============================================================ */
 .toast-container {
     position: fixed;
     bottom: 28px;
@@ -1712,8 +2143,8 @@ body {
 }
 
 /* ============================================================
-           FOOTER
-           ============================================================ */
+   FOOTER
+   ============================================================ */
 .footer {
     position: relative;
     overflow: hidden;
@@ -1866,17 +2297,9 @@ body {
 }
 
 /* ============================================================
-           RESPONSIVE
-           ============================================================ */
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 1024px) {
-    .checkout-wrap {
-        grid-template-columns: 1fr;
-    }
-
-    .order-summary {
-        position: static;
-    }
-
     .footer-content {
         gap: 30px;
         flex-direction: row;
@@ -1986,7 +2409,7 @@ body {
     }
 
     .checkout-wrap {
-        padding: 16px 12px 40px;
+        padding: 0 12px;
     }
 
     .gateway-grid {
@@ -2009,37 +2432,90 @@ body {
         flex-direction: column;
     }
 
-    .checkout-steps {
-        padding: 16px 12px;
+    .step-header-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px;
     }
 
-    .cstep-label {
-        font-size: 10px;
+    .cstep {
+        flex: 0 0 auto;
+        padding: 4px 8px;
+    }
+
+    .cstep:not(:last-child)::after {
+        display: none;
     }
 
     .cstep-circle {
-        width: 32px;
-        height: 32px;
+        width: 28px;
+        height: 28px;
         font-size: 11px;
     }
 
-    .breadcrumb-bar {
-        padding: 8px 16px;
+    .cstep-label {
+        font-size: 9px;
     }
 
-    .footer {
-        padding: 30px 16px;
-        border-radius: 30px 30px 0 0;
+    .inv-table th,
+    .inv-table td {
+        font-size: 11px;
+        padding: 6px 4px;
     }
 
-    .footer-col ul li {
+    .qty-control {
+        gap: 2px;
+    }
+
+    .qty-btn {
+        width: 22px;
+        height: 22px;
         font-size: 12px;
     }
 
-    .socials a {
-        width: 40px;
-        height: 40px;
+    .qty-input {
+        width: 24px;
+        font-size: 12px;
+    }
+
+    .invoice-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .invoice-status {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .final-invoice {
+        padding: 16px;
+    }
+
+    .invoice-items-table th,
+    .invoice-items-table td {
+        font-size: 11px;
+        padding: 6px 4px;
+    }
+
+    .invoice-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .os-total {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+
+    .ost-amt {
         font-size: 18px;
+        text-align: left;
+    }
+
+    .invoice-payment-time {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 }
 
@@ -2065,4 +2541,45 @@ body {
     .card-grid {
         grid-template-columns: 1fr 70px;
     }
+}
+
+/* main.css (افزودن استایل دکمه لغو کد) */
+/* ============================================================
+   دکمه لغو کد تخفیف
+   ============================================================ */
+.cancel-coupon-btn {
+    margin-right: 10px;
+    background: var(--bg);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'Vazirmatn', sans-serif;
+    color: #4b5563;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.cancel-coupon-btn:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* ============================================================
+   نمایش تخفیف کل دوره‌ها (شامل کد)
+   ============================================================ */
+.text-red {
+    color: var(--red) !important;
+}
+
+#sideDisc,
+#invoiceDiscTotal {
+    font-weight: 700;
+}
+
+#sideDisc span,
+#invoiceDiscTotal span {
+    font-weight: 400;
+    color: var(--text-mute);
 }
