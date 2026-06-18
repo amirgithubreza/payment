@@ -1,8 +1,4 @@
-<!-- v0.1.7 -->
-
-
-
-
+<!-- v0.1.8 -->
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -17,13 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
-
-
-
   <link rel="stylesheet" href="./css/main.css" />
-
-
-
 
 </head>
 
@@ -113,11 +103,19 @@
       <!-- ========== مرحله ۱: اطلاعات کاربر ========== -->
       <div class="step-panel active" data-step="1">
         <div class="sec-card">
-          <div class="sec-head">
-            <div class="sec-ico"><i class="fa-solid fa-user-pen"></i></div>
-            <div>
-              <div class="sec-title">اطلاعات خریدار</div>
-              <div class="sec-sub">لطفاً مشخصات خود را وارد کنید</div>
+          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="sec-ico"><i class="fa-solid fa-user-pen"></i></div>
+              <div>
+                <div class="sec-title">اطلاعات خریدار</div>
+                <div class="sec-sub">لطفاً مشخصات خود را وارد کنید</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="step-prev-btn" data-prev="1" disabled style="opacity:0.4; cursor:default;"><i
+                  class="fa-solid fa-chevron-right"></i> قبلی</button>
+              <button class="step-next-btn" id="step1NextBtn" data-next="2" disabled>بعدی <i
+                  class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
           <div class="form-grid">
@@ -146,22 +144,23 @@
                 style="direction:ltr;text-align:right" />
             </div>
           </div>
-          <div style="display:flex; justify-content:flex-start; margin-top:20px;">
-            <button class="step-next-btn" id="step1NextBtn" data-next="2" disabled>
-              بعدی <i class="fa-solid fa-chevron-left"></i>
-            </button>
-          </div>
         </div>
       </div>
 
       <!-- ========== مرحله ۲: سبد خرید ========== -->
       <div class="step-panel" data-step="2">
         <div class="sec-card">
-          <div class="sec-head">
-            <div class="sec-ico"><i class="fa-solid fa-cart-shopping"></i></div>
-            <div>
-              <div class="sec-title">سبد خرید</div>
-              <div class="sec-sub">محصولات خود را مرور و ویرایش کنید</div>
+          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="sec-ico"><i class="fa-solid fa-cart-shopping"></i></div>
+              <div>
+                <div class="sec-title">سبد خرید</div>
+                <div class="sec-sub">محصولات خود را مرور و ویرایش کنید</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="step-prev-btn" data-prev="1"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
+              <button class="step-next-btn" data-next="3">بعدی <i class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
           <div class="table-contain">
@@ -189,9 +188,20 @@
             </div>
             <button class="add-sample-btn" id="addSampleBtn"><i class="fa-solid fa-plus"></i> افزودن نمونه</button>
           </div>
-          <div style="display:flex; justify-content:space-between; margin-top:20px;">
-            <button class="step-prev-btn" data-prev="1"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
-            <button class="step-next-btn" data-next="3">بعدی <i class="fa-solid fa-chevron-left"></i></button>
+
+          <!-- بخش کد تخفیف -->
+          <div class="invoice-coupon" style="margin-top:16px;">
+            <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple);"></i> کد تخفیف دارید؟
+            </div>
+            <div class="coupon-row">
+              <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
+                autocomplete="off" />
+              <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
+                    class="fa-solid fa-check-circle"></i> اعمال</span></button>
+            </div>
+            <div class="coupon-fb ok" id="couponOk"></div>
+            <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
+              معتبر نیست.</div>
           </div>
         </div>
       </div>
@@ -199,11 +209,17 @@
       <!-- ========== مرحله ۳: پرداخت ========== -->
       <div class="step-panel" data-step="3">
         <div class="sec-card">
-          <div class="sec-head">
-            <div class="sec-ico"><i class="fa-solid fa-shield-halved"></i></div>
-            <div>
-              <div class="sec-title">روش پرداخت</div>
-              <div class="sec-sub">درگاه یا روش پرداخت مناسب خود را انتخاب کنید</div>
+          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="sec-ico"><i class="fa-solid fa-shield-halved"></i></div>
+              <div>
+                <div class="sec-title">روش پرداخت</div>
+                <div class="sec-sub">درگاه یا روش پرداخت مناسب خود را انتخاب کنید</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="step-prev-btn" data-prev="2"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
+              <button class="step-next-btn" data-next="4">بعدی <i class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
 
@@ -318,11 +334,6 @@
             <button type="button" id="removeFileBtn" class="btn-remove-file"><i class="fa-solid fa-trash"></i> حذف
               فایل</button>
           </div>
-
-          <div style="display:flex; justify-content:space-between; margin-top:20px;">
-            <button class="step-prev-btn" data-prev="2"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
-            <button class="step-next-btn" data-next="4">بعدی <i class="fa-solid fa-chevron-left"></i></button>
-          </div>
         </div>
       </div>
 
@@ -382,7 +393,6 @@
             </div>
 
             <div class="invoice-summary">
-
               <div class="invoice-summary-row">
                 <span>جمع قیمت اصلی دوره‌ها</span>
                 <span id="invoiceOrigTotal">۰ ت</span>
@@ -406,26 +416,36 @@
               <div class="invoice-summary-words" id="invoiceTotalWords">صفر تومان</div>
             </div>
 
-            <div class="invoice-payment-time">
-              <i class="fa-regular fa-clock"></i>
-              <span>تاریخ و ساعت پرداخت: <strong id="invoicePaymentDateTime">—</strong></span>
+            <!-- تاریخ و ساعت + دکمه‌های عملیات -->
+            <div
+              style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
+              <!-- بخش تاریخ و ساعت -->
+              <div
+                style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
+                <i class="fa-regular fa-clock" style="color:var(--purple);"></i>
+                <span style="font-weight:600; font-size:13px;">تاریخ و ساعت پرداخت: <strong id="invoicePaymentDateTime"
+                    style="color:var(--purple);">—</strong></span>
+              </div>
+              <!-- دکمه‌ها -->
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <!-- دکمه جدید: فقط لغو کد تخفیف (بدون برگشت به مرحله قبل) -->
+                <button id="cancelCouponOnlyBtn" class="step-prev-btn"
+                  style="margin:0; background:#fef3c7; border-color:#f59e0b; color:#92400e;">
+                  <i class="fa-solid fa-ticket"></i> لغو کد تخفیف
+                </button>
+                <!-- دکمه قبلی (برگشت به مرحله قبل) -->
+                <button class="step-prev-btn" data-prev="3" style="margin:0;">
+                  <i class="fa-solid fa-chevron-right"></i> قبلی
+                </button>
+                <!-- دکمه پرداخت نهایی -->
+                <button class="os-pay-btn" id="finalPayBtn" style="margin:0; padding:10px 24px; font-size:14px;">
+                  <span id="finalPayLabel">پرداخت نهایی</span>
+                </button>
+              </div>
             </div>
 
-            <div class="invoice-coupon">
-              <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple);"></i> کد تخفیف دارید؟
-              </div>
-              <div class="coupon-row">
-                <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
-                  autocomplete="off" />
-                <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
-                      class="fa-solid fa-check-circle"></i> اعمال</span></button>
-              </div>
-              <div class="coupon-fb ok" id="couponOk"></div>
-              <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
-                معتبر نیست.</div>
-            </div>
-
-            <div class="invoice-actions">
+            <!-- شرط قوانین -->
+            <div class="invoice-actions" style="margin-top:16px;">
               <div class="terms-box">
                 <input type="checkbox" id="termsChk" checked />
                 <label for="termsChk">
@@ -433,13 +453,8 @@
                     و مقررات</a> آموزشگاه پیشتاز را مطالعه کرده و می‌پذیرم.
                 </label>
               </div>
-              <div style="display:flex; justify-content:space-between; margin-top:16px;">
-                <button class="step-prev-btn" data-prev="3"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
-                <button class="os-pay-btn" id="finalPayBtn" style="margin:0; width:auto; padding:14px 32px;">
-                  <span id="finalPayLabel">تأیید و پرداخت نهایی</span>
-                </button>
-              </div>
             </div>
+
           </div>
         </div>
       </div>

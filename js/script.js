@@ -1,7 +1,4 @@
-// v0.1.7
-
-
-
+// v0.1.8
 
 'use strict';
 
@@ -328,7 +325,6 @@ function updateSidebar() {
     }
     $('sideDisc').innerHTML = discText;
 
-
     const couponLine = $('sideCouponLine');
     if (couponLine) couponLine.style.display = 'none';
 
@@ -391,7 +387,6 @@ function updateInvoiceFinal() {
             const hasDiscount = item.discount > 0 && !isFree;
             return `
                 <tr>
-
                     <td>${item.duration}</td>
                     <td>${hasDiscount || isFree ? `<span class="inv-price-orig">${toman(item.origPrice)} ت</span>` : `<span>${toman(item.origPrice)} ت</span>`}</td>
                     <td>${item.discount > 0 ? `<span class="inv-discount-badge">${item.discount}%</span>` : '<span class="inv-discount-badge zero">۰%</span>'}</td>
@@ -406,7 +401,6 @@ function updateInvoiceFinal() {
     const totalDisc = totalOrig - totalFinal;
     const disc = S.couponApplied ? S.couponAmt : 0;
     const finalPay = totalFinal - disc;
-    const count = cartItems.length;
 
     $('invoiceOrigTotal').textContent = toman(totalOrig) + ' ت';
     const totalDiscAll = totalDisc + disc;
@@ -523,9 +517,14 @@ function applyCoupon() {
 }
 window.applyCoupon = applyCoupon;
 
-function cancelCoupon() {
+/**
+ * لغو کد تخفیف
+ * @param {boolean} showToastMsg - اگر true باشد پیام توست نمایش داده می‌شود (پیش‌فرض true)
+ */
+function cancelCoupon(showToastMsg = true) {
     S.couponApplied = false;
-    S.couponAmt = 0;
+    S.couponAmt = 512000; // برگرداندن به مقدار اولیه
+
     if (couponInput) {
         couponInput.disabled = false;
         couponInput.style.opacity = '1';
@@ -541,7 +540,7 @@ function cancelCoupon() {
         couponOk.innerHTML = '';
     }
     updateAll();
-    showToast('کد تخفیف لغو شد.', 'info');
+
 }
 window.cancelCoupon = cancelCoupon;
 
@@ -815,35 +814,25 @@ $('finalPayBtn')?.addEventListener('click', function () {
     showToast('پرداخت شما با موفقیت انجام شد!', 'success');
 });
 
-
-
-
-
-
-
+/* ── FLATPICKR ────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function () {
     const offDateInput = document.getElementById('offDate');
     if (!offDateInput) return;
 
-    // بررسی وجود flatpickr
     if (typeof flatpickr !== 'undefined') {
         try {
             const picker = flatpickr(offDateInput, {
-                locale: 'fa', // زبان فارسی
-                dateFormat: 'Y/m/d', // فرمت شمسی
+                locale: 'fa',
+                dateFormat: 'Y/m/d',
                 onChange: function (selectedDates, dateStr) {
                     offDateInput.value = dateStr;
                     validateOfflineField(offDateInput, 'offDate-err');
                     if (document.querySelector('.step-panel[data-step="4"].active')) {
                         updateInvoiceFinal();
                     }
-                },
-                onOpen: function () {
-                    // تقویم باز شد
                 }
             });
 
-            // کلیک روی آیکون تقویم
             const icon = offDateInput.parentElement?.querySelector('.date-picker-icon');
             if (icon) {
                 icon.addEventListener('click', function (e) {
@@ -852,33 +841,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
-            // کلیک روی خود فیلد
             offDateInput.addEventListener('click', function () {
                 picker.open();
             });
 
-            // ذخیره نمونه برای استفاده‌های بعدی (اختیاری)
             window._offDatePicker = picker;
-
         } catch (e) {
             console.warn('flatpickr راه‌اندازی نشد، استفاده از fallback:', e);
             useFallbackDatePicker(offDateInput);
         }
     } else {
-        // اگر flatpickr در دسترس نبود، از fallback استفاده کن
         useFallbackDatePicker(offDateInput);
     }
 });
 
-// تابع fallback (تاریخ میلادی مرورگر)
 function useFallbackDatePicker(inputElement) {
     inputElement.type = 'date';
     inputElement.lang = 'fa';
     inputElement.placeholder = '';
-    // مخفی کردن آیکون اضافی (چون مرورگر خودش آیکون دارد)
     const icon = inputElement.parentElement?.querySelector('.date-picker-icon');
     if (icon) icon.style.display = 'none';
-    // اعتبارسنجی
     inputElement.addEventListener('change', function () {
         validateOfflineField(this, 'offDate-err');
         if (document.querySelector('.step-panel[data-step="4"].active')) {
@@ -886,6 +868,21 @@ function useFallbackDatePicker(inputElement) {
         }
     });
 }
+
+/* ── دکمه لغو کد تایید (فقط لغو کد، بدون تغییر مرحله) ── */
+document.addEventListener('DOMContentLoaded', function () {
+    const cancelCouponOnlyBtn = document.getElementById('cancelCouponOnlyBtn');
+    if (cancelCouponOnlyBtn) {
+        cancelCouponOnlyBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // فراخوانی تابع cancelCoupon با پارامتر false تا پیام توست نمایش ندهد
+            cancelCoupon(false);
+            // نمایش پیام توست فقط یک بار
+            showToast('کد تخفیف با موفقیت لغو شد.', 'success');
+        });
+    }
+});
+
 /* ── INIT ──────────────────────────────────── */
 renderCart();
 checkStep1Validation();
