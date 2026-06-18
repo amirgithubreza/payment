@@ -1,3 +1,6 @@
+/* v0.1.6 */
+
+
 /* ============================================================
    ROOT & RESET
    ============================================================ */
@@ -805,7 +808,7 @@ body {
 }
 
 /* ============================================================
-   INVOICE TABLE (سبد خرید)
+   INVOICE TABLE
    ============================================================ */
 .table-contain {
     overflow: hidden;
@@ -1089,65 +1092,6 @@ body {
     margin-top: 1px;
 }
 
-.rec-tag {
-    position: absolute;
-    top: -9px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--amber);
-    color: #1e293b;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
-}
-
-.card-form-section {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-light);
-    display: none;
-}
-
-.card-form-section.show {
-    display: block;
-}
-
-.card-num-wrap {
-    position: relative;
-}
-
-.card-num-wrap .form-input {
-    padding-left: 54px;
-    letter-spacing: 1.5px;
-}
-
-.card-brands {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    gap: 4px;
-    font-size: 19px;
-    color: #cbd5e1;
-    transition: color var(--transition);
-    pointer-events: none;
-}
-
-.card-brands .ab {
-    color: var(--text);
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: 1fr 100px;
-    gap: 10px;
-    margin-top: 10px;
-}
-
 /* ============================================================
    OFFLINE TRANSFER
    ============================================================ */
@@ -1198,6 +1142,293 @@ body {
     background: var(--lavender);
 }
 
+/* ============================================================
+   DATE & TIME PICKERS
+   ============================================================ */
+.date-picker-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.date-picker-wrapper .form-input {
+    padding-left: 44px;
+    width: 100%;
+    cursor: pointer;
+    background: var(--bg);
+    transition: all 0.25s ease;
+}
+
+.date-picker-wrapper .form-input:focus {
+    background: #fff;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.07);
+}
+
+.date-picker-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--purple);
+    font-size: 18px;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: all 0.25s ease;
+}
+
+.date-picker-wrapper .form-input:focus+.date-picker-icon,
+.date-picker-wrapper .form-input.valid+.date-picker-icon {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.time-picker-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.time-picker {
+    width: 100%;
+    padding-left: 44px;
+    direction: ltr;
+    text-align: center;
+    font-family: 'Vazirmatn', sans-serif;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px 11px 44px;
+    font-size: 13.5px;
+    outline: none;
+    transition: all 0.25s ease;
+    color: var(--text);
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.time-picker:focus {
+    background: #fff;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.07);
+}
+
+.time-picker::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.time-picker-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--purple);
+    font-size: 18px;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: all 0.25s ease;
+}
+
+.time-picker:focus+.time-picker-icon,
+.time-picker.valid+.time-picker-icon {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.time-picker::-webkit-datetime-edit {
+    padding: 0;
+    text-align: center;
+}
+
+.time-picker::-webkit-datetime-edit-fields-wrapper {
+    direction: ltr;
+}
+
+.time-picker::-webkit-datetime-edit-text {
+    color: var(--text-mute);
+}
+
+.time-picker::-webkit-datetime-edit-hour-field,
+.time-picker::-webkit-datetime-edit-minute-field {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.time-picker::-webkit-datetime-edit-hour-field:focus,
+.time-picker::-webkit-datetime-edit-minute-field:focus {
+    background: var(--lavender);
+    border-radius: 4px;
+}
+
+/* ============================================================
+   PERSIAN DATEPICKER - استایل کامل
+   ============================================================ */
+.persian-datepicker {
+    font-family: 'Vazirmatn', sans-serif !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 40px rgba(70, 3, 139, 0.2) !important;
+    border: 1px solid var(--border) !important;
+    background: #fff !important;
+    overflow: hidden;
+    width: 280px !important;
+    direction: rtl !important;
+    z-index: 1000 !important;
+}
+
+/* هدر */
+.persian-datepicker .picker-header {
+    background: linear-gradient(135deg, var(--navy), var(--violet)) !important;
+    padding: 14px 16px !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    direction: rtl !important;
+}
+
+.persian-datepicker .picker-header .picker-title {
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+
+.persian-datepicker .picker-header .picker-arrow {
+    color: rgba(255, 255, 255, 0.8) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-size: 16px !important;
+    padding: 4px 10px !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.persian-datepicker .picker-header .picker-arrow:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #fff !important;
+}
+
+/* روزهای هفته */
+.persian-datepicker .picker-weekdays {
+    background: var(--lavender) !important;
+    padding: 8px 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    text-align: center !important;
+}
+
+.persian-datepicker .picker-weekdays div {
+    color: var(--purple) !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+}
+
+/* روزها */
+.persian-datepicker .picker-days {
+    padding: 6px !important;
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr) !important;
+    gap: 3px !important;
+    background: #fff !important;
+}
+
+.persian-datepicker .picker-days .picker-day {
+    padding: 6px 4px !important;
+    text-align: center !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    color: var(--text) !important;
+}
+
+.persian-datepicker .picker-days .picker-day:hover {
+    background: var(--lavender) !important;
+    transform: scale(1.05);
+}
+
+.persian-datepicker .picker-days .picker-day.today {
+    background: rgba(70, 3, 139, 0.08) !important;
+    border: 1.5px solid var(--purple) !important;
+    color: var(--purple) !important;
+    font-weight: 700 !important;
+}
+
+.persian-datepicker .picker-days .picker-day.selected {
+    background: linear-gradient(135deg, var(--purple), var(--violet)) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 12px rgba(70, 3, 139, 0.3) !important;
+}
+
+.persian-datepicker .picker-days .picker-day.selected:hover {
+    background: var(--violet) !important;
+}
+
+.persian-datepicker .picker-days .picker-day.other-month {
+    color: #d1d5db !important;
+}
+
+.persian-datepicker .picker-days .picker-day.other-month:hover {
+    background: #f3f4f6 !important;
+    transform: none !important;
+}
+
+.persian-datepicker .picker-days .picker-day.holiday {
+    color: var(--red) !important;
+}
+
+.persian-datepicker .picker-days .picker-day.holiday.selected {
+    color: #fff !important;
+}
+
+/* فوتر */
+.persian-datepicker .picker-footer {
+    padding: 8px 14px !important;
+    border-top: 1px solid var(--border-light) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: #fafafa !important;
+}
+
+.persian-datepicker .picker-footer .picker-today {
+    color: var(--purple) !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: color 0.2s ease !important;
+    background: none !important;
+    border: none !important;
+}
+
+.persian-datepicker .picker-footer .picker-today:hover {
+    color: var(--violet) !important;
+}
+
+.persian-datepicker .picker-footer .picker-close {
+    color: var(--text-mute) !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: color 0.2s ease !important;
+    background: none !important;
+    border: none !important;
+}
+
+.persian-datepicker .picker-footer .picker-close:hover {
+    color: var(--danger) !important;
+}
+
+/* ============================================================
+   UPLOAD AREA
+   ============================================================ */
 .upload-area {
     border: 2px dashed var(--border);
     border-radius: 12px;
@@ -1330,7 +1561,7 @@ body {
 }
 
 .coupon-fb.show {
-    max-height: 70px;
+    max-height: 80px;
     opacity: 1;
 }
 
@@ -1344,6 +1575,25 @@ body {
     background: var(--danger-light);
     border: 1px solid rgba(220, 38, 38, 0.2);
     color: var(--danger);
+}
+
+.cancel-coupon-btn {
+    margin-right: 10px;
+    background: var(--bg);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: 'Vazirmatn', sans-serif;
+    color: #4b5563;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.cancel-coupon-btn:hover {
+    background: var(--danger);
+    color: white;
 }
 
 /* ============================================================
@@ -1559,7 +1809,7 @@ body {
 }
 
 /* ============================================================
-   FINAL INVOICE (مرحله ۴)
+   FINAL INVOICE
    ============================================================ */
 .final-invoice-wrapper {
     display: flex;
@@ -1645,12 +1895,6 @@ body {
     background: var(--green-light);
     color: var(--green);
     border: 1px solid rgba(30, 124, 0, 0.15);
-}
-
-.invoice-date,
-.invoice-time {
-    font-size: 11px;
-    color: var(--text-mute);
 }
 
 .invoice-info-grid {
@@ -1855,94 +2099,9 @@ body {
     color: var(--purple);
 }
 
-.invoice-actions {
-    margin-top: 8px;
-}
-
 /* ============================================================
-   LOADING & MODAL
+   MODAL
    ============================================================ */
-.loading-ov {
-    position: fixed;
-    inset: 0;
-    background: rgba(255, 255, 255, .95);
-    z-index: 8888;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    backdrop-filter: blur(8px);
-}
-
-.loading-ov.on {
-    display: flex;
-}
-
-.spinner-ring {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 4px solid var(--lavender);
-    border-top-color: var(--purple);
-    animation: spin .7s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.load-title {
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--purple);
-}
-
-.load-note {
-    font-size: 12px;
-    color: var(--text-mute);
-}
-
-.load-bar-track {
-    width: 240px;
-    height: 5px;
-    background: #e2e8f0;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.load-bar-fill {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, var(--purple), var(--violet));
-    border-radius: 5px;
-    transition: width .06s linear;
-}
-
-.load-steps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-}
-
-.load-step {
-    font-size: 12px;
-    color: #cbd5e1;
-    transition: all var(--transition);
-}
-
-.load-step.active {
-    color: var(--purple);
-    font-weight: 700;
-}
-
-.load-step.done {
-    color: var(--green);
-}
-
 .modal-ov {
     position: fixed;
     inset: 0;
@@ -2292,10 +2451,6 @@ body {
     box-shadow: 0 8px 24px rgba(70, 3, 139, .4);
 }
 
-.socials a i {
-    font-size: 22px;
-}
-
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -2420,10 +2575,6 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .card-grid {
-        grid-template-columns: 1fr 80px;
-    }
-
     .modal-box {
         padding: 26px 16px;
     }
@@ -2517,6 +2668,28 @@ body {
         font-size: 12px;
         padding: 8px 12px;
     }
+
+    .date-picker-wrapper .form-input,
+    .time-picker {
+        font-size: 12.5px;
+        padding: 10px 12px 10px 40px;
+    }
+
+    .date-picker-icon,
+    .time-picker-icon {
+        font-size: 16px;
+        left: 12px;
+    }
+
+    .persian-datepicker {
+        width: 240px !important;
+        font-size: 12px !important;
+    }
+
+    .persian-datepicker .picker-days .picker-day {
+        font-size: 11px !important;
+        padding: 4px 2px !important;
+    }
 }
 
 @media (max-width: 400px) {
@@ -2538,48 +2711,8 @@ body {
         padding: 18px 16px;
     }
 
-    .card-grid {
-        grid-template-columns: 1fr 70px;
+    .persian-datepicker {
+        width: 200px !important;
+        font-size: 11px !important;
     }
-}
-
-/* main.css (افزودن استایل دکمه لغو کد) */
-/* ============================================================
-   دکمه لغو کد تخفیف
-   ============================================================ */
-.cancel-coupon-btn {
-    margin-right: 10px;
-    background: var(--bg);
-    border: 1px solid transparent;
-    border-radius: 6px;
-    padding: 2px 10px;
-    cursor: pointer;
-    font-size: 11px;
-    font-family: 'Vazirmatn', sans-serif;
-    color: #4b5563;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.cancel-coupon-btn:hover {
-    background: var(--danger);
-    color: white;
-}
-
-/* ============================================================
-   نمایش تخفیف کل دوره‌ها (شامل کد)
-   ============================================================ */
-.text-red {
-    color: var(--red) !important;
-}
-
-#sideDisc,
-#invoiceDiscTotal {
-    font-weight: 700;
-}
-
-#sideDisc span,
-#invoiceDiscTotal span {
-    font-weight: 400;
-    color: var(--text-mute);
 }
