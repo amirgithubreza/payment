@@ -1,4 +1,4 @@
-<!-- v0.1.8 -->
+<!-- v0.1.9 -->
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -341,6 +341,7 @@
       <div class="step-panel" data-step="4">
         <div class="final-invoice-wrapper">
           <div class="final-invoice">
+            <!-- هدر فاکتور با دکمه پرداخت نهایی -->
             <div class="invoice-header">
               <div class="invoice-header-left">
                 <div class="invoice-icon"><i class="fa-solid fa-file-invoice"></i></div>
@@ -349,32 +350,50 @@
                   <span class="invoice-number">#<span id="invoiceNumber">PTZ-1404-0087</span></span>
                 </div>
               </div>
-              <div class="invoice-status">
-                <span class="status-badge success"><i class="fa-solid fa-circle-check"></i> قابل پرداخت</span>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <div class="invoice-status">
+                  <span class="status-badge success"><i class="fa-solid fa-circle-check"></i> قابل پرداخت</span>
+                </div>
+                <button class="os-pay-btn" id="finalPayBtn" style="margin:0; padding:10px 24px; font-size:14px;">
+                  <span id="finalPayLabel">پرداخت نهایی</span>
+                </button>
               </div>
             </div>
 
+            <!-- اطلاعات خریدار و روش پرداخت -->
             <div class="invoice-info-grid">
+              <!-- اطلاعات خریدار -->
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-user"></i> اطلاعات خریدار</div>
-                <div class="invoice-info-body" id="finalUserInfo">
-                  <div><span>نام:</span> <span id="finalFname">—</span></div>
-                  <div><span>نام خانوادگی:</span> <span id="finalLname">—</span></div>
-                  <div><span>موبایل:</span> <span id="finalPhone">—</span></div>
-                  <div><span>ایمیل:</span> <span id="finalEmail">—</span></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px;">
+                  <div class="invoice-info-body" style="flex: 1;">
+                    <div><span>نام:</span> <span id="finalFname">—</span></div>
+                    <div><span>نام خانوادگی:</span> <span id="finalLname">—</span></div>
+                  </div>
+                  <div class="invoice-info-body" style="flex: 1;">
+                    <div><span>موبایل:</span> <span id="finalPhone">—</span></div>
+                    <div><span>ایمیل:</span> <span id="finalEmail">—</span></div>
+                  </div>
                 </div>
               </div>
+
+              <!-- روش پرداخت -->
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-credit-card"></i> روش پرداخت</div>
-                <div class="invoice-info-body" id="finalPaymentInfo">
-                  <div><span>روش:</span> <span id="finalMethod">کارت به کارت</span></div>
-                  <div id="finalReceiptInfo" style="margin-top:4px;"></div>
-                  <img id="finalReceiptImg" src=""
-                    style="max-width:100px; border-radius:6px; margin-top:6px; border:1px solid var(--border); display:none;" />
+                <div style="display: flex; justify-content: space-between; gap: 12px; align-items: flex-start;">
+                  <div class="invoice-info-body" style="flex: 1;">
+                    <div><span>روش:</span> <span id="finalMethod">کارت به کارت</span></div>
+                    <div id="finalReceiptInfo" style="margin-top: 4px;"></div>
+                  </div>
+                  <div style="flex-shrink: 0;">
+                    <img id="finalReceiptImg" src=""
+                      style="max-width:80px; border-radius:6px; border:1px solid var(--border); display:none;" />
+                  </div>
                 </div>
               </div>
             </div>
 
+            <!-- جدول دوره‌ها -->
             <div class="invoice-table-wrap">
               <div class="invoice-table-title">
                 <i class="fa-solid fa-list"></i> جزئیات دوره‌های خریداری‌شده
@@ -392,6 +411,7 @@
               </table>
             </div>
 
+            <!-- خلاصه فاکتور -->
             <div class="invoice-summary">
               <div class="invoice-summary-row">
                 <span>جمع قیمت اصلی دوره‌ها</span>
@@ -416,30 +436,22 @@
               <div class="invoice-summary-words" id="invoiceTotalWords">صفر تومان</div>
             </div>
 
-            <!-- تاریخ و ساعت + دکمه‌های عملیات -->
+            <!-- تاریخ و ساعت + دکمه‌های عملیات (بدون دکمه پرداخت نهایی) -->
             <div
               style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
-              <!-- بخش تاریخ و ساعت -->
               <div
                 style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
                 <i class="fa-regular fa-clock" style="color:var(--purple);"></i>
                 <span style="font-weight:600; font-size:13px;">تاریخ و ساعت پرداخت: <strong id="invoicePaymentDateTime"
                     style="color:var(--purple);">—</strong></span>
               </div>
-              <!-- دکمه‌ها -->
               <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <!-- دکمه جدید: فقط لغو کد تخفیف (بدون برگشت به مرحله قبل) -->
                 <button id="cancelCouponOnlyBtn" class="step-prev-btn"
                   style="margin:0; background:#fef3c7; border-color:#f59e0b; color:#92400e;">
                   <i class="fa-solid fa-ticket"></i> لغو کد تخفیف
                 </button>
-                <!-- دکمه قبلی (برگشت به مرحله قبل) -->
                 <button class="step-prev-btn" data-prev="3" style="margin:0;">
                   <i class="fa-solid fa-chevron-right"></i> قبلی
-                </button>
-                <!-- دکمه پرداخت نهایی -->
-                <button class="os-pay-btn" id="finalPayBtn" style="margin:0; padding:10px 24px; font-size:14px;">
-                  <span id="finalPayLabel">پرداخت نهایی</span>
                 </button>
               </div>
             </div>

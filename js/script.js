@@ -1,4 +1,4 @@
-// v0.1.8
+// v0.1.9
 
 'use strict';
 
@@ -358,7 +358,7 @@ function updateInvoiceFinal() {
         if (date && time && fileInput && fileInput.files && fileInput.files[0]) {
             let html = `
                 <div><span>تاریخ واریز:</span> <span>${date}</span></div>
-                <div><span>ساعت واریز:</span> <span>${time}</span></div>
+                <div><span style="margin-right: 10px;">ساعت واریز:</span> <span>${time}</span></div>
             `;
             if (ref) html += `<div><span>کد پیگیری:</span> <span>${ref}</span></div>`;
             receiptInfo.innerHTML = html;

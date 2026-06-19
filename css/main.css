@@ -1,4 +1,4 @@
-/* v0.1.8 */
+/* v0.1.9 */
 
 
 
@@ -1937,7 +1937,6 @@ body {
 
 .invoice-info-body div {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 2px 0;
 }
@@ -1949,6 +1948,7 @@ body {
 
 .invoice-info-body div span:last-child {
     font-weight: 600;
+    margin-right: 10px;
 }
 
 .invoice-table-wrap {
