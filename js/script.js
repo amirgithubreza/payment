@@ -118,7 +118,10 @@
             searchInput.value = '';
         });
         searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') { const q = searchInput.value.trim(); if (q) window.showToast(`جستجو: "${q}"`, 'info'); }
+            if (e.key === 'Enter') {
+                const q = searchInput.value.trim(); if (q) window.showToast(
+                    `جستجو: "${q}"`, 'info');
+            }
             if (e.key === 'Escape') searchClose.click();
         });
     }
@@ -161,7 +164,10 @@
             if (!file) return;
             const r = new FileReader();
             r.onload = (e) => {
-                if (previewImg) { previewImg.src = e.target.result; previewImg.style.display = 'block'; }
+                if (previewImg) {
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                }
                 if (removeFileBtn) removeFileBtn.style.display = 'inline-block';
                 if (uploadBox) uploadBox.style.display = 'none';
                 const errEl = $('receiptFile-err');
@@ -174,7 +180,10 @@
     if (removeFileBtn) {
         removeFileBtn.addEventListener('click', () => {
             if (receiptFile) receiptFile.value = '';
-            if (previewImg) { previewImg.style.display = 'none'; previewImg.src = ''; }
+            if (previewImg) {
+                previewImg.style.display = 'none';
+                previewImg.src = '';
+            }
             if (removeFileBtn) removeFileBtn.style.display = 'none';
             if (uploadBox) uploadBox.style.display = 'block';
             checkOfflineValidation();
@@ -183,10 +192,30 @@
 
     // ---- CART DATA ----
     let cartItems = [
-        { id: 1, name: 'دوره جامع کنکور ریاضی', duration: '۱۲۰ ساعت', origPrice: 4800000, discount: 30, finalPrice: 3360000, img: 'https://images.pexels.com/photos/5212340/pexels-photo-5212340.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=80&w=120', instructor: 'استاد عباسی‌راد', qty: 1 },
-        { id: 2, name: 'آمار و احتمال کنکور', duration: '۴۰ ساعت', origPrice: 2200000, discount: 20, finalPrice: 1760000, img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=120&h=80&fit=crop', instructor: 'استاد رضایی', qty: 1 },
-        { id: 3, name: 'دوره رایگان مقدماتی', duration: '۱۰ ساعت', origPrice: 1500000, discount: 100, finalPrice: 0, img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=120&h=80&fit=crop', instructor: 'استاد رایگان‌پور', qty: 1 },
-        { id: 4, name: 'دوره بدون تخفیف', duration: '۳۰ ساعت', origPrice: 2500000, discount: 0, finalPrice: 2500000, img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=120&h=80&fit=crop', instructor: 'استاد ثابت‌قیمت', qty: 1 },
+        {
+            id: 1, name: 'دوره جامع کنکور ریاضی', duration: '۱۲۰ ساعت', origPrice: 4800000, discount: 30,
+            finalPrice: 3360000,
+            img: 'https://images.pexels.com/photos/5212340/pexels-photo-5212340.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=80&w=120',
+            instructor: 'استاد عباسی‌راد', qty: 1
+        },
+        {
+            id: 2, name: 'آمار و احتمال کنکور', duration: '۴۰ ساعت', origPrice: 2200000, discount: 20,
+            finalPrice: 1760000,
+            img: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=120&h=80&fit=crop',
+            instructor: 'استاد رضایی', qty: 1
+        },
+        {
+            id: 3, name: 'دوره رایگان مقدماتی', duration: '۱۰ ساعت', origPrice: 1500000, discount: 100,
+            finalPrice: 0,
+            img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=120&h=80&fit=crop',
+            instructor: 'استاد رایگان‌پور', qty: 1
+        },
+        {
+            id: 4, name: 'دوره بدون تخفیف', duration: '۳۰ ساعت', origPrice: 2500000, discount: 0,
+            finalPrice: 2500000,
+            img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=120&h=80&fit=crop',
+            instructor: 'استاد ثابت‌قیمت', qty: 1
+        },
     ];
 
     // ---- RENDER FUNCTIONS ----
@@ -194,37 +223,40 @@
         const tbody = $('cartBody');
         if (!tbody) return;
         if (cartItems.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-mute);">سبد خرید خالی است</td></tr>`;
+            tbody.innerHTML =
+                `<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-mute);">سبد خرید خالی است</td></tr>`;
         } else {
             tbody.innerHTML = cartItems.map((item) => {
                 const isFree = item.finalPrice === 0;
                 const hasDiscount = item.discount > 0 && !isFree;
                 const discountDisplay = hasDiscount ? `${item.discount}%` : '۰%';
+                // قیمت اصلی: اگر تخفیف دارد خط‌خورده، در غیر این صورت عادی
+                const origPriceHtml = hasDiscount ?
+                    `<span class="price-orig-sm">${toman(item.origPrice)} ت</span>` :
+                    `<span style="font-weight:600;font-size:13px;color:var(--text);">${toman(item.origPrice)} ت</span>`;
                 return `
-              <tr>
-                <td>
-                  <div style="display:flex;align-items:center;gap:10px;">
-                    <img src="${item.img}" class="course-img" alt="${item.name}" loading="lazy" />
-                    <div>
-                      <div class="course-name">${item.name}</div>
-                      <div class="course-meta">${item.instructor}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span class="price-orig-sm">${toman(item.origPrice)} ت</span>
-                </td>
-                <td>
-                  <span class="discount-badge ${!hasDiscount ? 'zero' : ''}">${discountDisplay}</span>
-                </td>
-                <td>
-                  ${isFree ? '<span class="price-final-sm free">رایگان</span>' : `<span class="price-final-sm">${toman(item.finalPrice)} ت</span>`}
-                </td>
-                <td>
-                  <button class="remove-item-btn" data-id="${item.id}"><i class="fa-solid fa-trash-can"></i></button>
-                </td>
-              </tr>
-            `;
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:10px;">
+                        <img src="${item.img}" class="course-img" alt="${item.name}" loading="lazy" />
+                        <div>
+                          <div class="course-name">${item.name}</div>
+                          <div class="course-meta">${item.instructor}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>${origPriceHtml}</td>
+                    <td>
+                      <span class="discount-badge ${!hasDiscount ? 'zero' : ''}">${discountDisplay}</span>
+                    </td>
+                    <td>
+                      ${isFree ? '<span class="price-final-sm free">رایگان</span>' : `<span class="price-final-sm">${toman(item.finalPrice)} ت</span>`}
+                    </td>
+                    <td>
+                      <button class="remove-item-btn" data-id="${item.id}"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                  </tr>
+                `;
             }).join('');
         }
         updateAll();
@@ -246,17 +278,18 @@
         const container = $('sidebarItems');
         if (!container) return;
         if (cartItems.length === 0) {
-            container.innerHTML = '<p style="text-align:center;color:var(--text-mute);font-size:12px;padding:8px 0;">سبد خرید خالی است</p>';
+            container.innerHTML =
+                '<p style="text-align:center;color:var(--text-mute);font-size:12px;padding:8px 0;">سبد خرید خالی است</p>';
         } else {
             container.innerHTML = cartItems.map((item) => {
                 const isFree = item.finalPrice === 0;
                 return `
-              <div class="os-item">
-                <img src="${item.img}" class="os-thumb" alt="" loading="lazy" />
-                <span class="os-cname">${item.name}</span>
-                <span class="os-cprice ${isFree ? 'free' : ''}">${isFree ? 'رایگان' : toman(item.finalPrice * item.qty) + ' ت'}</span>
-              </div>
-            `;
+                  <div class="os-item">
+                    <img src="${item.img}" class="os-thumb" alt="" loading="lazy" />
+                    <span class="os-cname">${item.name}</span>
+                    <span class="os-cprice ${isFree ? 'free' : ''}">${isFree ? 'رایگان' : toman(item.finalPrice * item.qty) + ' ت'}</span>
+                  </div>
+                `;
             }).join('');
         }
 
@@ -270,7 +303,8 @@
         const totalDiscAll = totalDisc + disc;
         let discText = `− ${toman(totalDiscAll)} ت`;
         if (S.couponApplied && S.couponAmt) {
-            discText += ` <span style="font-size:10px;color:var(--text-mute);">(شامل تخفیف کد: − ${toman(S.couponAmt)} ت)</span>`;
+            discText +=
+                ` <span style="font-size:10px;color:var(--text-mute);">(شامل تخفیف کد: − ${toman(S.couponAmt)} ت)</span>`;
         }
         $('sideDisc').innerHTML = discText;
 
@@ -312,29 +346,27 @@
         }
         receiptInfo.innerHTML = items.join('');
 
+        // جدول فاکتور نهایی — بدون ستون قیمت اصلی، فقط شرح محصول + قیمت نهایی
         const tbody = $('finalInvoiceItems');
         if (!tbody) return;
         if (cartItems.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;padding:16px;color:var(--text-mute);">سبد خرید خالی است</td></tr>`;
+            tbody.innerHTML =
+                `<tr><td colspan="2" style="text-align:center;padding:16px;color:var(--text-mute);">سبد خرید خالی است</td></tr>`;
         } else {
             tbody.innerHTML = cartItems.map((item) => {
                 const isFree = item.finalPrice === 0;
-                const hasDiscount = item.discount > 0 && !isFree;
                 const courseDisplay = item.name + (item.instructor ? ` — ${item.instructor}` : '');
                 const qtyDisplay = item.qty > 1 ? ` ×${item.qty}` : '';
                 return `
-              <tr>
-                <td style="text-align:right;font-weight:700;font-size:13px;">
-                  ${courseDisplay}${qtyDisplay}
-                </td>
-                <td>
-                  ${hasDiscount || isFree ? `<span class="inv-price-orig">${toman(item.origPrice)} ت</span>` : `<span>${toman(item.origPrice)} ت</span>`}
-                </td>
-                <td>
-                  <span class="inv-price-final ${isFree ? 'free' : ''}">${isFree ? 'رایگان' : toman(item.finalPrice * item.qty) + ' ت'}</span>
-                </td>
-              </tr>
-            `;
+                    <tr>
+                      <td style="text-align:right;font-weight:700;font-size:13px;padding:12px 16px;">
+                        ${courseDisplay}${qtyDisplay}
+                      </td>
+                      <td style="text-align:center;font-weight:900;font-size:14px;color:var(--purple);">
+                        ${isFree ? 'رایگان' : toman(item.finalPrice * item.qty) + ' ت'}
+                      </td>
+                    </tr>
+                  `;
             }).join('');
         }
 
@@ -348,7 +380,8 @@
         const totalDiscAll = totalDisc + disc;
         let discText = `− ${toman(totalDiscAll)} ت`;
         if (S.couponApplied && S.couponAmt) {
-            discText += ` <span style="font-size:11px;color:var(--text-mute);">(شامل تخفیف کد: − ${toman(S.couponAmt)} ت)</span>`;
+            discText +=
+                ` <span style="font-size:11px;color:var(--text-mute);">(شامل تخفیف کد: − ${toman(S.couponAmt)} ت)</span>`;
         }
         $('invoiceDiscTotal').innerHTML = discText;
         $('invoiceFinalTotal').textContent = toman(finalPay);
@@ -413,12 +446,15 @@
                 S.couponApplied = true;
                 if (couponOk) {
                     couponOk.innerHTML = `
-                <i class="fa-solid fa-circle-check"></i> کد <strong>${code}</strong> اعمال شد — <strong>${toman(S.couponAmt)}</strong> تومان تخفیف گرفتید!
-                <button class="cancel-coupon-btn" onclick="cancelCoupon()">لغو کد</button>
-              `;
+                    <i class="fa-solid fa-circle-check"></i> کد <strong>${code}</strong> اعمال شد — <strong>${toman(S.couponAmt)}</strong> تومان تخفیف گرفتید!
+                    <button class="cancel-coupon-btn" onclick="cancelCoupon()">لغو کد</button>
+                  `;
                     couponOk.classList.add('show');
                 }
-                if (couponInput) { couponInput.disabled = true; couponInput.style.opacity = '0.55'; }
+                if (couponInput) {
+                    couponInput.disabled = true;
+                    couponInput.style.opacity = '0.55';
+                }
                 if (couponBtnTxt) couponBtnTxt.innerHTML = 'اعمال شد';
                 if (couponBtn) couponBtn.style.cursor = 'default';
                 updateAll();
@@ -436,10 +472,20 @@
     window.cancelCoupon = function (showToastMsg = true) {
         S.couponApplied = false;
         S.couponAmt = 512000;
-        if (couponInput) { couponInput.disabled = false; couponInput.style.opacity = '1'; couponInput.value = ''; }
+        if (couponInput) {
+            couponInput.disabled = false;
+            couponInput.style.opacity = '1';
+            couponInput.value = '';
+        }
         if (couponBtnTxt) couponBtnTxt.innerHTML = '<i class="fa-solid fa-check-circle"></i> اعمال';
-        if (couponBtn) { couponBtn.disabled = false; couponBtn.style.cursor = 'pointer'; }
-        if (couponOk) { couponOk.classList.remove('show'); couponOk.innerHTML = ''; }
+        if (couponBtn) {
+            couponBtn.disabled = false;
+            couponBtn.style.cursor = 'pointer';
+        }
+        if (couponOk) {
+            couponOk.classList.remove('show');
+            couponOk.innerHTML = '';
+        }
         updateAll();
     };
 
@@ -544,26 +590,19 @@
         const errId = id + '-err';
         el.addEventListener('input', function () { validateOfflineField(this, errId); });
         el.addEventListener('blur', function () { validateOfflineField(this, errId); });
-        // پشتیبانی از فلش‌های بالا/پایین
         el.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                 e.preventDefault();
                 let val = this.value.trim();
                 if (!val) val = '00:00';
-                // فقط برای ساعت (offTime) کار می‌کند
                 if (this.id === 'offTime') {
                     let parts = val.split(':');
                     let h = parseInt(parts[0]) || 0;
                     let m = parseInt(parts[1]) || 0;
-                    if (e.key === 'ArrowUp') {
-                        h = (h + 1) % 24;
-                    } else {
-                        h = (h - 1 + 24) % 24;
-                    }
+                    if (e.key === 'ArrowUp') { h = (h + 1) % 24; } else { h = (h - 1 + 24) % 24; }
                     this.value = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
                     validateOfflineField(this, errId);
                 }
-                // برای تاریخ (offDate) فلش‌ها روز را تغییر دهند
                 if (this.id === 'offDate') {
                     let pd = new persianDate();
                     if (val) {
@@ -574,11 +613,7 @@
                             pd.date(parseInt(parts2[2]));
                         }
                     }
-                    if (e.key === 'ArrowUp') {
-                        pd.addDay(1);
-                    } else {
-                        pd.addDay(-1);
-                    }
+                    if (e.key === 'ArrowUp') { pd.addDay(1); } else { pd.addDay(-1); }
                     this.value = pd.format('YYYY/MM/DD');
                     validateOfflineField(this, errId);
                 }
@@ -678,7 +713,8 @@
                 if (next === 4 && S.method === 'offline') {
                     const isValid = validateOfflineFields();
                     if (!isValid) {
-                        window.showToast('لطفاً تمام فیلدهای واریز را تکمیل کنید و فیش را بارگذاری نمایید.', 'error');
+                        window.showToast('لطفاً تمام فیلدهای واریز را تکمیل کنید و فیش را بارگذاری نمایید.',
+                            'error');
                         return;
                     }
                 }
@@ -740,7 +776,7 @@
         window.showToast('پرداخت شما با موفقیت انجام شد!', 'success');
     });
 
-    // ---- PERSIAN DATEPICKER (با قابلیت ورود دستی و فلش) ----
+    // ---- PERSIAN DATEPICKER ----
     (function initDatepickers() {
         const offDateInput = document.getElementById('offDate');
         const offTimeInput = document.getElementById('offTime');

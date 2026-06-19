@@ -10,14 +10,13 @@
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" />
   <link rel="stylesheet" href="./css/main.css">
-
 </head>
 
 <body>
 
   <!-- HEADER -->
   <header>
-    <nav class=" navbar">
+    <nav class="navbar">
       <ul class="nav-menu">
         <li><a href="#" class="active" onclick="showToast('صفحه اصلی', 'info'); return false;">صفحه اصلی</a>
         </li>
@@ -319,11 +318,11 @@
         </div>
       </div>
 
-      <!-- STEP 4: تأیید نهایی -->
+      <!-- STEP 4: تأیید نهایی (با تغییرات درخواستی) -->
       <div class="step-panel" data-step="4">
         <div class="final-invoice-wrapper">
           <div class="final-invoice">
-            <!-- هدر ساده فقط "جزئیات خرید شما" چسبیده به راست -->
+            <!-- هدر -->
             <div class="invoice-final-header">
               <div class="invoice-final-header-content">
                 <div class="invoice-icon"><i class="fa-solid fa-file-invoice"></i></div>
@@ -334,6 +333,7 @@
               </div>
             </div>
 
+            <!-- اطلاعات خریدار و روش پرداخت -->
             <div class="invoice-info-grid">
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-user"></i> اطلاعات خریدار</div>
@@ -356,22 +356,20 @@
               </div>
             </div>
 
+            <!-- جدول فاکتور نهایی — بدون هدر و با عنوان بالا -->
             <div class="invoice-table-wrap">
+              <div class="invoice-table-title">
+                <i class="fa-solid fa-list-ul"></i> جزئیات محصولات خریداری‌شده
+              </div>
               <table class="invoice-items-table">
-                <thead>
-                  <tr>
-                    <th style="width:40%;">جزئیات دوره‌های خریداری‌شده</th>
-                    <th style="width:30%;">قیمت اصلی</th>
-                    <th style="width:30%;">قیمت نهایی</th>
-                  </tr>
-                </thead>
                 <tbody id="finalInvoiceItems"></tbody>
               </table>
             </div>
 
+            <!-- جمع‌بندی -->
             <div class="invoice-summary">
-              <div class="invoice-summary-row"><span>جمع قیمت اصلی دوره‌ها</span><span id="invoiceOrigTotal">۰ ت</span>
-              </div>
+              <div class="invoice-summary-row" id="invoiceOrigTotalRow"><span>جمع قیمت اصلی
+                  دوره‌ها</span><span id="invoiceOrigTotal">۰ ت</span></div>
               <div class="invoice-summary-row" id="invoiceCouponRow" style="display:none;"><span><i
                     class="fa-solid fa-ticket"></i> تخفیف کد</span><span class="text-red"
                   id="invoiceCouponDisc">—</span></div>
@@ -413,7 +411,6 @@
 
               <div class="invoice-final-pay-row">
                 <button class="os-pay-btn invoice-final-pay-btn" id="finalPayBtn">
-                  <i class="fa-solid fa-lock"></i>
                   <span id="finalPayLabel">پرداخت نهایی و تکمیل سفارش</span>
                 </button>
               </div>
@@ -523,11 +520,13 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js">
+  </script>
   <script src="./js/script.js"></script>
-
 
 </body>
 
