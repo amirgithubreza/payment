@@ -7,8 +7,10 @@
   <title>پرداخت | آموزشگاه پیشتاز</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="./css/main.css">
 
 </head>
@@ -65,7 +67,7 @@
     <div class="checkout-wrap" id="checkoutWrap">
       <main class="checkout-main" id="checkoutMain">
 
-        <!-- STEP HEADER با انیمیشن -->
+        <!-- STEP HEADER -->
         <div class="step-header" id="stepHeader">
           <div class="step-header-inner">
             <div class="cstep active" data-step="1">
@@ -84,14 +86,10 @@
               <div class="cstep-circle"><i class="fa-solid fa-circle-check"></i></div>
               <div class="cstep-label">تأیید نهایی</div>
             </div>
-            <!-- Progress bar -->
-            <div class="step-progress-bar">
-              <div class="step-progress-fill" id="stepProgressFill" style="width:12.5%;"></div>
-            </div>
           </div>
         </div>
 
-        <!-- STEP 1: اطلاعات کاربر -->
+        <!-- STEP 1 -->
         <div class="step-panel active" data-step="1">
           <div class="sec-card">
             <div class="sec-head">
@@ -146,7 +144,7 @@
           </div>
         </div>
 
-        <!-- STEP 2: سبد خرید -->
+        <!-- STEP 2 -->
         <div class="step-panel" data-step="2">
           <div class="sec-card">
             <div class="sec-head">
@@ -164,23 +162,6 @@
               </div>
             </div>
             <div class="sec-body">
-              <!-- کد تخفیف — ساده و جمع‌وجور -->
-              <div class="invoice-coupon">
-                <div class="coupon-label">
-                  <i class="fa-solid fa-ticket"></i>
-                  کد تخفیف دارید؟
-                </div>
-                <div class="coupon-row">
-                  <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
-                    autocomplete="off" maxlength="20" />
-                  <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
-                        class="fa-solid fa-check-circle"></i> اعمال</span></button>
-                </div>
-                <div class="coupon-fb ok" id="couponOk"></div>
-                <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
-                  معتبر نیست.</div>
-              </div>
-
               <div class="table-contain">
                 <table class="inv-table" id="cartTable">
                   <thead>
@@ -207,6 +188,23 @@
                 </div>
                 <button class="add-sample-btn" id="addSampleBtn"><i class="fa-solid fa-plus"></i> افزودن
                   نمونه</button>
+              </div>
+
+              <!-- کد تخفیف -->
+              <div class="invoice-coupon">
+                <div class="coupon-label">
+                  <i class="fa-solid fa-ticket"></i>
+                  کد تخفیف دارید؟
+                </div>
+                <div class="coupon-row">
+                  <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
+                    autocomplete="off" maxlength="20" />
+                  <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
+                        class="fa-solid fa-check-circle"></i> اعمال</span></button>
+                </div>
+                <div class="coupon-fb ok" id="couponOk"></div>
+                <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
+                  معتبر نیست.</div>
               </div>
             </div>
           </div>
@@ -292,9 +290,10 @@
                     <label class="form-label" style="font-size:12px;"><i class="fa-regular fa-calendar"></i> تاریخ واریز
                       <span class="req">*</span></label>
                     <div class="date-picker-wrapper">
-                      <input type="text" class="form-input masked-input" id="offDate" placeholder="YYYY/MM/DD"
-                        autocomplete="off" maxlength="10" />
-                      <i class="fa-regular fa-calendar-alt date-picker-icon"></i>
+                      <input type="text" class="form-input" id="offDate" placeholder="YYYY/MM/DD" autocomplete="off"
+                        maxlength="10" />
+                      <button type="button" class="date-picker-icon" id="offDateIconBtn" aria-label="باز کردن تقویم"><i
+                          class="fa-regular fa-calendar-alt"></i></button>
                     </div>
                     <span class="field-err" id="offDate-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً
                       تاریخ واریز را
@@ -304,9 +303,11 @@
                     <label class="form-label" style="font-size:12px;"><i class="fa-regular fa-clock"></i> ساعت واریز
                       <span class="req">*</span></label>
                     <div class="time-picker-wrapper">
-                      <input type="text" class="form-input masked-input time-picker" id="offTime" placeholder="HH:MM"
-                        autocomplete="off" maxlength="5" />
-                      <i class="fa-regular fa-clock time-picker-icon"></i>
+                      <input type="text" class="form-input" id="offTime" placeholder="HH:MM" autocomplete="off"
+                        maxlength="5" />
+                      <button type="button" class="time-picker-icon" id="offTimeIconBtn" aria-label="باز کردن ساعت">
+                        <i class="fa-regular fa-clock"></i>
+                      </button>
                     </div>
                     <span class="field-err" id="offTime-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً ساعت
                       واریز را انتخاب
@@ -339,7 +340,7 @@
           </div>
         </div>
 
-        <!-- STEP 4: تأیید نهایی -->
+        <!-- STEP 4 -->
         <div class="step-panel" data-step="4">
           <div class="final-invoice-wrapper">
             <div class="final-invoice">
@@ -545,14 +546,7 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- ===== SCRIPTS ===== -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js">
-  </script>
   <script src="./js/script.js"></script>
-
 
 </body>
 

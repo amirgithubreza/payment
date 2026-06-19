@@ -3,7 +3,6 @@
 
     const $ = (id) => document.getElementById(id);
     const $$ = (s) => document.querySelectorAll(s);
-    const jq = window.jQuery;
 
     // ---- STATE ----
     const S = {
@@ -74,8 +73,8 @@
         const h = String(now.getHours()).padStart(2, '0');
         const mi = String(now.getMinutes()).padStart(2, '0');
         return {
-            date: y + '/' + mo + '/' + d, time: h + ':' + mi, full: y + '/' + mo + '/' + d + ' - ' + h + ':' +
-                mi
+            date: y + '/' + mo + '/' + d, time: h + ':' + mi, full: y + '/' + mo + '/' + d + ' - ' + h +
+                ':' + mi
         };
     }
 
@@ -263,7 +262,8 @@
                 } else if (hasDiscount) {
                     origPriceHtml = '<span class="price-orig-sm">' + toman(item.origPrice) + ' ت</span>';
                 } else {
-                    origPriceHtml = '<span style="font-weight:600;font-size:13px;color:var(--text);font-family:var(--font-primary);">' +
+                    origPriceHtml =
+                        '<span style="font-weight:600;font-size:13px;color:var(--text);font-family:var(--font-primary);">' +
                         toman(item.origPrice) + ' ت</span>';
                 }
                 var finalPriceHtml = isFree ?
@@ -293,7 +293,6 @@
         updateInvoiceFinal();
         updateSidebarScroll();
         updateFinalInvoiceScroll();
-        updateStepProgress();
     }
 
     function updateCartTotal() {
@@ -330,8 +329,9 @@
         var totalDiscAll = totalDisc + disc;
         var discText = '− ' + toman(totalDiscAll) + ' ت';
         if (S.couponApplied && S.couponAmt) {
-            discText += ' <span style="font-size:10px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' + toman(S
-                .couponAmt) + ' ت)</span>';
+            discText +=
+                ' <span style="font-size:10px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +
+                toman(S.couponAmt) + ' ت)</span>';
         }
         $('sideDisc').innerHTML = discText;
 
@@ -357,8 +357,6 @@
     function updateFinalInvoiceScroll() {
         var scrollContainer = $('finalInvoiceScroll');
         if (!scrollContainer) return;
-        var itemCount = cartItems.length;
-        // محاسبه تعداد آیتم‌های واقعی در تی‌بادی
         var rows = scrollContainer.querySelectorAll('tbody tr');
         var count = rows.length;
         if (count > 15) {
@@ -431,8 +429,9 @@
         var totalDiscAll = totalDisc + disc;
         var discText = '− ' + toman(totalDiscAll) + ' ت';
         if (S.couponApplied && S.couponAmt) {
-            discText += ' <span style="font-size:11px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' + toman(S
-                .couponAmt) + ' ت)</span>';
+            discText +=
+                ' <span style="font-size:11px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +
+                toman(S.couponAmt) + ' ت)</span>';
         }
         $('invoiceDiscTotal').innerHTML = discText;
         $('invoiceFinalTotal').textContent = toman(finalPay);
@@ -441,21 +440,7 @@
         var couponRow = $('invoiceCouponRow');
         if (couponRow) couponRow.style.display = 'none';
 
-        // بروزرسانی اسکرول فاکتور نهایی
         updateFinalInvoiceScroll();
-    }
-
-    // ---- STEP PROGRESS ANIMATION ----
-    function updateStepProgress() {
-        var activeStep = document.querySelector('.cstep.active');
-        if (!activeStep) return;
-        var step = parseInt(activeStep.dataset.step);
-        var fill = $('stepProgressFill');
-        if (!fill) return;
-        // 4 steps: step1=12.5%, step2=37.5%, step3=62.5%, step4=87.5%
-        var progressMap = { 1: 12.5, 2: 37.5, 3: 62.5, 4: 87.5 };
-        var width = progressMap[step] || 12.5;
-        fill.style.width = width + '%';
     }
 
     // ---- CART EVENTS ----
@@ -653,26 +638,157 @@
         });
     }
 
-    // ---- OFFLINE VALIDATION ----
+    // ============================================================
+    //  HELPERS FOR PERSIAN DIGITS & AUTO-CORRECT
+    // ============================================================
+    function faToEnNumber(str) {
+        var map = {
+            '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8',
+            '۹': '9'
+        };
+        return str.replace(/[۰-۹]/g, function (m) { return map[m] || m; });
+    }
+
+    function enToFaNumber(str) {
+        var map = {
+            '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸',
+            '9': '۹'
+        };
+        return str.replace(/[0-9]/g, function (m) { return map[m] || m; });
+    }
+
+    // ---- AUTO-CORRECT: TIME ----
+    function autoCorrectTime(str) {
+        var trimmed = str.trim();
+        if (!trimmed) return '';
+        var en = faToEnNumber(trimmed);
+        var parts = en.split(':');
+        if (parts.length !== 2) return '';
+        var h = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        if (isNaN(h) || isNaN(m)) return '';
+        h = Math.min(Math.max(h, 0), 23);
+        m = Math.min(Math.max(m, 0), 59);
+        var result = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+        return enToFaNumber(result);
+    }
+
+    // ---- AUTO-CORRECT: DATE ----
+    function autoCorrectDate(str) {
+        var trimmed = str.trim();
+        if (!trimmed) return '';
+        var en = faToEnNumber(trimmed);
+        var parts = en.split('/');
+        if (parts.length !== 3) return '';
+        var y = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        var d = parseInt(parts[2], 10);
+        if (isNaN(y) || isNaN(m) || isNaN(d)) return '';
+        if (y < 1000 || y > 9999) y = 1400;
+        m = Math.min(Math.max(m, 1), 12);
+        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var isLeap = (y % 400 === 0) || (y % 4 === 0 && y % 100 !== 0);
+        if (m === 2 && isLeap) daysInMonth[1] = 29;
+        d = Math.min(Math.max(d, 1), daysInMonth[m - 1]);
+        var result = String(y) + '/' + String(m).padStart(2, '0') + '/' + String(d).padStart(2, '0');
+        return enToFaNumber(result);
+    }
+
+    // ---- VALIDATION: TIME ----
+    function isValidTime(str) {
+        var trimmed = str.trim();
+        if (!trimmed) return false;
+        var en = faToEnNumber(trimmed);
+        var parts = en.split(':');
+        if (parts.length !== 2) return false;
+        var h = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        if (isNaN(h) || isNaN(m)) return false;
+        return h >= 0 && h <= 23 && m >= 0 && m <= 59;
+    }
+
+    // ---- VALIDATION: DATE ----
+    function isValidDate(str) {
+        var trimmed = str.trim();
+        if (!trimmed) return false;
+        var en = faToEnNumber(trimmed);
+        var parts = en.split('/');
+        if (parts.length !== 3) return false;
+        var y = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        var d = parseInt(parts[2], 10);
+        if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
+        if (y < 1000 || y > 9999) return false;
+        if (m < 1 || m > 12) return false;
+        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var isLeap = (y % 400 === 0) || (y % 4 === 0 && y % 100 !== 0);
+        if (m === 2 && isLeap) daysInMonth[1] = 29;
+        if (d < 1 || d > daysInMonth[m - 1]) return false;
+        return true;
+    }
+
+    // ---- OFFLINE VALIDATION (with auto-correct) ----
     var OFFLINE_REQUIRED = ['offDate', 'offTime'];
 
     function validateOfflineField(el, errId) {
         if (!el) return true;
         var val = el.value;
-        var isValid = val.trim().length > 0;
+        var isValid = false;
+        var errMsg = '';
+        var corrected = '';
+
+        if (el.id === 'offDate') {
+            corrected = autoCorrectDate(val);
+            isValid = isValidDate(corrected);
+            if (!isValid && val.trim().length > 0) {
+                errMsg = 'تاریخ واردشده معتبر نیست (فرمت: YYYY/MM/DD)';
+            } else if (!isValid) {
+                errMsg = 'لطفاً تاریخ واریز را انتخاب یا وارد کنید (YYYY/MM/DD)';
+            }
+            if (isValid && corrected !== val && corrected.length > 0) {
+                el.value = corrected;
+            }
+        } else if (el.id === 'offTime') {
+            corrected = autoCorrectTime(val);
+            isValid = isValidTime(corrected);
+            if (!isValid && val.trim().length > 0) {
+                errMsg = 'ساعت واردشده معتبر نیست (فرمت: HH:MM ، 00-23 ساعت و 00-59 دقیقه)';
+            } else if (!isValid) {
+                errMsg = 'لطفاً ساعت واریز را انتخاب یا وارد کنید (HH:MM)';
+            }
+            if (isValid && corrected !== val && corrected.length > 0) {
+                el.value = corrected;
+            }
+        } else {
+            isValid = val.trim().length > 0;
+        }
+
         if (val.trim().length > 0) {
             el.classList.toggle('invalid', !isValid);
             el.classList.toggle('valid', isValid);
             var e = $(errId);
-            if (e) e.classList.toggle('show', !isValid);
+            if (e) {
+                if (!isValid) {
+                    e.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> ' + errMsg;
+                    e.classList.add('show');
+                } else {
+                    e.classList.remove('show');
+                }
+            }
         } else {
             el.classList.remove('invalid', 'valid');
             var e2 = $(errId);
-            if (e2) e2.classList.remove('show');
+            if (e2) {
+                e2.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> ' + (el.id === 'offDate' ?
+                    'لطفاً تاریخ واریز را انتخاب یا وارد کنید (YYYY/MM/DD)' :
+                    'لطفاً ساعت واریز را انتخاب یا وارد کنید (HH:MM)');
+                e2.classList.remove('show');
+            }
         }
         return isValid;
     }
 
+    // ---- bind validation ----
     OFFLINE_REQUIRED.forEach(function (id) {
         var el = $(id);
         if (!el) return;
@@ -717,14 +833,14 @@
         });
     }
 
-    // ---- INPUT MASK: تاریخ و ساعت ----
+    // ---- INPUT MASK with auto-correct ----
     (function initMasks() {
         var offDate = $('offDate');
         var offTime = $('offTime');
 
         if (offDate) {
             offDate.addEventListener('input', function () {
-                var raw = this.value.replace(/\D/g, '');
+                var raw = this.value.replace(/[^0-9۰-۹]/g, '');
                 var parts = [];
                 if (raw.length >= 4) {
                     parts.push(raw.substring(0, 4));
@@ -750,7 +866,7 @@
             offDate.addEventListener('blur', function () {
                 var val = this.value.trim();
                 if (val.length > 0 && val.length < 10) {
-                    var raw = val.replace(/\D/g, '');
+                    var raw = val.replace(/[^0-9۰-۹]/g, '');
                     var parts = [];
                     if (raw.length >= 4) {
                         parts.push(raw.substring(0, 4));
@@ -777,7 +893,7 @@
 
         if (offTime) {
             offTime.addEventListener('input', function () {
-                var raw = this.value.replace(/\D/g, '');
+                var raw = this.value.replace(/[^0-9۰-۹]/g, '');
                 var parts = [];
                 if (raw.length >= 2) {
                     parts.push(raw.substring(0, 2));
@@ -798,7 +914,7 @@
             offTime.addEventListener('blur', function () {
                 var val = this.value.trim();
                 if (val.length > 0 && val.length < 5) {
-                    var raw = val.replace(/\D/g, '');
+                    var raw = val.replace(/[^0-9۰-۹]/g, '');
                     var parts = [];
                     if (raw.length >= 2) {
                         parts.push(raw.substring(0, 2));
@@ -819,6 +935,243 @@
         }
     })();
 
+    // ============================================================
+    //  TIME PICKER CUSTOM — با دو Dropdown و دکمه تأیید
+    // ============================================================
+    (function initCustomTimePicker() {
+        var offTime = $('offTime');
+        if (!offTime) return;
+
+        var wrapper = offTime.closest('.time-picker-wrapper');
+        if (!wrapper) return;
+
+        // حذف هرگونه container قبلی
+        var oldContainer = wrapper.querySelector('.time-custom-container');
+        if (oldContainer) oldContainer.remove();
+
+        // ایجاد container جدید
+        var container = document.createElement('div');
+        container.className = 'time-custom-container';
+        wrapper.appendChild(container);
+
+        // ساختار داخلی
+        var quickRow = document.createElement('div');
+        quickRow.className = 'time-custom-quick';
+        container.appendChild(quickRow);
+        ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'].forEach(function (t) {
+            var chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'time-custom-chip';
+            chip.textContent = enToFaNumber(t);
+            chip.dataset.time = t;
+            quickRow.appendChild(chip);
+        });
+
+        var row = document.createElement('div');
+        row.className = 'time-custom-row';
+        container.appendChild(row);
+
+        // بخش dropdownها (سمت چپ)
+        var dropdowns = document.createElement('div');
+        dropdowns.className = 'time-custom-dropdowns';
+        row.appendChild(dropdowns);
+
+        // Dropdown ساعت
+        var hourWrap = document.createElement('div');
+        hourWrap.className = 'time-custom-dropdown';
+        var hourSelect = document.createElement('select');
+        hourSelect.id = 'customHourSelect';
+        for (var h = 0; h < 24; h++) {
+            var opt = document.createElement('option');
+            var hStr = String(h).padStart(2, '0');
+            opt.value = hStr;
+            opt.textContent = enToFaNumber(hStr);
+            if (h === 0) opt.selected = true;
+            hourSelect.appendChild(opt);
+        }
+        hourWrap.appendChild(hourSelect);
+        var hourLabel = document.createElement('div');
+        hourLabel.className = 'time-custom-label';
+        hourLabel.textContent = 'ساعت';
+        hourWrap.appendChild(hourLabel);
+        dropdowns.appendChild(hourWrap);
+
+        // Dropdown دقیقه
+        var minWrap = document.createElement('div');
+        minWrap.className = 'time-custom-dropdown';
+        var minSelect = document.createElement('select');
+        minSelect.id = 'customMinSelect';
+        for (var m = 0; m < 60; m++) {
+            var opt2 = document.createElement('option');
+            var mStr = String(m).padStart(2, '0');
+            opt2.value = mStr;
+            opt2.textContent = enToFaNumber(mStr);
+            if (m === 0) opt2.selected = true;
+            minSelect.appendChild(opt2);
+        }
+        minWrap.appendChild(minSelect);
+        var minLabel = document.createElement('div');
+        minLabel.className = 'time-custom-label';
+        minLabel.textContent = 'دقیقه';
+        minWrap.appendChild(minLabel);
+        dropdowns.appendChild(minWrap);
+
+        // دکمه «اکنون» (تنظیم سریع ساعت فعلی)
+        var nowBtn = document.createElement('button');
+        nowBtn.type = 'button';
+        nowBtn.className = 'time-custom-now-btn';
+        nowBtn.innerHTML = '<i class="fa-regular fa-clock"></i> اکنون';
+        row.appendChild(nowBtn);
+
+        // دکمه تأیید (سمت راست)
+        var confirmBtn = document.createElement('button');
+        confirmBtn.className = 'time-custom-confirm-btn';
+        confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> تایید';
+        row.appendChild(confirmBtn);
+
+        quickRow.querySelectorAll('.time-custom-chip').forEach(function (chip) {
+            chip.addEventListener('click', function (e) {
+                e.preventDefault();
+                var parts = chip.dataset.time.split(':');
+                hourSelect.value = parts[0];
+                minSelect.value = parts[1];
+                updateInputFromSelects();
+                quickRow.querySelectorAll('.time-custom-chip').forEach(function (c) { c.classList.remove('active'); });
+                chip.classList.add('active');
+            });
+        });
+
+        nowBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var now = new Date();
+            hourSelect.value = String(now.getHours()).padStart(2, '0');
+            minSelect.value = String(now.getMinutes()).padStart(2, '0');
+            updateInputFromSelects();
+        });
+
+        // ---- LOGIC ----
+        function updateInputFromSelects() {
+            var hVal = hourSelect.value;
+            var mVal = minSelect.value;
+            var newVal = enToFaNumber(hVal + ':' + mVal);
+            offTime.value = newVal;
+            validateOfflineField(offTime, 'offTime-err');
+            // به‌روزرسانی Invoice اگر در مرحله ۴ هستیم
+            if (document.querySelector('.step-panel[data-step="4"].active')) {
+                updateInvoiceFinal();
+            }
+        }
+
+        // وقتی dropdownها تغییر می‌کنند
+        hourSelect.addEventListener('change', updateInputFromSelects);
+        minSelect.addEventListener('change', updateInputFromSelects);
+
+        // دکمه تأیید
+        confirmBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            updateInputFromSelects();
+            // بستن dropdown
+            container.classList.remove('open');
+            offTime.blur();
+            // نمایش پیام
+            var val = offTime.value.trim();
+            if (val && isValidTime(val)) {
+                window.showToast('ساعت ' + val + ' ثبت شد', 'success');
+            }
+        });
+
+        // باز و بسته کردن container
+        offTime.addEventListener('focus', function () {
+            // تنظیم مقدار selectها بر اساس مقدار فعلی
+            var current = offTime.value.trim();
+            if (current) {
+                var en = faToEnNumber(current);
+                var parts = en.split(':');
+                if (parts.length === 2) {
+                    var h = parts[0];
+                    var m = parts[1];
+                    if (h >= '00' && h <= '23') hourSelect.value = h;
+                    if (m >= '00' && m <= '59') minSelect.value = m;
+                }
+            }
+            container.classList.add('open');
+        });
+
+        var timeIcon = wrapper.querySelector('.time-picker-icon');
+        if (timeIcon) {
+            timeIcon.addEventListener('mousedown', function (e) { e.preventDefault(); });
+            timeIcon.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (container.classList.contains('open')) {
+                    container.classList.remove('open');
+                } else {
+                    container.classList.add('open');
+                }
+                offTime.focus();
+            });
+        }
+
+        // بستن فقط وقتی فوکوس واقعاً از کل wrapper خارج شده باشد
+        // (preventDefault روی mousedown حذف شد چون باز شدن select های مرورگر را مسدود می‌کرد)
+        wrapper.addEventListener('focusout', function (e) {
+            setTimeout(function () {
+                var active = document.activeElement;
+                if (!wrapper.contains(active)) {
+                    container.classList.remove('open');
+                }
+            }, 0);
+        });
+
+        // کلیک داخل container نباید به document بریزد و باعث بسته‌شدن توسط تقویم شود
+        container.addEventListener('mousedown', function (e) {
+            e.stopPropagation();
+        });
+        container.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // بستن با کلیک خارج (شامل کلیک روی تقویم تاریخ یا هر جای دیگه صفحه)
+        document.addEventListener('mousedown', function (e) {
+            if (!wrapper.contains(e.target)) {
+                container.classList.remove('open');
+            }
+        });
+
+        // Esc برای بستن
+        offTime.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                container.classList.remove('open');
+                offTime.blur();
+            }
+        });
+
+        // همگام‌سازی اولیه
+        setTimeout(function () {
+            var current = offTime.value.trim();
+            if (current) {
+                var en = faToEnNumber(current);
+                var parts = en.split(':');
+                if (parts.length === 2) {
+                    var h = parts[0];
+                    var m = parts[1];
+                    if (h >= '00' && h <= '23') hourSelect.value = h;
+                    if (m >= '00' && m <= '59') minSelect.value = m;
+                }
+            }
+        }, 50);
+
+        // ذخیره مراجع برای استفاده
+        window.__customTimePicker = {
+            container: container,
+            hourSelect: hourSelect,
+            minSelect: minSelect,
+            confirmBtn: confirmBtn,
+            updateInputFromSelects: updateInputFromSelects
+        };
+    })();
+
     // ---- STEP MANAGER ----
     window.goToStep = function (step) {
         if (step < 1 || step > 4) return;
@@ -835,7 +1188,8 @@
             if (S.method === 'offline') {
                 var isValid = validateOfflineFields();
                 if (!isValid) {
-                    window.showToast('لطفاً تمام فیلدهای اجباری (تاریخ، ساعت، فیش) را تکمیل کنید.', 'error');
+                    window.showToast('لطفاً تمام فیلدهای اجباری (تاریخ، ساعت، فیش) را به‌درستی تکمیل کنید.',
+                        'error');
                     return;
                 }
             }
@@ -864,9 +1218,6 @@
             else if (s < step) el.classList.add('done');
         });
 
-        // بروزرسانی progress bar
-        updateStepProgress();
-
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (step === 4) updateInvoiceFinal();
     };
@@ -879,7 +1230,8 @@
                 if (next === 4 && S.method === 'offline') {
                     var isValid = validateOfflineFields();
                     if (!isValid) {
-                        window.showToast('لطفاً تمام فیلدهای واریز را تکمیل کنید و فیش را بارگذاری نمایید.',
+                        window.showToast(
+                            'لطفاً تمام فیلدهای واریز را به‌درستی تکمیل کنید و فیش را بارگذاری نمایید.',
                             'error');
                         return;
                     }
@@ -946,71 +1298,320 @@
         });
     }
 
-    // ---- PERSIAN DATEPICKER ----
-    (function initDatepickers() {
+    // ============================================================
+    //  CUSTOM JALALI CALENDAR — بدون نیاز به کتابخانه خارجی
+    // ============================================================
+    (function initCustomDatePicker() {
         var offDateInput = document.getElementById('offDate');
-        var offTimeInput = document.getElementById('offTime');
+        if (!offDateInput) return;
 
-        if (typeof jq === 'undefined' || !jq.fn || !jq.fn.pDatepicker) {
-            console.warn('persian-datepicker not loaded.');
-            return;
+        var wrapper = offDateInput.closest('.date-picker-wrapper');
+        if (!wrapper) return;
+
+        // ---- ریاضیات تقویم جلالی (الگوریتم استاندارد، بدون وابستگی) ----
+        function div(a, b) { return ~~(a / b); }
+        function mod(a, b) { return a - ~~(a / b) * b; }
+
+        function jalCal(jy) {
+            var breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
+            var bl = breaks.length, gy = jy + 621, leapJ = -14, jp = breaks[0], jm, jump = 0, n, i;
+            for (i = 1; i < bl; i += 1) {
+                jm = breaks[i];
+                jump = jm - jp;
+                if (jy < jm) break;
+                leapJ = leapJ + div(jump, 33) * 8 + div(mod(jump, 33), 4);
+                jp = jm;
+            }
+            n = jy - jp;
+            leapJ = leapJ + div(n, 33) * 8 + div(mod(n, 33) + 3, 4);
+            if (mod(jump, 33) === 4 && jump - n === 4) leapJ += 1;
+            var leapG = div(gy, 4) - div((div(gy, 100) + 1) * 3, 4) - 150;
+            var march = 20 + leapJ - leapG;
+            if (jump - n < 6) n = n - jump + div(jump, 33) * 33;
+            var leap = mod(mod(n + 1, 33) - 1, 4);
+            if (leap === -1) leap = 4;
+            return { leap: leap, gy: gy, march: march };
         }
 
-        if (offDateInput) {
-            jq(offDateInput).pDatepicker({
-                format: 'YYYY/MM/DD',
-                autoClose: true,
-                initialValue: false,
-                observer: true,
-                onSelect: function () {
-                    validateOfflineField(offDateInput, 'offDate-err');
-                    if (document.querySelector('.step-panel[data-step="4"].active')) updateInvoiceFinal();
+        function g2d(gy, gm, gd) {
+            var d = div((gy + div(gm - 8, 6) + 100100) * 1461, 4) +
+                div(153 * mod(gm + 9, 12) + 2, 5) + gd - 34840408;
+            d = d - div(div(gy + 100100 + div(gm - 8, 6), 100) * 3, 4) + 752;
+            return d;
+        }
+
+        function d2g(jdn) {
+            var j = 4 * jdn + 139361631;
+            j = j + div(div(4 * jdn + 183187720, 146097) * 3, 4) * 4 - 3908;
+            var i = div(mod(j, 1461), 4) * 5 + 308;
+            var gd = div(mod(i, 153), 5) + 1;
+            var gm = mod(div(i, 153), 12) + 1;
+            var gy = div(j, 1461) - 100100 + div(8 - gm, 6);
+            return [gy, gm, gd];
+        }
+
+        function j2d(jy, jm, jd) {
+            var r = jalCal(jy);
+            return g2d(r.gy, 3, r.march) + (jm - 1) * 31 - div(jm, 7) * (jm - 7) + jd - 1;
+        }
+
+        function d2j(jdn) {
+            var gy = d2g(jdn)[0];
+            var jy = gy - 621;
+            var r = jalCal(jy);
+            var jdn1f = g2d(r.gy, 3, r.march);
+            var k = jdn - jdn1f, jm, jd;
+            if (k >= 0) {
+                if (k <= 185) { return [jy, 1 + div(k, 31), mod(k, 31) + 1]; }
+                k -= 186;
+            } else {
+                jy -= 1;
+                k += 179;
+                if (r.leap === 1) k += 1;
+            }
+            jm = 7 + div(k, 30);
+            jd = mod(k, 30) + 1;
+            return [jy, jm, jd];
+        }
+
+        function isLeapJalali(jy) { return jalCal(jy).leap === 0; }
+
+        function monthLength(jy, jm) {
+            if (jm <= 6) return 31;
+            if (jm <= 11) return 30;
+            return isLeapJalali(jy) ? 30 : 29;
+        }
+
+        function weekdayOf(jy, jm, jd) {
+            // 0 = شنبه ... 6 = جمعه
+            return mod(j2d(jy, jm, jd) + 2, 7);
+        }
+
+        function todayJalali() {
+            var now = new Date();
+            var jdn = g2d(now.getFullYear(), now.getMonth() + 1, now.getDate());
+            return d2j(jdn);
+        }
+
+        var MONTH_NAMES = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+            'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+        var WEEK_LETTERS = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
+
+        var today = todayJalali();
+        var view = { jy: today[0], jm: today[1] };
+        var selected = null; // {jy, jm, jd}
+
+        // ---- ساخت DOM ----
+        var oldContainer = wrapper.querySelector('.date-custom-container');
+        if (oldContainer) oldContainer.remove();
+
+        var container = document.createElement('div');
+        container.className = 'date-custom-container';
+        wrapper.appendChild(container);
+
+        var header = document.createElement('div');
+        header.className = 'date-custom-header';
+        container.appendChild(header);
+
+        var prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.className = 'date-custom-nav';
+        prevBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+        header.appendChild(prevBtn);
+
+        var titleWrap = document.createElement('div');
+        titleWrap.className = 'date-custom-title';
+        header.appendChild(titleWrap);
+
+        var monthSelect = document.createElement('select');
+        monthSelect.className = 'date-custom-month-select';
+        MONTH_NAMES.forEach(function (name, idx) {
+            var opt = document.createElement('option');
+            opt.value = idx + 1;
+            opt.textContent = name;
+            monthSelect.appendChild(opt);
+        });
+        titleWrap.appendChild(monthSelect);
+
+        var yearSelect = document.createElement('select');
+        yearSelect.className = 'date-custom-year-select';
+        var curJy = today[0];
+        for (var y = curJy - 5; y <= curJy + 5; y++) {
+            var optY = document.createElement('option');
+            optY.value = y;
+            optY.textContent = enToFaNumber(String(y));
+            yearSelect.appendChild(optY);
+        }
+        titleWrap.appendChild(yearSelect);
+
+        var nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.className = 'date-custom-nav';
+        nextBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+        header.appendChild(nextBtn);
+
+        var weekRow = document.createElement('div');
+        weekRow.className = 'date-custom-weekrow';
+        WEEK_LETTERS.forEach(function (l) {
+            var c = document.createElement('span');
+            c.textContent = l;
+            weekRow.appendChild(c);
+        });
+        container.appendChild(weekRow);
+
+        var grid = document.createElement('div');
+        grid.className = 'date-custom-grid';
+        container.appendChild(grid);
+
+        var footer = document.createElement('div');
+        footer.className = 'date-custom-footer';
+        container.appendChild(footer);
+
+        var todayBtn = document.createElement('button');
+        todayBtn.type = 'button';
+        todayBtn.className = 'date-custom-today-btn';
+        todayBtn.innerHTML = '<i class="fa-solid fa-calendar-day"></i> امروز';
+        footer.appendChild(todayBtn);
+
+        // ---- رندر شبکه روزها ----
+        function renderGrid() {
+            monthSelect.value = view.jm;
+            yearSelect.value = view.jy;
+            grid.innerHTML = '';
+            var firstWeekday = weekdayOf(view.jy, view.jm, 1);
+            var len = monthLength(view.jy, view.jm);
+            for (var i = 0; i < firstWeekday; i++) {
+                var blank = document.createElement('span');
+                blank.className = 'date-custom-day empty';
+                grid.appendChild(blank);
+            }
+            for (var d = 1; d <= len; d++) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'date-custom-day';
+                btn.textContent = enToFaNumber(String(d));
+                if (view.jy === today[0] && view.jm === today[1] && d === today[2]) {
+                    btn.classList.add('is-today');
                 }
-            });
-            offDateInput.addEventListener('click', function (e) {
-                e.stopPropagation();
-                jq(offDateInput).pDatepicker('show');
-            });
-            var icon = offDateInput.parentElement ? offDateInput.parentElement.querySelector(
-                '.date-picker-icon') : null;
-            if (icon) {
-                icon.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    jq(offDateInput).pDatepicker('show');
-                });
+                if (selected && selected.jy === view.jy && selected.jm === view.jm && selected.jd === d) {
+                    btn.classList.add('is-selected');
+                }
+                (function (dayNum) {
+                    btn.addEventListener('click', function () {
+                        selected = { jy: view.jy, jm: view.jm, jd: dayNum };
+                        applySelection();
+                    });
+                })(d);
+                grid.appendChild(btn);
             }
         }
 
-        if (offTimeInput) {
-            jq(offTimeInput).pDatepicker({
-                onlyTimePicker: true,
-                format: 'HH:mm',
-                autoClose: true,
-                initialValue: false,
-                observer: true,
-                timePicker: {
-                    enabled: true,
-                    meridian: { enabled: false },
-                    second: { enabled: false }
-                },
-                onSelect: function () {
-                    validateOfflineField(offTimeInput, 'offTime-err');
-                    if (document.querySelector('.step-panel[data-step="4"].active')) updateInvoiceFinal();
-                }
-            });
-            offTimeInput.addEventListener('click', function (e) {
-                e.stopPropagation();
-                jq(offTimeInput).pDatepicker('show');
-            });
-            var timeIcon = offTimeInput.parentElement ? offTimeInput.parentElement.querySelector(
-                '.time-picker-icon') : null;
-            if (timeIcon) {
-                timeIcon.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    jq(offTimeInput).pDatepicker('show');
-                });
-            }
+        function applySelection() {
+            var val = enToFaNumber(
+                String(selected.jy) + '/' +
+                String(selected.jm).padStart(2, '0') + '/' +
+                String(selected.jd).padStart(2, '0')
+            );
+            offDateInput.value = val;
+            validateOfflineField(offDateInput, 'offDate-err');
+            if (document.querySelector('.step-panel[data-step="4"].active')) updateInvoiceFinal();
+            container.classList.remove('open');
+            offDateInput.blur();
+            window.showToast('تاریخ ' + val + ' ثبت شد', 'success');
         }
+
+        function syncFromInputValue() {
+            var current = offDateInput.value.trim();
+            if (current && isValidDate(current)) {
+                var en = faToEnNumber(current);
+                var parts = en.split('/');
+                selected = { jy: parseInt(parts[0], 10), jm: parseInt(parts[1], 10), jd: parseInt(parts[2], 10) };
+                view = { jy: selected.jy, jm: selected.jm };
+            } else {
+                view = { jy: today[0], jm: today[1] };
+            }
+            renderGrid();
+        }
+
+        prevBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            view.jm -= 1;
+            if (view.jm < 1) { view.jm = 12; view.jy -= 1; }
+            renderGrid();
+        });
+        nextBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            view.jm += 1;
+            if (view.jm > 12) { view.jm = 1; view.jy += 1; }
+            renderGrid();
+        });
+        monthSelect.addEventListener('change', function () { view.jm = parseInt(this.value, 10); renderGrid(); });
+        yearSelect.addEventListener('change', function () { view.jy = parseInt(this.value, 10); renderGrid(); });
+        todayBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            selected = { jy: today[0], jm: today[1], jd: today[2] };
+            view = { jy: today[0], jm: today[1] };
+            applySelection();
+            renderGrid();
+        });
+
+        offDateInput.addEventListener('focus', function () {
+            syncFromInputValue();
+            container.classList.add('open');
+        });
+        offDateInput.addEventListener('click', function (e) {
+            e.stopPropagation();
+            syncFromInputValue();
+            container.classList.add('open');
+        });
+        var dateIcon = wrapper.querySelector('.date-picker-icon');
+        if (dateIcon) {
+            dateIcon.addEventListener('mousedown', function (e) { e.preventDefault(); });
+            dateIcon.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                syncFromInputValue();
+                if (container.classList.contains('open')) {
+                    container.classList.remove('open');
+                } else {
+                    container.classList.add('open');
+                }
+                offDateInput.focus();
+            });
+        }
+
+        wrapper.addEventListener('focusout', function () {
+            setTimeout(function () {
+                if (!wrapper.contains(document.activeElement)) {
+                    container.classList.remove('open');
+                }
+            }, 0);
+        });
+        container.addEventListener('mousedown', function (e) { e.stopPropagation(); });
+        container.addEventListener('click', function (e) { e.stopPropagation(); });
+        document.addEventListener('mousedown', function (e) {
+            if (!wrapper.contains(e.target)) {
+                container.classList.remove('open');
+            }
+        });
+        offDateInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                container.classList.remove('open');
+                offDateInput.blur();
+            }
+        });
+        // به‌روزرسانی تقویم وقتی کاربر دستی تایپ می‌کند
+        offDateInput.addEventListener('input', function () {
+            var val = faToEnNumber(this.value.trim());
+            if (isValidDate(val)) {
+                var parts = val.split('/');
+                view = { jy: parseInt(parts[0], 10), jm: parseInt(parts[1], 10) };
+                selected = { jy: view.jy, jm: view.jm, jd: parseInt(parts[2], 10) };
+                renderGrid();
+            }
+        });
+
+        renderGrid();
     })();
 
     // ---- INIT ----

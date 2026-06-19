@@ -1,5 +1,73 @@
 /* ============================================================
-ROOT VARIABLES — Design System ============================================================ */
+           FONT — YekanBakhFa (تمام وزن‌ها)
+           ============================================================ */
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/yekan bakh 05 medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhFa';
+    src: url('../fonts/YekanBakhFa-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ============================================================
+           ROOT VARIABLES — Design System
+           ============================================================ */
 :root {
     --purple: #46038b;
     --navy: #154894;
@@ -30,57 +98,9 @@ ROOT VARIABLES — Design System ===============================================
     --shadow: 0 4px 16px rgba(70, 3, 139, .07);
     --shadow-md: 0 8px 28px rgba(70, 3, 139, .10);
     --shadow-lg: 0 16px 48px rgba(0, 0, 0, .12);
-    --transition: .25s cubic-bezier(.4, 0, .2, 1);
+    --transition: .3s ease-in-out;
     --transition-slow: .4s cubic-bezier(.4, 0, .2, 1);
-    --font-primary: 'YekanBakhFa', 'YekanBakhFaNum', sans-serif;
-}
-
-/* ============================================================
-           FONT — YekanBakhFa از پوشه ./fonts
-           ============================================================ */
-@font-face {
-    font-family: 'YekanBakhFa';
-    src: url('../fonts/YekanBakhFa-Regular.woff2') format('woff2'),
-        url('../fonts/YekanBakhFa-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'YekanBakhFa';
-    src: url('../fonts/YekanBakhFa-Medium.woff2') format('woff2'),
-        url('../fonts/YekanBakhFa-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'YekanBakhFa';
-    src: url('../fonts/YekanBakhFa-Bold.woff2') format('woff2'),
-        url('../fonts/YekanBakhFa-Bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'YekanBakhFa';
-    src: url('../fonts/YekanBakhFa-ExtraBold.woff2') format('woff2'),
-        url('../fonts/YekanBakhFa-ExtraBold.woff') format('woff');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'YekanBakhFa';
-    src: url('../fonts/YekanBakhFa-Black.woff2') format('woff2'),
-        url('../fonts/YekanBakhFa-Black.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+    --font-primary: 'YekanBakhFa';
 }
 
 /* ============================================================
@@ -476,7 +496,7 @@ body {
 }
 
 /* ============================================================
-           STEP HEADER — با انیمیشن
+           STEP HEADER
            ============================================================ */
 .step-header {
     position: sticky;
@@ -506,27 +526,6 @@ body {
     position: relative;
 }
 
-/* خط پیشرفت زیر Step‌ها */
-.step-progress-bar {
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--border-light);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.step-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--purple), var(--violet));
-    border-radius: 4px;
-    transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 12.5%;
-    /* 100% / 8 (4 steps * 2 for smooth) */
-}
-
 .cstep {
     flex: 1;
     display: flex;
@@ -536,7 +535,7 @@ body {
     cursor: pointer;
     position: relative;
     padding: 6px 0 10px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     border-radius: 8px;
     user-select: none;
 }
@@ -566,7 +565,7 @@ body {
     font-size: 13px;
     font-weight: 800;
     color: #ccc;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease-in-out;
     font-family: var(--font-primary);
     position: relative;
     z-index: 1;
@@ -600,7 +599,7 @@ body {
     text-align: center;
     white-space: nowrap;
     font-family: var(--font-primary);
-    transition: color 0.3s ease;
+    transition: color 0.3s ease-in-out;
 }
 
 .cstep.active .cstep-label {
@@ -623,18 +622,36 @@ body {
     background: #e2e8f0;
     z-index: 0;
     transition: background 0.4s ease;
-}
-
-.cstep.done:not(:last-child)::after {
-    background: var(--green);
-}
-
-.cstep.active:not(:last-child)::after {
-    background: var(--purple);
+    border-radius: 2px;
+    overflow: hidden;
 }
 
 .cstep.disabled:not(:last-child)::after {
     background: #e8e8e8;
+}
+
+/* نوار پرشونده نرم (سبز → بنفش) به‌جای پرشدن یکدفعه‌ی بنفش */
+.cstep:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    right: calc(50% + 20px);
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #6fe3a4, var(--purple));
+    border-radius: 2px;
+    z-index: 0;
+    transition: width 0.6s cubic-bezier(.4, 0, .2, 1), background 0.6s ease;
+}
+
+.cstep.active:not(:last-child)::before {
+    width: calc(100% - 40px);
+    background: linear-gradient(90deg, #6fe3a4, var(--purple));
+}
+
+.cstep.done:not(:last-child)::before {
+    width: calc(100% - 40px);
+    background: linear-gradient(90deg, #6fe3a4, #34c98f);
 }
 
 /* ============================================================
@@ -1135,7 +1152,7 @@ body {
 }
 
 /* ============================================================
-           GATEWAY GRID — بهبود استایل انتخاب
+           GATEWAY GRID
            ============================================================ */
 .gateway-grid {
     display: grid;
@@ -1267,7 +1284,7 @@ body {
 }
 
 /* ============================================================
-           DATE & TIME PICKERS — با پدینگ کافی برای placeholder
+           DATE & TIME PICKERS — با طراحی جدید
            ============================================================ */
 .date-picker-wrapper,
 .time-picker-wrapper {
@@ -1323,17 +1340,26 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: var(--purple);
-    font-size: 18px;
-    pointer-events: none;
-    opacity: 0.5;
+    font-size: 16px;
+    pointer-events: auto;
+    cursor: pointer;
+    opacity: 0.65;
     transition: all 0.3s ease;
     background: rgba(70, 3, 139, 0.05);
+    border: none;
     width: 34px;
     height: 34px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.date-picker-icon:hover,
+.time-picker-icon:hover {
+    opacity: 1;
+    background: var(--lavender);
+    color: var(--violet);
 }
 
 .date-picker-wrapper .form-input:focus+.date-picker-icon,
@@ -1359,14 +1385,416 @@ body {
     background: var(--danger-light);
 }
 
-.masked-input {
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.06em;
+/* ---- TIME PICKER CUSTOM (Dropdown جدید) ---- */
+.time-custom-container {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .18);
+    padding: 12px 16px;
+    z-index: 9999;
+    display: none;
+    animation: dropdownFade 0.2s ease;
+    min-width: 280px;
+    direction: ltr;
 }
 
-/* ============================================================
-           PERSIAN DATEPICKER — Override کامل + Time Picker بازطراحی
-           ============================================================ */
+.time-custom-container.open {
+    display: block;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.time-custom-quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.time-custom-chip {
+    flex: 1 1 auto;
+    min-width: 52px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    color: var(--text-mid);
+    border-radius: 10px;
+    padding: 7px 8px;
+    font-family: var(--font-primary);
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all .15s ease;
+    direction: ltr;
+}
+
+.time-custom-chip:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    background: var(--lavender);
+}
+
+.time-custom-chip.active {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+}
+
+.time-custom-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.time-custom-dropdowns {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+
+.time-custom-dropdown {
+    flex: 1;
+    position: relative;
+    min-width: 70px;
+}
+
+.time-custom-dropdown select {
+    width: 100%;
+    padding: 8px 6px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font-primary);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: auto;
+    direction: ltr;
+    letter-spacing: 0.04em;
+    min-height: 44px;
+}
+
+.time-custom-dropdown select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.08);
+}
+
+.time-custom-dropdown select:hover {
+    border-color: #c7d2fe;
+}
+
+.time-custom-dropdown select option {
+    font-family: var(--font-primary);
+    font-size: 16px;
+    padding: 4px 8px;
+}
+
+.time-custom-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-mute);
+    text-align: center;
+    margin-top: 2px;
+    font-family: var(--font-primary);
+    letter-spacing: 0.02em;
+}
+
+.time-custom-now-btn {
+    flex-shrink: 0;
+    background: var(--bg);
+    color: var(--purple);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    white-space: nowrap;
+}
+
+.time-custom-now-btn:hover {
+    background: var(--lavender);
+    border-color: var(--purple);
+}
+
+.time-custom-confirm-btn {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--green), #16963a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(30, 124, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    min-width: 72px;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.time-custom-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 124, 0, 0.35);
+}
+
+.time-custom-confirm-btn:active {
+    transform: scale(0.96);
+}
+
+.time-custom-confirm-btn i {
+    font-size: 18px;
+}
+
+@media (max-width: 480px) {
+    .time-custom-container {
+        min-width: auto;
+        padding: 10px 12px;
+    }
+
+    .time-custom-dropdown select {
+        font-size: 15px;
+        padding: 6px 4px;
+        min-height: 38px;
+    }
+
+    .time-custom-confirm-btn,
+    .time-custom-now-btn {
+        font-size: 12.5px;
+        padding: 8px 10px;
+        min-height: 38px;
+        min-width: 0;
+    }
+
+    .time-custom-dropdowns {
+        gap: 4px;
+    }
+}
+
+/* ---- DATE PICKER CUSTOM (تقویم جلالی بدون کتابخانه) ---- */
+.date-custom-container {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    left: 0;
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .18);
+    padding: 14px 14px 12px;
+    z-index: 9999;
+    display: none;
+    animation: dropdownFade 0.2s ease;
+    min-width: 280px;
+}
+
+.date-custom-container.open {
+    display: block;
+}
+
+.date-custom-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.date-custom-nav {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s ease;
+    font-size: 13px;
+}
+
+.date-custom-nav:hover {
+    background: var(--lavender);
+    border-color: var(--purple);
+}
+
+.date-custom-title {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+}
+
+.date-custom-month-select,
+.date-custom-year-select {
+    flex: 1;
+    padding: 8px 6px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    min-height: 38px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.date-custom-month-select {
+    flex: 1.5;
+}
+
+.date-custom-month-select:focus,
+.date-custom-year-select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(70, 3, 139, 0.08);
+}
+
+.date-custom-weekrow {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 4px;
+}
+
+.date-custom-weekrow span {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-mute);
+    padding: 4px 0;
+}
+
+.date-custom-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.date-custom-day {
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    min-height: 36px;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all .15s ease;
+}
+
+.date-custom-day.empty {
+    cursor: default;
+    pointer-events: none;
+}
+
+.date-custom-day:not(.empty):hover {
+    background: var(--lavender);
+    color: var(--purple);
+}
+
+.date-custom-day.is-today {
+    border: 2px solid var(--purple);
+    color: var(--purple);
+    font-weight: 800;
+}
+
+.date-custom-day.is-selected {
+    background: var(--purple);
+    color: #fff;
+    font-weight: 800;
+}
+
+.date-custom-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-light);
+}
+
+.date-custom-today-btn {
+    background: linear-gradient(135deg, var(--green), #16963a);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: var(--font-primary);
+    cursor: pointer;
+    transition: all .2s ease;
+    box-shadow: 0 2px 12px rgba(30, 124, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.date-custom-today-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 124, 0, 0.35);
+}
+
+@media (max-width: 480px) {
+    .date-custom-container {
+        min-width: auto;
+        padding: 12px 10px;
+    }
+
+    .date-custom-day {
+        font-size: 13px;
+        min-height: 32px;
+    }
+
+    .date-custom-month-select,
+    .date-custom-year-select {
+        font-size: 12.5px;
+        padding: 6px 4px;
+        min-height: 34px;
+    }
+}
+
+
 .datepicker-container {
     direction: ltr !important;
 }
@@ -1376,30 +1804,48 @@ body {
     border-radius: 20px !important;
     overflow: hidden !important;
     font-family: var(--font-primary) !important;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, .10), 0 20px 56px rgba(15, 23, 42, .18) !important;
-    width: 280px !important;
-    min-width: 260px !important;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, .12), 0 30px 64px rgba(15, 23, 42, .22) !important;
+    width: 300px !important;
+    min-width: 280px !important;
     background: #fff !important;
     padding: 0 !important;
+    animation: datepickerFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    /* نمایش به سمت بالا */
+    top: auto !important;
+    bottom: 100% !important;
+    margin-bottom: 6px !important;
+}
+
+@keyframes datepickerFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.92) translateY(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .datepicker-plot-area .datepicker-navigator {
     background: linear-gradient(135deg, var(--blue), var(--indigo)) !important;
-    padding: 14px 12px !important;
+    padding: 16px 16px !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: space-between !important;
 }
 
 .datepicker-plot-area .datepicker-navigator .pwt-btn-prev,
 .datepicker-plot-area .datepicker-navigator .pwt-btn-next {
     background: rgba(255, 255, 255, .15) !important;
     color: #fff !important;
-    border-radius: 8px !important;
-    width: 32px !important;
-    height: 32px !important;
-    line-height: 32px !important;
-    font-size: 14px !important;
-    transition: background .15s !important;
+    border-radius: 10px !important;
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease !important;
     border: none !important;
     font-family: var(--font-primary) !important;
 }
@@ -1407,67 +1853,96 @@ body {
 .datepicker-plot-area .datepicker-navigator .pwt-btn-prev:hover,
 .datepicker-plot-area .datepicker-navigator .pwt-btn-next:hover {
     background: rgba(255, 255, 255, .28) !important;
+    transform: scale(1.05);
 }
 
 .datepicker-plot-area .datepicker-navigator .pwt-btn-switch {
     color: #fff !important;
-    font-size: 13.5px !important;
+    font-size: 14.5px !important;
     font-weight: 700 !important;
-    border-radius: 8px !important;
-    padding: 4px 12px !important;
+    border-radius: 10px !important;
+    padding: 6px 16px !important;
     background: rgba(255, 255, 255, .1) !important;
-    transition: background .15s !important;
+    transition: all 0.2s ease !important;
     border: none !important;
     font-family: var(--font-primary) !important;
+    letter-spacing: 0.02em;
 }
 
 .datepicker-plot-area .datepicker-navigator .pwt-btn-switch:hover {
     background: rgba(255, 255, 255, .22) !important;
+    transform: scale(1.02);
 }
 
+/* دکمه تأیید بزرگ‌تر */
+.datepicker-plot-area .datepicker-navigator .pwt-btn-today {
+    background: rgba(255, 255, 255, .18) !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    padding: 8px 20px !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    font-family: var(--font-primary) !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08) !important;
+}
+
+.datepicker-plot-area .datepicker-navigator .pwt-btn-today:hover {
+    background: rgba(255, 255, 255, .32) !important;
+    transform: scale(1.04);
+}
+
+/* روزها */
 .datepicker-plot-area .datepicker-day-view .month-grid-box {
-    margin: 8px 0 !important;
+    margin: 8px 4px !important;
+    padding: 0 4px !important;
 }
 
 .datepicker-plot-area .datepicker-day-view .month-grid-box .header-row-cell {
     color: #94a3b8 !important;
-    font-size: 11px !important;
+    font-size: 11.5px !important;
     font-weight: 700 !important;
     font-family: var(--font-primary) !important;
+    padding: 6px 0 !important;
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td {
-    padding: 1px !important;
+    padding: 2px !important;
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td span {
-    border-radius: 10px !important;
-    font-size: 12.5px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
     color: #1a1a2e !important;
     background: transparent !important;
-    transition: all .15s !important;
-    height: 30px !important;
-    line-height: 30px !important;
+    transition: all 0.18s ease !important;
+    height: 34px !important;
+    line-height: 34px !important;
     font-family: var(--font-primary) !important;
+    font-weight: 500;
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td span:hover {
     background: #dbeafe !important;
     color: var(--blue) !important;
+    transform: scale(1.04);
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td.selected span {
     background: linear-gradient(135deg, var(--blue), var(--indigo)) !important;
     color: #fff !important;
-    box-shadow: 0 3px 10px rgba(37, 99, 235, .35) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, .38) !important;
     font-weight: 700 !important;
     text-shadow: none !important;
+    transform: scale(1.04);
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td.today span {
     background: #eff6ff !important;
     color: var(--blue) !important;
     font-weight: 700 !important;
+    border: 2px solid rgba(37, 99, 235, .25) !important;
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td.disabled span {
@@ -1477,25 +1952,29 @@ body {
 }
 
 .datepicker-plot-area .datepicker-day-view .table-days td span.other-month {
-    color: #94a3b8 !important;
-    opacity: .4 !important;
+    color: #cbd5e1 !important;
+    opacity: .5 !important;
 }
 
+/* سال و ماه */
 .datepicker-plot-area .datepicker-year-view .year-item,
 .datepicker-plot-area .datepicker-month-view .month-item {
-    border-radius: 10px !important;
-    font-size: 12.5px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
     color: #1a1a2e !important;
     background: transparent !important;
-    transition: all .15s !important;
-    margin: 2px !important;
+    transition: all 0.18s ease !important;
+    margin: 3px !important;
+    padding: 6px 0 !important;
     font-family: var(--font-primary) !important;
+    font-weight: 500;
 }
 
 .datepicker-plot-area .datepicker-year-view .year-item:hover,
 .datepicker-plot-area .datepicker-month-view .month-item:hover {
     background: #dbeafe !important;
     color: var(--blue) !important;
+    transform: scale(1.04);
 }
 
 .datepicker-plot-area .datepicker-year-view .year-item.selected,
@@ -1504,140 +1983,23 @@ body {
     color: #fff !important;
     font-weight: 700 !important;
     text-shadow: none !important;
-    box-shadow: 0 3px 10px rgba(37, 99, 235, .35) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, .38) !important;
+    transform: scale(1.04);
 }
 
-/* ============================================================
-           TIME PICKER — بازطراحی کامل مدرن و مینیمال
-           ============================================================ */
+/* TIME VIEW داخل پیکر (برای زمانی که فعال شود) - مخفی کردن کامل */
 .datepicker-plot-area .datepicker-time-view {
-    background: #f8fafc !important;
-    border-top: 1px solid #e2e8f0 !important;
-    padding: 20px 16px 22px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 2px !important;
-}
-
-.datepicker-plot-area .datepicker-time-view>.time-segment {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 8px !important;
-    width: auto !important;
-    float: none !important;
-    background: #ffffff !important;
-    border: 2px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-    padding: 8px 10px !important;
-    min-width: 80px !important;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, .05) !important;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s !important;
-}
-
-.datepicker-plot-area .datepicker-time-view>.time-segment:hover {
-    border-color: var(--blue) !important;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, .10) !important;
-    transform: translateY(-1px);
-}
-
-.datepicker-plot-area .datepicker-time-view>.time-segment:focus-within {
-    border-color: var(--blue) !important;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, .15) !important;
-}
-
-.datepicker-plot-area .datepicker-time-view .up-btn,
-.datepicker-plot-area .datepicker-time-view .down-btn {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 38px !important;
-    height: 38px !important;
-    border-radius: 12px !important;
-    background: #eff6ff !important;
-    color: var(--blue) !important;
-    font-size: 17px !important;
-    font-weight: 900 !important;
-    line-height: 1 !important;
-    float: none !important;
-    margin: 0 auto !important;
-    transition: all 0.15s ease !important;
-    border: 1.5px solid #dbeafe !important;
-    cursor: pointer !important;
-    font-family: var(--font-primary) !important;
-}
-
-.datepicker-plot-area .datepicker-time-view .up-btn:hover,
-.datepicker-plot-area .datepicker-time-view .down-btn:hover {
-    background: var(--blue) !important;
-    color: #fff !important;
-    border-color: var(--blue) !important;
-    transform: scale(1.08) !important;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, .25) !important;
-}
-
-.datepicker-plot-area .datepicker-time-view .up-btn:active,
-.datepicker-plot-area .datepicker-time-view .down-btn:active {
-    transform: scale(.94) !important;
-    box-shadow: none !important;
-}
-
-.datepicker-plot-area .datepicker-time-view input {
-    display: block !important;
-    width: 56px !important;
-    height: 46px !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    font-size: 24px !important;
-    font-weight: 800 !important;
-    text-align: center !important;
-    color: #0f172a !important;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    direction: ltr !important;
-    font-family: var(--font-primary) !important;
-    cursor: default !important;
-    letter-spacing: 0.04em;
-}
-
-.datepicker-plot-area .datepicker-time-view .divider {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: auto !important;
-    float: none !important;
-    padding: 0 4px !important;
-    height: auto !important;
-    line-height: 1 !important;
-}
-
-.datepicker-plot-area .datepicker-time-view .divider span {
-    font-size: 24px !important;
-    font-weight: 800 !important;
-    color: #94a3b8 !important;
-    height: auto !important;
-    line-height: 1 !important;
-    font-family: var(--font-primary) !important;
-}
-
-.datepicker-plot-area .datepicker-time-view .meridian-divider,
-.datepicker-plot-area .datepicker-time-view .time-segment:last-child:not(:nth-child(3)) {
     display: none !important;
 }
 
-.datepicker-plot-area.datepicker-state-only-time .datepicker-time-view {
-    padding: 24px 18px 26px !important;
-}
-
 /* ============================================================
-           COUPON — ساده و جمع‌وجور (بدون بک‌گراند جداگانه)
+           COUPON
            ============================================================ */
 .invoice-coupon {
-    margin: 0 0 16px 0;
-    padding: 0 0 12px 0;
-    border-bottom: 1px solid var(--border-light);
+    margin: 16px 0 0 0;
+    padding: 0;
+    border-top: 1px solid var(--border-light);
+    padding-top: 16px;
 }
 
 .coupon-label {
@@ -1817,7 +2179,7 @@ body {
 }
 
 /* ============================================================
-           ORDER SIDEBAR — اسکرول بعد از 15 آیتم
+           ORDER SIDEBAR
            ============================================================ */
 .order-summary {
     background: #fff;
@@ -1874,7 +2236,6 @@ body {
     transition: max-height 0.3s ease;
 }
 
-/* اسکرول فقط زمانی که آیتم‌ها > 15 باشند */
 .os-items.scrollable {
     max-height: 340px;
     overflow-y: auto;
@@ -2028,7 +2389,7 @@ body {
 }
 
 /* ============================================================
-           FINAL INVOICE — اسکرول بعد از 15 آیتم
+           FINAL INVOICE
            ============================================================ */
 .final-invoice-wrapper {
     display: flex;
@@ -2211,10 +2572,9 @@ body {
     font-size: 16px;
 }
 
-/* کانتینر جدول با اسکرول */
 .invoice-table-scroll {
-    max-height: 340px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     transition: max-height 0.3s ease;
 }
 
@@ -2573,7 +2933,7 @@ body {
 }
 
 /* ============================================================
-           FOOTER — بدون جابه‌جایی
+           FOOTER
            ============================================================ */
 .footer {
     position: relative;
@@ -2898,11 +3258,6 @@ body {
         padding: 14px 18px;
     }
 
-    .invoice-status {
-        align-items: flex-start;
-        width: 100%;
-    }
-
     .final-invoice {
         padding: 0 0 20px;
     }
@@ -2948,25 +3303,9 @@ body {
     }
 
     .datepicker-plot-area {
-        width: 240px !important;
-        min-width: 240px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view input {
-        width: 44px !important;
-        font-size: 18px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view>.time-segment {
-        min-width: 68px !important;
-        padding: 6px 8px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view .up-btn,
-    .datepicker-plot-area .datepicker-time-view .down-btn {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 14px !important;
+        width: 260px !important;
+        min-width: 250px !important;
+        bottom: 100% !important;
     }
 
     .sec-head {
@@ -3008,6 +3347,25 @@ body {
     .os-items.scrollable {
         max-height: 260px;
     }
+
+    .time-custom-container {
+        min-width: auto;
+        padding: 10px 12px;
+    }
+
+    .time-custom-dropdown select {
+        font-size: 15px;
+        padding: 6px 4px;
+        min-height: 38px;
+    }
+
+    .time-custom-confirm-btn,
+    .time-custom-now-btn {
+        font-size: 12.5px;
+        padding: 8px 10px;
+        min-height: 38px;
+        min-width: 0;
+    }
 }
 
 @media (max-width: 400px) {
@@ -3030,25 +3388,8 @@ body {
     }
 
     .datepicker-plot-area {
-        width: 210px !important;
-        min-width: 210px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view input {
-        width: 38px !important;
-        font-size: 16px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view>.time-segment {
-        min-width: 58px !important;
-        padding: 4px 6px !important;
-    }
-
-    .datepicker-plot-area .datepicker-time-view .up-btn,
-    .datepicker-plot-area .datepicker-time-view .down-btn {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 13px !important;
+        width: 230px !important;
+        min-width: 220px !important;
     }
 
     .invoice-table-scroll {
@@ -3057,6 +3398,10 @@ body {
 
     .os-items.scrollable {
         max-height: 200px;
+    }
+
+    .time-custom-dropdowns {
+        gap: 4px;
     }
 }
 
@@ -3118,11 +3463,12 @@ body {
 .coupon-apply-btn,
 .coupon-input,
 .date-picker-wrapper .form-input,
-.time-picker-wrapper .form-input {
+.time-picker-wrapper .form-input,
+.time-custom-container,
+.time-custom-container * {
     font-family: var(--font-primary);
 }
 
-/* Force numbers in datepicker to use YekanBakhFa */
 .datepicker-plot-area,
 .datepicker-plot-area *,
 .datepicker-plot-area .datepicker-time-view input,
@@ -3130,25 +3476,9 @@ body {
 .datepicker-plot-area .datepicker-day-view .table-days td span,
 .datepicker-plot-area .datepicker-navigator .pwt-btn-switch,
 .datepicker-plot-area .datepicker-year-view .year-item,
-.datepicker-plot-area .datepicker-month-view .month-item {
+.datepicker-plot-area .datepicker-month-view .month-item,
+.datepicker-plot-area .datepicker-navigator .pwt-btn-today {
     font-family: var(--font-primary) !important;
-}
-
-/* ============================================================
-           SCROLLBAR برای os-items در حالت اسکرول
-           ============================================================ */
-.os-items.scrollable::-webkit-scrollbar {
-    width: 4px;
-}
-
-.os-items.scrollable::-webkit-scrollbar-thumb {
-    background: var(--purple);
-    border-radius: 10px;
-}
-
-.os-items.scrollable::-webkit-scrollbar-track {
-    background: var(--border-light);
-    border-radius: 10px;
 }
 
 /* Upload area */
