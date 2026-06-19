@@ -630,7 +630,7 @@ body {
     background: #e8e8e8;
 }
 
-/* نوار پرشونده نرم (سبز → بنفش) به‌جای پرشدن یکدفعه‌ی بنفش */
+/* نوار پرشونده نرم (سبز → بنفش) با transition طولانی‌تر */
 .cstep:not(:last-child)::before {
     content: '';
     position: absolute;
@@ -641,7 +641,8 @@ body {
     background: linear-gradient(90deg, #6fe3a4, var(--purple));
     border-radius: 2px;
     z-index: 0;
-    transition: width 0.6s cubic-bezier(.4, 0, .2, 1), background 0.6s ease;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), background 0.8s ease;
+    will-change: width;
 }
 
 .cstep.active:not(:last-child)::before {
@@ -1419,44 +1420,6 @@ body {
     }
 }
 
-.time-custom-quick {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.time-custom-chip {
-    flex: 1 1 auto;
-    min-width: 52px;
-    border: 1.5px solid var(--border);
-    background: var(--bg);
-    color: var(--text-mid);
-    border-radius: 10px;
-    padding: 7px 8px;
-    font-family: var(--font-primary);
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    transition: all .15s ease;
-    direction: ltr;
-}
-
-.time-custom-chip:hover {
-    border-color: var(--purple);
-    color: var(--purple);
-    background: var(--lavender);
-}
-
-.time-custom-chip.active {
-    background: var(--purple);
-    border-color: var(--purple);
-    color: #fff;
-}
-
 .time-custom-row {
     display: flex;
     align-items: center;
@@ -1792,204 +1755,6 @@ body {
         padding: 6px 4px;
         min-height: 34px;
     }
-}
-
-
-.datepicker-container {
-    direction: ltr !important;
-}
-
-.datepicker-plot-area {
-    border: none !important;
-    border-radius: 20px !important;
-    overflow: hidden !important;
-    font-family: var(--font-primary) !important;
-    box-shadow: 0 8px 30px rgba(15, 23, 42, .12), 0 30px 64px rgba(15, 23, 42, .22) !important;
-    width: 300px !important;
-    min-width: 280px !important;
-    background: #fff !important;
-    padding: 0 !important;
-    animation: datepickerFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-    /* نمایش به سمت بالا */
-    top: auto !important;
-    bottom: 100% !important;
-    margin-bottom: 6px !important;
-}
-
-@keyframes datepickerFadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.92) translateY(8px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.datepicker-plot-area .datepicker-navigator {
-    background: linear-gradient(135deg, var(--blue), var(--indigo)) !important;
-    padding: 16px 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-}
-
-.datepicker-plot-area .datepicker-navigator .pwt-btn-prev,
-.datepicker-plot-area .datepicker-navigator .pwt-btn-next {
-    background: rgba(255, 255, 255, .15) !important;
-    color: #fff !important;
-    border-radius: 10px !important;
-    width: 36px !important;
-    height: 36px !important;
-    line-height: 36px !important;
-    font-size: 16px !important;
-    transition: all 0.2s ease !important;
-    border: none !important;
-    font-family: var(--font-primary) !important;
-}
-
-.datepicker-plot-area .datepicker-navigator .pwt-btn-prev:hover,
-.datepicker-plot-area .datepicker-navigator .pwt-btn-next:hover {
-    background: rgba(255, 255, 255, .28) !important;
-    transform: scale(1.05);
-}
-
-.datepicker-plot-area .datepicker-navigator .pwt-btn-switch {
-    color: #fff !important;
-    font-size: 14.5px !important;
-    font-weight: 700 !important;
-    border-radius: 10px !important;
-    padding: 6px 16px !important;
-    background: rgba(255, 255, 255, .1) !important;
-    transition: all 0.2s ease !important;
-    border: none !important;
-    font-family: var(--font-primary) !important;
-    letter-spacing: 0.02em;
-}
-
-.datepicker-plot-area .datepicker-navigator .pwt-btn-switch:hover {
-    background: rgba(255, 255, 255, .22) !important;
-    transform: scale(1.02);
-}
-
-/* دکمه تأیید بزرگ‌تر */
-.datepicker-plot-area .datepicker-navigator .pwt-btn-today {
-    background: rgba(255, 255, 255, .18) !important;
-    color: #fff !important;
-    border-radius: 10px !important;
-    padding: 8px 20px !important;
-    font-size: 13.5px !important;
-    font-weight: 700 !important;
-    border: none !important;
-    font-family: var(--font-primary) !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .08) !important;
-}
-
-.datepicker-plot-area .datepicker-navigator .pwt-btn-today:hover {
-    background: rgba(255, 255, 255, .32) !important;
-    transform: scale(1.04);
-}
-
-/* روزها */
-.datepicker-plot-area .datepicker-day-view .month-grid-box {
-    margin: 8px 4px !important;
-    padding: 0 4px !important;
-}
-
-.datepicker-plot-area .datepicker-day-view .month-grid-box .header-row-cell {
-    color: #94a3b8 !important;
-    font-size: 11.5px !important;
-    font-weight: 700 !important;
-    font-family: var(--font-primary) !important;
-    padding: 6px 0 !important;
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td {
-    padding: 2px !important;
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td span {
-    border-radius: 12px !important;
-    font-size: 13px !important;
-    color: #1a1a2e !important;
-    background: transparent !important;
-    transition: all 0.18s ease !important;
-    height: 34px !important;
-    line-height: 34px !important;
-    font-family: var(--font-primary) !important;
-    font-weight: 500;
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td span:hover {
-    background: #dbeafe !important;
-    color: var(--blue) !important;
-    transform: scale(1.04);
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td.selected span {
-    background: linear-gradient(135deg, var(--blue), var(--indigo)) !important;
-    color: #fff !important;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, .38) !important;
-    font-weight: 700 !important;
-    text-shadow: none !important;
-    transform: scale(1.04);
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td.today span {
-    background: #eff6ff !important;
-    color: var(--blue) !important;
-    font-weight: 700 !important;
-    border: 2px solid rgba(37, 99, 235, .25) !important;
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td.disabled span {
-    color: #e2e8f0 !important;
-    background: transparent !important;
-    cursor: default !important;
-}
-
-.datepicker-plot-area .datepicker-day-view .table-days td span.other-month {
-    color: #cbd5e1 !important;
-    opacity: .5 !important;
-}
-
-/* سال و ماه */
-.datepicker-plot-area .datepicker-year-view .year-item,
-.datepicker-plot-area .datepicker-month-view .month-item {
-    border-radius: 12px !important;
-    font-size: 13px !important;
-    color: #1a1a2e !important;
-    background: transparent !important;
-    transition: all 0.18s ease !important;
-    margin: 3px !important;
-    padding: 6px 0 !important;
-    font-family: var(--font-primary) !important;
-    font-weight: 500;
-}
-
-.datepicker-plot-area .datepicker-year-view .year-item:hover,
-.datepicker-plot-area .datepicker-month-view .month-item:hover {
-    background: #dbeafe !important;
-    color: var(--blue) !important;
-    transform: scale(1.04);
-}
-
-.datepicker-plot-area .datepicker-year-view .year-item.selected,
-.datepicker-plot-area .datepicker-month-view .month-item.selected {
-    background: linear-gradient(135deg, var(--blue), var(--indigo)) !important;
-    color: #fff !important;
-    font-weight: 700 !important;
-    text-shadow: none !important;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, .38) !important;
-    transform: scale(1.04);
-}
-
-/* TIME VIEW داخل پیکر (برای زمانی که فعال شود) - مخفی کردن کامل */
-.datepicker-plot-area .datepicker-time-view {
-    display: none !important;
 }
 
 /* ============================================================
@@ -3302,12 +3067,6 @@ body {
         height: 30px;
     }
 
-    .datepicker-plot-area {
-        width: 260px !important;
-        min-width: 250px !important;
-        bottom: 100% !important;
-    }
-
     .sec-head {
         padding: 14px 18px;
     }
@@ -3387,11 +3146,6 @@ body {
         padding: 0;
     }
 
-    .datepicker-plot-area {
-        width: 230px !important;
-        min-width: 220px !important;
-    }
-
     .invoice-table-scroll {
         max-height: 200px;
     }
@@ -3467,18 +3221,6 @@ body {
 .time-custom-container,
 .time-custom-container * {
     font-family: var(--font-primary);
-}
-
-.datepicker-plot-area,
-.datepicker-plot-area *,
-.datepicker-plot-area .datepicker-time-view input,
-.datepicker-plot-area .datepicker-time-view .divider span,
-.datepicker-plot-area .datepicker-day-view .table-days td span,
-.datepicker-plot-area .datepicker-navigator .pwt-btn-switch,
-.datepicker-plot-area .datepicker-year-view .year-item,
-.datepicker-plot-area .datepicker-month-view .month-item,
-.datepicker-plot-area .datepicker-navigator .pwt-btn-today {
-    font-family: var(--font-primary) !important;
 }
 
 /* Upload area */

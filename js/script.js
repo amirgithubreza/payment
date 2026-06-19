@@ -518,7 +518,7 @@
                     if (couponErr) couponErr.classList.add('show');
                     shakeEl(couponInput);
                     if (couponBtnTxt) couponBtnTxt.innerHTML =
-                        '<i class="fa-solid fa-check-circle"></i> اعمال';
+                        '<i class="اعمال';
                     if (couponBtn) couponBtn.disabled = false;
                 }
             }, 800);
@@ -535,7 +535,7 @@
                 couponInput.style.opacity = '1';
                 couponInput.value = '';
             }
-            if (couponBtnTxt) couponBtnTxt.innerHTML = '<i class="fa-solid fa-check-circle"></i> اعمال';
+            if (couponBtnTxt) couponBtnTxt.innerHTML = '<i class="اعمال';
             if (couponBtn) {
                 couponBtn.disabled = false;
                 couponBtn.style.cursor = 'pointer';
@@ -833,13 +833,19 @@
         });
     }
 
-    // ---- INPUT MASK with auto-correct ----
+    // ---- INPUT MASK with auto-correct (اصلاح شده برای روز دو رقمی) ----
     (function initMasks() {
         var offDate = $('offDate');
         var offTime = $('offTime');
 
         if (offDate) {
             offDate.addEventListener('input', function () {
+                // ذخیره موقعیت مکان‌نما
+                var cursorPos = this.selectionStart;
+                // تعداد کاراکترهای عددی قبل از مکان‌نما
+                var textBefore = this.value.substring(0, cursorPos);
+                var digitsBefore = (textBefore.match(/[0-9۰-۹]/g) || []).length;
+
                 var raw = this.value.replace(/[^0-9۰-۹]/g, '');
                 var parts = [];
                 if (raw.length >= 4) {
@@ -859,7 +865,21 @@
                 }
                 var formatted = parts.join('/');
                 if (formatted.length > 10) formatted = formatted.substring(0, 10);
-                if (formatted !== this.value) this.value = formatted;
+
+                if (formatted !== this.value) {
+                    this.value = formatted;
+                    // محاسبه موقعیت جدید بر اساس تعداد ارقام قبل از مکان‌نما
+                    var newPos = 0;
+                    var digitCount = 0;
+                    for (var i = 0; i < formatted.length; i++) {
+                        if (formatted[i] === '/') continue;
+                        digitCount++;
+                        if (digitCount <= digitsBefore) {
+                            newPos = i + 1;
+                        }
+                    }
+                    this.setSelectionRange(newPos, newPos);
+                }
                 validateOfflineField(this, 'offDate-err');
             });
 
@@ -936,7 +956,7 @@
     })();
 
     // ============================================================
-    //  TIME PICKER CUSTOM — با دو Dropdown و دکمه تأیید
+    //  TIME PICKER CUSTOM — با دو Dropdown و دکمه تأیید (بدون چیپ‌های سریع)
     // ============================================================
     (function initCustomTimePicker() {
         var offTime = $('offTime');
@@ -945,38 +965,21 @@
         var wrapper = offTime.closest('.time-picker-wrapper');
         if (!wrapper) return;
 
-        // حذف هرگونه container قبلی
         var oldContainer = wrapper.querySelector('.time-custom-container');
         if (oldContainer) oldContainer.remove();
 
-        // ایجاد container جدید
         var container = document.createElement('div');
         container.className = 'time-custom-container';
         wrapper.appendChild(container);
-
-        // ساختار داخلی
-        var quickRow = document.createElement('div');
-        quickRow.className = 'time-custom-quick';
-        container.appendChild(quickRow);
-        ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'].forEach(function (t) {
-            var chip = document.createElement('button');
-            chip.type = 'button';
-            chip.className = 'time-custom-chip';
-            chip.textContent = enToFaNumber(t);
-            chip.dataset.time = t;
-            quickRow.appendChild(chip);
-        });
 
         var row = document.createElement('div');
         row.className = 'time-custom-row';
         container.appendChild(row);
 
-        // بخش dropdownها (سمت چپ)
         var dropdowns = document.createElement('div');
         dropdowns.className = 'time-custom-dropdowns';
         row.appendChild(dropdowns);
 
-        // Dropdown ساعت
         var hourWrap = document.createElement('div');
         hourWrap.className = 'time-custom-dropdown';
         var hourSelect = document.createElement('select');
@@ -996,7 +999,6 @@
         hourWrap.appendChild(hourLabel);
         dropdowns.appendChild(hourWrap);
 
-        // Dropdown دقیقه
         var minWrap = document.createElement('div');
         minWrap.className = 'time-custom-dropdown';
         var minSelect = document.createElement('select');
@@ -1016,30 +1018,16 @@
         minWrap.appendChild(minLabel);
         dropdowns.appendChild(minWrap);
 
-        // دکمه «اکنون» (تنظیم سریع ساعت فعلی)
         var nowBtn = document.createElement('button');
         nowBtn.type = 'button';
         nowBtn.className = 'time-custom-now-btn';
-        nowBtn.innerHTML = '<i class="fa-regular fa-clock"></i> اکنون';
+        nowBtn.innerHTML = 'اکنون';
         row.appendChild(nowBtn);
 
-        // دکمه تأیید (سمت راست)
         var confirmBtn = document.createElement('button');
         confirmBtn.className = 'time-custom-confirm-btn';
-        confirmBtn.innerHTML = '<i class="fa-solid fa-check"></i> تایید';
+        confirmBtn.innerHTML = 'تایید';
         row.appendChild(confirmBtn);
-
-        quickRow.querySelectorAll('.time-custom-chip').forEach(function (chip) {
-            chip.addEventListener('click', function (e) {
-                e.preventDefault();
-                var parts = chip.dataset.time.split(':');
-                hourSelect.value = parts[0];
-                minSelect.value = parts[1];
-                updateInputFromSelects();
-                quickRow.querySelectorAll('.time-custom-chip').forEach(function (c) { c.classList.remove('active'); });
-                chip.classList.add('active');
-            });
-        });
 
         nowBtn.addEventListener('click', function (e) {
             e.preventDefault();
@@ -1049,41 +1037,33 @@
             updateInputFromSelects();
         });
 
-        // ---- LOGIC ----
         function updateInputFromSelects() {
             var hVal = hourSelect.value;
             var mVal = minSelect.value;
             var newVal = enToFaNumber(hVal + ':' + mVal);
             offTime.value = newVal;
             validateOfflineField(offTime, 'offTime-err');
-            // به‌روزرسانی Invoice اگر در مرحله ۴ هستیم
             if (document.querySelector('.step-panel[data-step="4"].active')) {
                 updateInvoiceFinal();
             }
         }
 
-        // وقتی dropdownها تغییر می‌کنند
         hourSelect.addEventListener('change', updateInputFromSelects);
         minSelect.addEventListener('change', updateInputFromSelects);
 
-        // دکمه تأیید
         confirmBtn.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             updateInputFromSelects();
-            // بستن dropdown
             container.classList.remove('open');
             offTime.blur();
-            // نمایش پیام
             var val = offTime.value.trim();
             if (val && isValidTime(val)) {
                 window.showToast('ساعت ' + val + ' ثبت شد', 'success');
             }
         });
 
-        // باز و بسته کردن container
         offTime.addEventListener('focus', function () {
-            // تنظیم مقدار selectها بر اساس مقدار فعلی
             var current = offTime.value.trim();
             if (current) {
                 var en = faToEnNumber(current);
@@ -1113,8 +1093,6 @@
             });
         }
 
-        // بستن فقط وقتی فوکوس واقعاً از کل wrapper خارج شده باشد
-        // (preventDefault روی mousedown حذف شد چون باز شدن select های مرورگر را مسدود می‌کرد)
         wrapper.addEventListener('focusout', function (e) {
             setTimeout(function () {
                 var active = document.activeElement;
@@ -1124,22 +1102,15 @@
             }, 0);
         });
 
-        // کلیک داخل container نباید به document بریزد و باعث بسته‌شدن توسط تقویم شود
-        container.addEventListener('mousedown', function (e) {
-            e.stopPropagation();
-        });
-        container.addEventListener('click', function (e) {
-            e.stopPropagation();
-        });
+        container.addEventListener('mousedown', function (e) { e.stopPropagation(); });
+        container.addEventListener('click', function (e) { e.stopPropagation(); });
 
-        // بستن با کلیک خارج (شامل کلیک روی تقویم تاریخ یا هر جای دیگه صفحه)
         document.addEventListener('mousedown', function (e) {
             if (!wrapper.contains(e.target)) {
                 container.classList.remove('open');
             }
         });
 
-        // Esc برای بستن
         offTime.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 container.classList.remove('open');
@@ -1147,7 +1118,6 @@
             }
         });
 
-        // همگام‌سازی اولیه
         setTimeout(function () {
             var current = offTime.value.trim();
             if (current) {
@@ -1162,7 +1132,6 @@
             }
         }, 50);
 
-        // ذخیره مراجع برای استفاده
         window.__customTimePicker = {
             container: container,
             hourSelect: hourSelect,
@@ -1299,7 +1268,7 @@
     }
 
     // ============================================================
-    //  CUSTOM JALALI CALENDAR — بدون نیاز به کتابخانه خارجی
+    //  CUSTOM JALALI CALENDAR — بدون کتابخانه خارجی
     // ============================================================
     (function initCustomDatePicker() {
         var offDateInput = document.getElementById('offDate');
@@ -1308,13 +1277,18 @@
         var wrapper = offDateInput.closest('.date-picker-wrapper');
         if (!wrapper) return;
 
-        // ---- ریاضیات تقویم جلالی (الگوریتم استاندارد، بدون وابستگی) ----
         function div(a, b) { return ~~(a / b); }
+
         function mod(a, b) { return a - ~~(a / b) * b; }
 
         function jalCal(jy) {
             var breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
-            var bl = breaks.length, gy = jy + 621, leapJ = -14, jp = breaks[0], jm, jump = 0, n, i;
+            var bl = breaks.length,
+                gy = jy + 621,
+                leapJ = -14,
+                jp = breaks[0],
+                jm, jump = 0,
+                n, i;
             for (i = 1; i < bl; i += 1) {
                 jm = breaks[i];
                 jump = jm - jp;
@@ -1360,7 +1334,8 @@
             var jy = gy - 621;
             var r = jalCal(jy);
             var jdn1f = g2d(r.gy, 3, r.march);
-            var k = jdn - jdn1f, jm, jd;
+            var k = jdn - jdn1f,
+                jm, jd;
             if (k >= 0) {
                 if (k <= 185) { return [jy, 1 + div(k, 31), mod(k, 31) + 1]; }
                 k -= 186;
@@ -1383,7 +1358,6 @@
         }
 
         function weekdayOf(jy, jm, jd) {
-            // 0 = شنبه ... 6 = جمعه
             return mod(j2d(jy, jm, jd) + 2, 7);
         }
 
@@ -1394,14 +1368,14 @@
         }
 
         var MONTH_NAMES = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-            'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+            'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+        ];
         var WEEK_LETTERS = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
 
         var today = todayJalali();
         var view = { jy: today[0], jm: today[1] };
-        var selected = null; // {jy, jm, jd}
+        var selected = null;
 
-        // ---- ساخت DOM ----
         var oldContainer = wrapper.querySelector('.date-custom-container');
         if (oldContainer) oldContainer.remove();
 
@@ -1473,7 +1447,6 @@
         todayBtn.innerHTML = '<i class="fa-solid fa-calendar-day"></i> امروز';
         footer.appendChild(todayBtn);
 
-        // ---- رندر شبکه روزها ----
         function renderGrid() {
             monthSelect.value = view.jm;
             yearSelect.value = view.jy;
@@ -1536,17 +1509,29 @@
         prevBtn.addEventListener('click', function (e) {
             e.preventDefault();
             view.jm -= 1;
-            if (view.jm < 1) { view.jm = 12; view.jy -= 1; }
+            if (view.jm < 1) {
+                view.jm = 12;
+                view.jy -= 1;
+            }
             renderGrid();
         });
         nextBtn.addEventListener('click', function (e) {
             e.preventDefault();
             view.jm += 1;
-            if (view.jm > 12) { view.jm = 1; view.jy += 1; }
+            if (view.jm > 12) {
+                view.jm = 1;
+                view.jy += 1;
+            }
             renderGrid();
         });
-        monthSelect.addEventListener('change', function () { view.jm = parseInt(this.value, 10); renderGrid(); });
-        yearSelect.addEventListener('change', function () { view.jy = parseInt(this.value, 10); renderGrid(); });
+        monthSelect.addEventListener('change', function () {
+            view.jm = parseInt(this.value, 10);
+            renderGrid();
+        });
+        yearSelect.addEventListener('change', function () {
+            view.jy = parseInt(this.value, 10);
+            renderGrid();
+        });
         todayBtn.addEventListener('click', function (e) {
             e.preventDefault();
             selected = { jy: today[0], jm: today[1], jd: today[2] };
@@ -1600,7 +1585,6 @@
                 offDateInput.blur();
             }
         });
-        // به‌روزرسانی تقویم وقتی کاربر دستی تایپ می‌کند
         offDateInput.addEventListener('input', function () {
             var val = faToEnNumber(this.value.trim());
             if (isValidDate(val)) {

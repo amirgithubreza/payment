@@ -199,8 +199,8 @@
                 <div class="coupon-row">
                   <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
                     autocomplete="off" maxlength="20" />
-                  <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
-                        class="fa-solid fa-check-circle"></i> اعمال</span></button>
+                  <button class="coupon-apply-btn" id="couponBtn">
+                    <span id="couponBtnTxt"> اعمال</span></button>
                 </div>
                 <div class="coupon-fb ok" id="couponOk"></div>
                 <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
@@ -300,13 +300,14 @@
                       انتخاب یا وارد کنید (YYYY/MM/DD)</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label" style="font-size:12px;"><i class="fa-regular fa-clock"></i> ساعت واریز
+                    <label class="form-label" style="font-size:12px;">
+                       ساعت واریز
                       <span class="req">*</span></label>
                     <div class="time-picker-wrapper">
                       <input type="text" class="form-input" id="offTime" placeholder="HH:MM" autocomplete="off"
                         maxlength="5" />
                       <button type="button" class="time-picker-icon" id="offTimeIconBtn" aria-label="باز کردن ساعت">
-                        <i class="fa-regular fa-clock"></i>
+                        
                       </button>
                     </div>
                     <span class="field-err" id="offTime-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً ساعت
@@ -411,7 +412,7 @@
                   style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
                   <div
                     style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
-                    <i class="fa-regular fa-clock" style="color:var(--purple);"></i>
+                    
                     <span style="font-weight:600; font-size:13px;font-family:var(--font-primary);">تاریخ
                       و ساعت پرداخت: <strong id="invoicePaymentDateTime" style="color:var(--purple);">—</strong></span>
                   </div>
