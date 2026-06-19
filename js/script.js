@@ -333,7 +333,19 @@ function updateSidebar() {
     $('sideSaving').textContent = toman(totalDisc + (S.couponApplied ? S.couponAmt : 0));
 }
 
-/* ── FINAL INVOICE ────────────────────────── */
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateInvoiceFinal() {
     const now = getPersianDate();
     $('invoiceNumber').textContent = 'PTZ-' + Date.now().toString().slice(-8);
@@ -345,38 +357,38 @@ function updateInvoiceFinal() {
     $('finalEmail').textContent = $('email').value || '—';
 
     const methodMap = { offline: 'کارت به کارت', online: 'پرداخت آنلاین' };
-    $('finalMethod').textContent = methodMap[S.method] || 'کارت به کارت';
+    const methodText = methodMap[S.method] || 'کارت به کارت';
+
+    // مخفی کردن المان finalMethod (چون در grid نمایش داده می‌شود)
+    const finalMethodEl = $('finalMethod');
+    if (finalMethodEl) finalMethodEl.style.display = 'none';
 
     const receiptInfo = $('finalReceiptInfo');
-    const receiptImg = $('finalReceiptImg');
+
+    // ساخت آیتم‌های grid (۴ ردیف)
+    let items = [];
+    items.push(`<div><span>روش:</span> <span>${methodText}</span></div>`);
 
     if (S.method === 'offline') {
-        const date = $('offDate')?.value || '';
-        const time = $('offTime')?.value || '';
-        const ref = $('offRef')?.value || '';
-        const fileInput = $('receiptFile');
-        if (date && time && fileInput && fileInput.files && fileInput.files[0]) {
-            let html = `
-                <div><span>تاریخ واریز:</span> <span>${date}</span></div>
-                <div><span style="margin-right: 10px;">ساعت واریز:</span> <span>${time}</span></div>
-            `;
-            if (ref) html += `<div><span>کد پیگیری:</span> <span>${ref}</span></div>`;
-            receiptInfo.innerHTML = html;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                receiptImg.src = e.target.result;
-                receiptImg.style.display = 'block';
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        } else {
-            receiptInfo.innerHTML = '<div style="color:var(--text-mute);">اطلاعات واریز تکمیل نشده است</div>';
-            receiptImg.style.display = 'none';
-        }
+        const date = $('offDate')?.value || '—';
+        const time = $('offTime')?.value || '—';
+        const ref = $('offRef')?.value || '—';
+        items.push(`<div><span>تاریخ واریز:</span> <span>${date}</span></div>`);
+        items.push(`<div><span>ساعت واریز:</span> <span>${time}</span></div>`);
+        items.push(`<div><span>کد پیگیری:</span> <span>${ref}</span></div>`);
+
+        // نمایش عکس اگر موجود باشد
+
     } else {
-        receiptInfo.innerHTML = '<div style="color:var(--text-mute);">پرداخت آنلاین</div>';
-        receiptImg.style.display = 'none';
+        // پرداخت آنلاین: سه ردیف خالی برای هماهنگی grid
+        items.push(`<div><span>تاریخ واریز:</span> <span>—</span></div>`);
+        items.push(`<div><span>ساعت واریز:</span> <span>—</span></div>`);
+        items.push(`<div><span>کد پیگیری:</span> <span>—</span></div>`);
     }
 
+    receiptInfo.innerHTML = items.join('');
+
+    // بقیه کدها (جدول و جمع‌ها) بدون تغییر
     const tbody = $('finalInvoiceItems');
     if (!tbody) return;
     if (cartItems.length === 0) {
@@ -415,6 +427,24 @@ function updateInvoiceFinal() {
     const couponRow = $('invoiceCouponRow');
     if (couponRow) couponRow.style.display = 'none';
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ── CART EVENTS ──────────────────────────── */
 document.addEventListener('click', function (e) {
@@ -882,6 +912,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+
+
+
+
+
+
+
+
 
 /* ── INIT ──────────────────────────────────── */
 renderCart();

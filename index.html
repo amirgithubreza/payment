@@ -346,7 +346,7 @@
               <div class="invoice-header-left">
                 <div class="invoice-icon"><i class="fa-solid fa-file-invoice"></i></div>
                 <div>
-                  <h2>فاکتور رسمی</h2>
+                  <h2>فاکتور نهایی</h2>
                   <span class="invoice-number">#<span id="invoiceNumber">PTZ-1404-0087</span></span>
                 </div>
               </div>
@@ -380,14 +380,11 @@
               <!-- روش پرداخت -->
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-credit-card"></i> روش پرداخت</div>
-                <div style="display: flex; justify-content: space-between; gap: 12px; align-items: flex-start;">
-                  <div class="invoice-info-body" style="flex: 1;">
-                    <div><span>روش:</span> <span id="finalMethod">کارت به کارت</span></div>
-                    <div id="finalReceiptInfo" style="margin-top: 4px;"></div>
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <div style="flex: 1;">
+                    <div id="finalReceiptInfo" style="display: grid; grid-template-columns: auto auto; gap: 2px 16px;"></div>
                   </div>
                   <div style="flex-shrink: 0;">
-                    <img id="finalReceiptImg" src=""
-                      style="max-width:80px; border-radius:6px; border:1px solid var(--border); display:none;" />
                   </div>
                 </div>
               </div>
@@ -593,6 +590,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fa.js"></script>
   <script src="./js/script.js"></script>
+
 
 </body>
 

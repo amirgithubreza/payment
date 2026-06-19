@@ -1826,13 +1826,14 @@ body {
     border: 1px solid var(--border);
     box-shadow: var(--shadow-lg);
     padding: 32px 36px;
-    max-width: 900px;
+    max-width: 100%;
     width: 100%;
     animation: fadeSlide 0.4s ease;
 }
 
 .invoice-header {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
@@ -1845,6 +1846,8 @@ body {
 .invoice-header-left {
     display: flex;
     align-items: center;
+        flex-direction: row-reverse;
+
     gap: 14px;
 }
 
