@@ -1,8 +1,3 @@
-/* v0.1.9 */
-
-
-
-
 /* ============================================================
    ROOT & RESET
    ============================================================ */
@@ -39,6 +34,18 @@
     --transition-slow: .35s cubic-bezier(.4, 0, .2, 1);
 }
 
+@font-face {
+    font-family: 'YekanBakhFaNum';
+    src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir-Regular.woff2') format('woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'YekanBakhFaNum';
+    src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir-Bold.woff2') format('woff2');
+    font-weight: 700;
+}
+
 *,
 ::before,
 ::after {
@@ -53,7 +60,7 @@ html {
 }
 
 body {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     background: var(--bg);
     color: var(--text);
     direction: rtl;
@@ -143,7 +150,7 @@ body {
     transition: all var(--transition);
     box-shadow: 0 4px 14px rgba(70, 3, 139, .25);
     border: none;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
 }
 
 .login-box:hover {
@@ -275,7 +282,7 @@ body {
     border: 2px solid #e8e0ff;
     box-shadow: 0 2px 10px rgba(70, 3, 139, 0.08);
     direction: rtl;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
 }
 
 .search-input.active {
@@ -574,9 +581,11 @@ body {
     background: #fff;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 24px 26px;
+    padding: 0;
     margin-bottom: 18px;
     box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    width: 100%;
     transition: box-shadow var(--transition-slow);
 }
 
@@ -585,36 +594,70 @@ body {
 }
 
 .sec-head {
+    background: linear-gradient(120deg, var(--purple) 0%, var(--violet) 60%, var(--navy) 130%);
+    padding: 18px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.sec-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, .12), transparent 55%);
+    pointer-events: none;
+}
+
+.sec-head-left {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
 }
 
 .sec-ico {
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    background: var(--lavender);
+    background: rgba(255, 255, 255, .16);
+    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 20px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .2);
     flex-shrink: 0;
-    color: var(--purple);
 }
 
 .sec-title {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 800;
-    color: var(--text);
+    color: #fff;
 }
 
 .sec-sub {
-    font-size: 11.5px;
-    color: var(--text-mute);
+    font-size: 12px;
+    color: rgba(255, 255, 255, .7);
     margin-top: 2px;
+}
+
+.sec-head-actions {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.sec-body {
+    padding: 24px 26px;
 }
 
 /* ============================================================
@@ -654,7 +697,7 @@ body {
     border-radius: 10px;
     padding: 11px 14px;
     font-size: 13.5px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     outline: none;
     background: var(--bg);
     direction: rtl;
@@ -731,7 +774,7 @@ body {
     padding: 9px 20px;
     font-weight: 700;
     font-size: 13px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -773,7 +816,7 @@ body {
     padding: 7px 14px;
     font-weight: 700;
     font-size: 12.5px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -794,7 +837,7 @@ body {
     padding: 14px 28px;
     font-size: 15px;
     font-weight: 800;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -809,6 +852,31 @@ body {
     box-shadow: 0 8px 28px rgba(30, 124, 0, 0.4);
 }
 
+.invoice-final-pay-row {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.invoice-final-pay-btn {
+    width: 100%;
+    padding: 18px 28px;
+    font-size: 16.5px;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(30, 124, 0, .35);
+}
+
+@media (max-width: 640px) {
+    .invoice-final-pay-row {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        background: #fff;
+        padding: 10px 0 4px;
+        margin-top: 10px;
+    }
+}
+
 /* ============================================================
    INVOICE TABLE
    ============================================================ */
@@ -816,11 +884,12 @@ body {
     overflow: hidden;
     border-radius: 28px;
     transition: 0.3s;
+    border: 1px solid var(--border-light);
 }
 
 .table-contain:hover {
     box-shadow: 0px 5px 10px rgba(128, 128, 128, 0.185);
-    transform: translatey(-2px);
+    transform: translateY(-2px);
     border-radius: 28px;
     transition: 0.2s;
 }
@@ -830,6 +899,7 @@ body {
     border-collapse: collapse;
     font-size: 12.5px;
     table-layout: fixed;
+    min-width: 600px;
 }
 
 .inv-table th,
@@ -849,6 +919,7 @@ body {
     font-weight: 700;
     color: var(--text-mute);
     border-bottom: 2px solid var(--border);
+    font-size: 12px;
 }
 
 .inv-table tbody tr {
@@ -901,6 +972,21 @@ body {
     color: var(--green);
 }
 
+.discount-badge {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 12px;
+    border-radius: 12px;
+}
+
+.discount-badge.zero {
+    background: var(--bg);
+    color: var(--text-mute);
+}
+
 .qty-control {
     display: inline-flex;
     align-items: center;
@@ -942,7 +1028,7 @@ body {
     text-align: center;
     font-weight: 700;
     font-size: 14px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     border: none;
     background: transparent;
     color: var(--text);
@@ -990,7 +1076,7 @@ body {
     border: none;
     background: none;
     color: var(--text-mute);
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     border-bottom: 3px solid transparent;
     transition: all var(--transition);
     position: relative;
@@ -1194,7 +1280,7 @@ body {
     padding-left: 44px;
     direction: ltr;
     text-align: center;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     background: var(--bg);
     border: 2px solid var(--border);
     border-radius: 10px;
@@ -1272,7 +1358,7 @@ body {
    PERSIAN DATEPICKER - استایل کامل
    ============================================================ */
 .persian-datepicker {
-    font-family: 'Vazirmatn', sans-serif !important;
+    font-family: 'YekanBakhFaNum', sans-serif !important;
     border-radius: 14px !important;
     box-shadow: 0 12px 40px rgba(70, 3, 139, 0.2) !important;
     border: 1px solid var(--border) !important;
@@ -1501,7 +1587,7 @@ body {
     border-radius: 10px;
     padding: 11px 14px;
     font-size: 13.5px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     outline: none;
     background: var(--bg);
     direction: rtl;
@@ -1528,7 +1614,7 @@ body {
     padding: 11px 20px;
     font-size: 13px;
     font-weight: 700;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     white-space: nowrap;
     display: flex;
@@ -1587,7 +1673,7 @@ body {
     padding: 2px 10px;
     cursor: pointer;
     font-size: 11px;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     color: #4b5563;
     transition: all 0.2s ease;
     white-space: nowrap;
@@ -1811,7 +1897,7 @@ body {
 }
 
 /* ============================================================
-   FINAL INVOICE
+   FINAL INVOICE (مرحله ۴)
    ============================================================ */
 .final-invoice-wrapper {
     display: flex;
@@ -1825,55 +1911,66 @@ body {
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-lg);
-    padding: 32px 36px;
+    padding: 0 0 28px;
     max-width: 100%;
     width: 100%;
+    overflow: hidden;
     animation: fadeSlide 0.4s ease;
 }
 
-.invoice-header {
+/* هدر فاکتور نهایی - گرادیان بنفش */
+.invoice-final-header {
+    background: linear-gradient(120deg, var(--purple) 0%, var(--violet) 60%, var(--navy) 130%);
+    padding: 18px 32px;
+    position: relative;
+    overflow: hidden;
     display: flex;
-    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--border-light);
-    margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 12px;
 }
 
-.invoice-header-left {
-    display: flex;
-    align-items: center;
-        flex-direction: row-reverse;
-
-    gap: 14px;
+.invoice-final-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 100% 0%, rgba(255, 255, 255, .12), transparent 55%);
+    pointer-events: none;
 }
 
-.invoice-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--purple), var(--violet));
+.invoice-final-header-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+}
+
+.invoice-final-header-content .invoice-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .16);
+    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 20px;
     color: #fff;
-    box-shadow: 0 4px 14px rgba(70, 3, 139, 0.25);
+    border: 1px solid rgba(255, 255, 255, .2);
 }
 
-.invoice-header-left h2 {
-    font-size: 20px;
-    font-weight: 900;
-    color: var(--text);
+.invoice-final-header-content h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
     margin: 0;
 }
 
-.invoice-number {
+.invoice-final-header-content .invoice-number {
     font-size: 12px;
-    color: var(--text-mute);
+    color: rgba(255, 255, 255, .7);
     font-weight: 600;
     display: block;
     margin-top: 2px;
@@ -1884,6 +1981,8 @@ body {
     flex-direction: column;
     align-items: flex-end;
     gap: 4px;
+    position: relative;
+    z-index: 1;
 }
 
 .status-badge {
@@ -1906,30 +2005,48 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-bottom: 20px;
+    margin: 20px 32px;
 }
 
 @media (max-width: 768px) {
     .invoice-info-grid {
         grid-template-columns: 1fr;
+        margin: 16px 18px;
     }
 }
 
 .invoice-info-box {
     background: var(--bg);
-    border-radius: var(--radius);
-    padding: 14px 18px;
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
     border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
+
+.invoice-info-box:hover {
+    border-color: var(--lavender);
+    box-shadow: 0 4px 16px rgba(70, 3, 139, 0.06);
 }
 
 .invoice-info-title {
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--purple);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
+}
+
+.invoice-info-title i {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lavender);
+    border-radius: 8px;
+    font-size: 11px;
 }
 
 .invoice-info-body {
@@ -1950,76 +2067,69 @@ body {
 }
 
 .invoice-info-body div span:last-child {
-    font-weight: 600;
+    font-weight: 700;
     margin-right: 10px;
 }
 
 .invoice-table-wrap {
-    margin-bottom: 20px;
-    overflow: hidden;
-    border-radius: var(--radius);
+    margin: 0 32px 20px;
+    overflow: auto;
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border-light);
+    box-shadow: 0 2px 10px rgba(15, 23, 42, .03);
 }
 
-.invoice-table-title {
-    background: var(--bg);
-    padding: 12px 16px;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border-bottom: 1px solid var(--border-light);
+@media (max-width: 768px) {
+    .invoice-table-wrap {
+        margin: 0 18px 20px;
+    }
 }
 
 .invoice-items-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12.5px;
+    font-size: 13px;
+    min-width: 500px;
 }
 
 .invoice-items-table th {
-    background: #f8f7fc;
-    padding: 10px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-mute);
+    background: linear-gradient(135deg, var(--lavender), #f3edff);
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
     text-align: center;
     border-bottom: 2px solid var(--border-light);
 }
 
 .invoice-items-table td {
-    padding: 10px 12px;
+    padding: 12px 14px;
     text-align: center;
     border-bottom: 1px solid var(--border-light);
     vertical-align: middle;
+}
+
+.invoice-items-table tbody tr {
+    transition: background var(--transition);
+}
+
+.invoice-items-table tbody tr:hover {
+    background: #faf9ff;
 }
 
 .invoice-items-table tr:last-child td {
     border-bottom: none;
 }
 
-.invoice-items-table .inv-course-name {
-    font-weight: 700;
-    font-size: 12.5px;
-    text-align: right;
-}
-
-.invoice-items-table .inv-course-meta {
-    font-size: 10.5px;
-    color: var(--text-mute);
-}
-
 .invoice-items-table .inv-price-orig {
     text-decoration: line-through;
     color: #b0b0b0;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .invoice-items-table .inv-price-final {
     font-weight: 900;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--purple);
 }
 
@@ -2043,18 +2153,24 @@ body {
 }
 
 .invoice-summary {
-    background: var(--bg);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fbfaff, var(--bg));
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    margin: 0 32px 12px;
     border: 1px solid var(--border-light);
+}
+
+@media (max-width: 768px) {
+    .invoice-summary {
+        margin: 0 18px 12px;
+    }
 }
 
 .invoice-summary-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 4px 0;
+    padding: 5px 0;
     font-size: 13px;
 }
 
@@ -2064,10 +2180,13 @@ body {
 }
 
 .invoice-summary-row.grand-total {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 900;
     color: var(--purple);
-    padding-top: 4px;
+    padding: 12px 16px;
+    margin-top: 6px;
+    background: var(--lavender);
+    border-radius: var(--radius);
 }
 
 .invoice-summary-divider {
@@ -2087,7 +2206,7 @@ body {
     background: var(--lavender);
     border-radius: var(--radius);
     padding: 10px 16px;
-    margin-bottom: 16px;
+    margin: 0 32px 16px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -2102,6 +2221,22 @@ body {
 
 .invoice-payment-time strong {
     color: var(--purple);
+}
+
+@media (max-width: 768px) {
+    .invoice-payment-time {
+        margin: 0 18px 16px;
+    }
+}
+
+.invoice-footer-block {
+    padding: 0 32px;
+}
+
+@media (max-width: 768px) {
+    .invoice-footer-block {
+        padding: 0 18px;
+    }
 }
 
 /* ============================================================
@@ -2224,7 +2359,7 @@ body {
     padding: 13px;
     font-size: 14px;
     font-weight: 800;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     transition: all var(--transition);
 }
@@ -2242,7 +2377,7 @@ body {
     padding: 13px 18px;
     font-size: 13.5px;
     font-weight: 700;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     cursor: pointer;
     transition: all var(--transition);
 }
@@ -2280,7 +2415,7 @@ body {
     border-radius: 12px;
     font-size: 13px;
     font-weight: 700;
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'YekanBakhFaNum', sans-serif;
     box-shadow: 0 8px 28px rgba(0, 0, 0, .22);
     display: flex;
     align-items: center;
@@ -2634,9 +2769,10 @@ body {
         font-size: 12px;
     }
 
-    .invoice-header {
+    .invoice-final-header {
         flex-direction: column;
         align-items: flex-start;
+        padding: 14px 18px;
     }
 
     .invoice-status {
@@ -2645,7 +2781,7 @@ body {
     }
 
     .final-invoice {
-        padding: 16px;
+        padding: 0 0 20px;
     }
 
     .invoice-items-table th,
@@ -2695,6 +2831,28 @@ body {
         font-size: 11px !important;
         padding: 4px 2px !important;
     }
+
+    .sec-head {
+        padding: 14px 18px;
+    }
+
+    .sec-title {
+        font-size: 15px;
+    }
+
+    .sec-body {
+        padding: 18px 18px;
+    }
+
+    .invoice-final-header-content h2 {
+        font-size: 16px;
+    }
+
+    .invoice-final-header-content .invoice-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -2713,7 +2871,7 @@ body {
     }
 
     .sec-card {
-        padding: 18px 16px;
+        padding: 0;
     }
 
     .persian-datepicker {

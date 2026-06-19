@@ -1,5 +1,3 @@
-<!-- v0.1.9 -->
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -8,24 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>پرداخت | آموزشگاه پیشتاز</title>
 
-  <!-- فونت و آیکون‌ها -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
-
-  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" />
+  <link rel="stylesheet" href="./css/main.css">
 
 </head>
 
 <body>
 
-  <!-- ============================================================
-    HEADER
-    ============================================================ -->
+  <!-- HEADER -->
   <header>
-    <nav class="navbar">
+    <nav class=" navbar">
       <ul class="nav-menu">
-        <li><a href="#" class="active" onclick="showToast('صفحه اصلی', 'info'); return false;">صفحه اصلی</a></li>
+        <li><a href="#" class="active" onclick="showToast('صفحه اصلی', 'info'); return false;">صفحه اصلی</a>
+        </li>
         <li><a href="#" onclick="showToast('دوره‌های تخصصی', 'info'); return false;">دوره‌های تخصصی</a></li>
         <li><a href="#" onclick="showToast('فایل لایه باز', 'info'); return false;">فایل لایه باز</a></li>
         <li><a href="#" onclick="showToast('جعبه ابزار', 'info'); return false;">جعبه ابزار</a></li>
@@ -33,23 +28,19 @@
       </ul>
       <div class="header-left">
         <div class="search-container">
-          <button class="search-icon" id="searchToggle" aria-label="جستجو">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <button class="search-icon" id="searchToggle"><i class="fa-solid fa-magnifying-glass"></i></button>
           <div class="search-input-wrapper">
             <input type="text" class="search-input" id="searchInput" placeholder="جستجو کنید..." />
             <button class="search-close" id="searchClose">✕</button>
           </div>
         </div>
-        <button class="cart-box" onclick="showToast('سبد خرید شما خالی است', 'info');" aria-label="سبد خرید">
+        <button class="cart-box" onclick="showToast('سبد خرید شما خالی است', 'info');">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="badge">۴</span>
         </button>
         <button class="login-box" onclick="showToast('صفحه ورود / ثبت نام', 'info');">
           <div class="arrow-circle">
-            <div class="circle">
-              <i class="fa-solid fa-arrow-left"></i>
-            </div>
+            <div class="circle"><i class="fa-solid fa-arrow-left"></i></div>
           </div>
           <span>ورود / ثبت نام</span>
         </button>
@@ -57,9 +48,7 @@
     </nav>
   </header>
 
-  <!-- ============================================================
-    BREADCRUMB
-    ============================================================ -->
+  <!-- BREADCRUMB -->
   <div class="breadcrumb-bar">
     <div class="breadcrumb">
       <a href="#" onclick="showToast('خانه', 'info'); return false;"><i class="fa-solid fa-house"></i> خانه</a>
@@ -70,15 +59,11 @@
     </div>
   </div>
 
-  <!-- ============================================================
-    CHECKOUT WRAP
-    ============================================================ -->
+  <!-- CHECKOUT WRAP -->
   <div class="checkout-wrap" id="checkoutWrap">
-
-    <!-- ستون اصلی -->
     <main class="checkout-main" id="checkoutMain">
 
-      <!-- هدر مرحله‌ای -->
+      <!-- STEP HEADER -->
       <div class="step-header" id="stepHeader">
         <div class="step-header-inner">
           <div class="cstep active" data-step="1">
@@ -100,379 +85,346 @@
         </div>
       </div>
 
-      <!-- ========== مرحله ۱: اطلاعات کاربر ========== -->
+      <!-- STEP 1: اطلاعات کاربر -->
       <div class="step-panel active" data-step="1">
         <div class="sec-card">
-          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
-            <div style="display:flex; align-items:center; gap:12px;">
+          <div class="sec-head">
+            <div class="sec-head-left">
               <div class="sec-ico"><i class="fa-solid fa-user-pen"></i></div>
               <div>
                 <div class="sec-title">اطلاعات خریدار</div>
                 <div class="sec-sub">لطفاً مشخصات خود را وارد کنید</div>
               </div>
             </div>
-            <div style="display:flex; gap:8px;">
-              <button class="step-prev-btn" data-prev="1" disabled style="opacity:0.4; cursor:default;"><i
+            <div class="sec-head-actions">
+              <button class="step-prev-btn" data-prev="1" disabled style="opacity:0.4;cursor:default;"><i
                   class="fa-solid fa-chevron-right"></i> قبلی</button>
               <button class="step-next-btn" id="step1NextBtn" data-next="2" disabled>بعدی <i
                   class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
-          <div class="form-grid">
-            <div class="form-group">
-              <label class="form-label">نام <span class="req">*</span></label>
-              <input type="text" class="form-input" id="fname" placeholder="نام خود را وارد کنید" />
-              <span class="field-err" id="fname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً نام را وارد
-                کنید</span>
-            </div>
-            <div class="form-group">
-              <label class="form-label">نام خانوادگی <span class="req">*</span></label>
-              <input type="text" class="form-input" id="lname" placeholder="نام خانوادگی خود را وارد کنید" />
-              <span class="field-err" id="lname-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً نام خانوادگی
-                را وارد کنید</span>
-            </div>
-            <div class="form-group">
-              <label class="form-label">شماره موبایل <span class="req">*</span></label>
-              <input type="tel" class="form-input" id="phone" placeholder="۰۹xxxxxxxxx"
-                style="direction:ltr;text-align:right" />
-              <span class="field-err" id="phone-err"><i class="fa-solid fa-triangle-exclamation"></i> شماره موبایل معتبر
-                نیست</span>
-            </div>
-            <div class="form-group">
-              <label class="form-label">آدرس ایمیل</label>
-              <input type="email" class="form-input" id="email" placeholder="example@email.com"
-                style="direction:ltr;text-align:right" />
+          <div class="sec-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">نام <span class="req">*</span></label>
+                <input type="text" class="form-input" id="fname" placeholder="نام خود را وارد کنید" />
+                <span class="field-err" id="fname-err"><i class="fa-solid fa-triangle-exclamation"></i>
+                  لطفاً نام را وارد کنید</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">نام خانوادگی <span class="req">*</span></label>
+                <input type="text" class="form-input" id="lname" placeholder="نام خانوادگی خود را وارد کنید" />
+                <span class="field-err" id="lname-err"><i class="fa-solid fa-triangle-exclamation"></i>
+                  لطفاً نام خانوادگی را وارد کنید</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">شماره موبایل <span class="req">*</span></label>
+                <input type="tel" class="form-input" id="phone" placeholder="۰۹xxxxxxxxx"
+                  style="direction:ltr;text-align:right" />
+                <span class="field-err" id="phone-err"><i class="fa-solid fa-triangle-exclamation"></i>
+                  شماره موبایل معتبر نیست</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label">آدرس ایمیل</label>
+                <input type="email" class="form-input" id="email" placeholder="example@email.com"
+                  style="direction:ltr;text-align:right" />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ========== مرحله ۲: سبد خرید ========== -->
+      <!-- STEP 2: سبد خرید -->
       <div class="step-panel" data-step="2">
         <div class="sec-card">
-          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
-            <div style="display:flex; align-items:center; gap:12px;">
+          <div class="sec-head">
+            <div class="sec-head-left">
               <div class="sec-ico"><i class="fa-solid fa-cart-shopping"></i></div>
               <div>
                 <div class="sec-title">سبد خرید</div>
-                <div class="sec-sub">محصولات خود را مرور و ویرایش کنید</div>
+                <div class="sec-sub">محصولات خود را مرور کنید</div>
               </div>
             </div>
-            <div style="display:flex; gap:8px;">
-              <button class="step-prev-btn" data-prev="1"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
+            <div class="sec-head-actions">
+              <button class="step-prev-btn" data-prev="1"><i class="fa-solid fa-chevron-right"></i>
+                قبلی</button>
               <button class="step-next-btn" data-next="3">بعدی <i class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
-          <div class="table-contain">
-            <table class="inv-table" id="cartTable">
-              <thead>
-                <tr>
-                  <th style="width:20%;">دوره آموزشی</th>
-                  <th style="width:18%;">قیمت واحد</th>
-                  <th style="width:15%;">تعداد</th>
-                  <th style="width:15%;">قیمت کل</th>
-                  <th style="width:10%;">عملیات</th>
-                </tr>
-              </thead>
-              <tbody id="cartBody">
-                <!-- توسط JS پر می‌شود -->
-              </tbody>
-            </table>
-          </div>
-          <div
-            style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding:12px 0; border-top:1px solid var(--border);">
-            <div>
-              <span style="font-weight:700;font-size:14px;">جمع کل: </span>
-              <span id="cartTotal" style="font-weight:900;font-size:18px;color:var(--purple);">۰</span>
-              <span style="font-size:12px;color:var(--text-mute);"> تومان</span>
+          <div class="sec-body">
+            <div class="table-contain">
+              <table class="inv-table" id="cartTable">
+                <thead>
+                  <tr>
+                    <th style="width:28%;">شرح محصول</th>
+                    <th style="width:22%;">قیمت اصلی</th>
+                    <th style="width:18%;">تخفیف</th>
+                    <th style="width:22%;">قیمت نهایی</th>
+                    <th style="width:10%;">عملیات</th>
+                  </tr>
+                </thead>
+                <tbody id="cartBody"></tbody>
+              </table>
             </div>
-            <button class="add-sample-btn" id="addSampleBtn"><i class="fa-solid fa-plus"></i> افزودن نمونه</button>
-          </div>
-
-          <!-- بخش کد تخفیف -->
-          <div class="invoice-coupon" style="margin-top:16px;">
-            <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple);"></i> کد تخفیف دارید؟
+            <div
+              style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding:12px 0; border-top:1px solid var(--border);">
+              <div>
+                <span style="font-weight:700;font-size:14px;">جمع کل: </span>
+                <span id="cartTotal" style="font-weight:900;font-size:18px;color:var(--purple);">۰</span>
+                <span style="font-size:12px;color:var(--text-mute);"> تومان</span>
+              </div>
+              <button class="add-sample-btn" id="addSampleBtn"><i class="fa-solid fa-plus"></i> افزودن
+                نمونه</button>
             </div>
-            <div class="coupon-row">
-              <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
-                autocomplete="off" />
-              <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
-                    class="fa-solid fa-check-circle"></i> اعمال</span></button>
+            <div class="invoice-coupon">
+              <div class="coupon-label"><i class="fa-solid fa-ticket" style="color:var(--purple);"></i> کد
+                تخفیف دارید؟</div>
+              <div class="coupon-row">
+                <input type="text" class="coupon-input" id="couponInput" placeholder="کد تخفیف را وارد کنید"
+                  autocomplete="off" />
+                <button class="coupon-apply-btn" id="couponBtn"><span id="couponBtnTxt"><i
+                      class="fa-solid fa-check-circle"></i> اعمال</span></button>
+              </div>
+              <div class="coupon-fb ok" id="couponOk"></div>
+              <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد
+                وارد‌شده معتبر نیست.</div>
             </div>
-            <div class="coupon-fb ok" id="couponOk"></div>
-            <div class="coupon-fb fail" id="couponErr"><i class="fa-solid fa-circle-exclamation"></i> کد وارد‌شده
-              معتبر نیست.</div>
           </div>
         </div>
       </div>
 
-      <!-- ========== مرحله ۳: پرداخت ========== -->
+      <!-- STEP 3: پرداخت -->
       <div class="step-panel" data-step="3">
         <div class="sec-card">
-          <div class="sec-head" style="justify-content:space-between; flex-wrap:wrap; gap:10px;">
-            <div style="display:flex; align-items:center; gap:12px;">
+          <div class="sec-head">
+            <div class="sec-head-left">
               <div class="sec-ico"><i class="fa-solid fa-shield-halved"></i></div>
               <div>
                 <div class="sec-title">روش پرداخت</div>
                 <div class="sec-sub">درگاه یا روش پرداخت مناسب خود را انتخاب کنید</div>
               </div>
             </div>
-            <div style="display:flex; gap:8px;">
-              <button class="step-prev-btn" data-prev="2"><i class="fa-solid fa-chevron-right"></i> قبلی</button>
+            <div class="sec-head-actions">
+              <button class="step-prev-btn" data-prev="2"><i class="fa-solid fa-chevron-right"></i>
+                قبلی</button>
               <button class="step-next-btn" data-next="4">بعدی <i class="fa-solid fa-chevron-left"></i></button>
             </div>
           </div>
-
-          <div class="method-tabs" id="methodTabs">
-            <button class="tab-btn active" data-method="offline"><i class="fa-solid fa-building-columns"></i> کارت به
-              کارت</button>
-            <button class="tab-btn" data-method="online"><i class="fa-solid fa-credit-card"></i> پرداخت آنلاین</button>
-          </div>
-
-          <!-- ONLINE PANEL -->
-          <div class="panel" id="panel-online">
-            <p style="font-size:13px;color:var(--text-mute);margin-bottom:14px;">درگاه بانکی مورد نظر خود را انتخاب
-              کنید:</p>
-            <div class="gateway-grid" id="gatewayGrid">
-              <label class="gw-opt chosen" data-gw="zarinpal">
-                <input type="radio" name="gw" value="zarinpal" checked />
-                <div class="gw-logo gw-zp"><i class="fa-solid fa-building-columns"></i></div>
-                <div>
-                  <div class="gw-name">زرین‌پال</div>
-                  <div class="gw-desc">پشتیبانی تمام بانک‌ها</div>
-                </div>
-              </label>
-              <label class="gw-opt" data-gw="wallet">
-                <input type="radio" name="gw" value="wallet" />
-                <div class="gw-logo gw-wl"><i class="fa-solid fa-wallet"></i></div>
-                <div>
-                  <div class="gw-name">کیف پول</div>
-                  <div class="gw-desc">موجودی: ۱۵۰,۰۰۰ تومان</div>
-                </div>
-              </label>
+          <div class="sec-body">
+            <div class="method-tabs" id="methodTabs">
+              <button class="tab-btn active" data-method="offline"><i class="fa-solid fa-building-columns"></i> کارت به
+                کارت</button>
+              <button class="tab-btn" data-method="online"><i class="fa-solid fa-credit-card"></i> پرداخت
+                آنلاین</button>
             </div>
-          </div>
-
-          <!-- OFFLINE PANEL -->
-          <div class="panel active" id="panel-offline">
-            <div class="bank-info-box">
-              <div class="bank-row"><span><i class="fa-solid fa-building-columns"
-                    style="color:var(--purple);width:18px;"></i> بانک</span><strong>بانک ملی ایران</strong></div>
-              <div class="bank-row"><span><i class="fa-solid fa-user" style="color:var(--purple);width:18px;"></i> صاحب
-                  حساب</span><strong>آموزشگاه پیشتاز</strong></div>
-              <div class="bank-row">
-                <span><i class="fa-solid fa-credit-card" style="color:var(--purple);width:18px;"></i> شماره کارت</span>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span class="bank-val">6037-9918-0000-1234</span>
-                  <button class="copy-btn" onclick="copyText('6037991800001234','شماره کارت')"><i
-                      class="fa-solid fa-copy"></i> کپی</button>
-                </div>
-              </div>
-              <div class="bank-row">
-                <span><i class="fa-solid fa-hashtag" style="color:var(--purple);width:18px;"></i> شبا</span>
-                <div style="display:flex;align-items:center;gap:8px;">
-                  <span class="bank-val" style="font-size:11.5px;">IR950170000000123456789003</span>
-                  <button class="copy-btn" onclick="copyText('IR950170000000123456789003','شبا')"><i
-                      class="fa-solid fa-copy"></i> کپی</button>
-                </div>
-              </div>
-            </div>
-
-            <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;font-weight:500;">پس از واریز، اطلاعات زیر
-              را تکمیل کنید:</p>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-              <!-- تاریخ شمسی -->
-              <div class="form-group">
-                <label class="form-label" style="font-size:12px;">
-                  <i class="fa-regular fa-calendar"></i> تاریخ واریز <span class="req">*</span>
+            <div class="panel" id="panel-online">
+              <p style="font-size:13px;color:var(--text-mute);margin-bottom:14px;">درگاه بانکی مورد نظر
+                خود را انتخاب کنید:</p>
+              <div class="gateway-grid" id="gatewayGrid">
+                <label class="gw-opt chosen" data-gw="zarinpal">
+                  <input type="radio" name="gw" value="zarinpal" checked />
+                  <div class="gw-logo gw-zp"><i class="fa-solid fa-building-columns"></i></div>
+                  <div>
+                    <div class="gw-name">زرین‌پال</div>
+                    <div class="gw-desc">پشتیبانی تمام بانک‌ها</div>
+                  </div>
                 </label>
-                <div class="date-picker-wrapper">
-                  <input type="text" class="form-input" id="offDate" placeholder="انتخاب تاریخ" autocomplete="off" />
-                  <i class="fa-regular fa-calendar-alt date-picker-icon"></i>
-                </div>
-                <span class="field-err" id="offDate-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً تاریخ
-                  واریز را انتخاب کنید</span>
-              </div>
-
-              <!-- ساعت -->
-              <div class="form-group">
-                <label class="form-label" style="font-size:12px;">
-                  <i class="fa-regular fa-clock"></i> ساعت واریز <span class="req">*</span>
+                <label class="gw-opt" data-gw="wallet">
+                  <input type="radio" name="gw" value="wallet" />
+                  <div class="gw-logo gw-wl"><i class="fa-solid fa-wallet"></i></div>
+                  <div>
+                    <div class="gw-name">کیف پول</div>
+                    <div class="gw-desc">موجودی: ۱۵۰,۰۰۰ تومان</div>
+                  </div>
                 </label>
-                <div class="time-picker-wrapper">
-                  <input type="time" class="form-input time-picker" id="offTime" />
-                  <i class="fa-regular fa-clock time-picker-icon"></i>
+              </div>
+            </div>
+            <div class="panel active" id="panel-offline">
+              <div class="bank-info-box">
+                <div class="bank-row"><span><i class="fa-solid fa-building-columns"
+                      style="color:var(--purple);width:18px;"></i> بانک</span><strong>بانک ملی
+                    ایران</strong></div>
+                <div class="bank-row"><span><i class="fa-solid fa-user" style="color:var(--purple);width:18px;"></i>
+                    صاحب
+                    حساب</span><strong>آموزشگاه پیشتاز</strong></div>
+                <div class="bank-row">
+                  <span><i class="fa-solid fa-credit-card" style="color:var(--purple);width:18px;"></i> شماره
+                    کارت</span>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="bank-val">6037-9918-0000-1234</span>
+                    <button class="copy-btn" onclick="copyText('6037991800001234','شماره کارت')"><i
+                        class="fa-solid fa-copy"></i> کپی</button>
+                  </div>
                 </div>
-                <span class="field-err" id="offTime-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً ساعت
-                  واریز را انتخاب کنید</span>
+                <div class="bank-row">
+                  <span><i class="fa-solid fa-hashtag" style="color:var(--purple);width:18px;"></i>
+                    شبا</span>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="bank-val" style="font-size:11.5px;">IR950170000000123456789003</span>
+                    <button class="copy-btn" onclick="copyText('IR950170000000123456789003','شبا')"><i
+                        class="fa-solid fa-copy"></i> کپی</button>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <!-- کد پیگیری (اختیاری) -->
-            <div class="form-group" style="margin-bottom:10px;">
-              <label class="form-label" style="font-size:12px;">
-                کد پیگیری / شماره تراکنش
-                <span style="font-size:10px;color:var(--text-mute);font-weight:400;">(اختیاری)</span>
-              </label>
-              <input type="text" class="form-input" id="offRef" placeholder="در صورت تمایل وارد کنید" />
-            </div>
-
-            <!-- بارگذاری فایل -->
-            <div class="upload-area" id="uploadBox">
-              <div style="font-size:28px;margin-bottom:4px;color:var(--purple);"><i class="fa-regular fa-image"></i>
+              <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;font-weight:500;">پس از
+                واریز، اطلاعات زیر را تکمیل کنید:</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+                <div class="form-group">
+                  <label class="form-label" style="font-size:12px;"><i class="fa-regular fa-calendar"></i> تاریخ واریز
+                    <span class="req">*</span></label>
+                  <div class="date-picker-wrapper">
+                    <input type="text" class="form-input" id="offDate" placeholder="انتخاب یا وارد کنید"
+                      autocomplete="off" />
+                    <i class="fa-regular fa-calendar-alt date-picker-icon"></i>
+                  </div>
+                  <span class="field-err" id="offDate-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً تاریخ
+                    واریز را انتخاب یا
+                    وارد کنید</span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" style="font-size:12px;"><i class="fa-regular fa-clock"></i> ساعت واریز <span
+                      class="req">*</span></label>
+                  <div class="time-picker-wrapper">
+                    <input type="text" class="form-input time-picker" id="offTime" placeholder="انتخاب یا وارد کنید"
+                      autocomplete="off" />
+                    <i class="fa-regular fa-clock time-picker-icon"></i>
+                  </div>
+                  <span class="field-err" id="offTime-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً ساعت
+                    واریز را انتخاب یا
+                    وارد کنید</span>
+                </div>
               </div>
-              <div style="font-weight:600;font-size:13px;">برای بارگذاری فیش واریزی کلیک کنید <span class="req">*</span>
+              <div class="form-group" style="margin-bottom:10px;">
+                <label class="form-label" style="font-size:12px;">کد پیگیری / شماره تراکنش <span
+                    style="font-size:10px;color:var(--text-mute);font-weight:400;">(اختیاری)</span></label>
+                <input type="text" class="form-input" id="offRef" placeholder="در صورت تمایل وارد کنید" />
               </div>
-              <div style="font-size:11px;color:var(--text-mute);margin-top:2px;">فرمت‌های مجاز: jpg، png، pdf</div>
-              <input type="file" id="receiptFile" accept="image/*,.pdf" />
+              <div class="upload-area" id="uploadBox">
+                <div style="font-size:28px;margin-bottom:4px;color:var(--purple);"><i class="fa-regular fa-image"></i>
+                </div>
+                <div style="font-weight:600;font-size:13px;">برای بارگذاری فیش واریزی کلیک کنید <span
+                    class="req">*</span></div>
+                <div style="font-size:11px;color:var(--text-mute);margin-top:2px;">فرمت‌های مجاز: jpg،
+                  png، pdf</div>
+                <input type="file" id="receiptFile" accept="image/*,.pdf" />
+              </div>
+              <span class="field-err" id="receiptFile-err" style="display:none;margin-top:4px;"><i
+                  class="fa-solid fa-triangle-exclamation"></i> لطفاً فیش واریزی را بارگذاری
+                کنید</span>
+              <img id="previewImg" class="preview-img" src="" alt="پیش‌نمایش فیش" />
+              <button type="button" id="removeFileBtn" class="btn-remove-file"><i class="fa-solid fa-trash"></i> حذف
+                فایل</button>
             </div>
-            <span class="field-err" id="receiptFile-err" style="display:none;margin-top:4px;">
-              <i class="fa-solid fa-triangle-exclamation"></i> لطفاً فیش واریزی را بارگذاری کنید
-            </span>
-            <img id="previewImg" class="preview-img" src="" alt="پیش‌نمایش فیش" />
-            <button type="button" id="removeFileBtn" class="btn-remove-file"><i class="fa-solid fa-trash"></i> حذف
-              فایل</button>
           </div>
         </div>
       </div>
 
-      <!-- ========== مرحله ۴: فاکتور رسمی ========== -->
+      <!-- STEP 4: تأیید نهایی -->
       <div class="step-panel" data-step="4">
         <div class="final-invoice-wrapper">
           <div class="final-invoice">
-            <!-- هدر فاکتور با دکمه پرداخت نهایی -->
-            <div class="invoice-header">
-              <div class="invoice-header-left">
+            <!-- هدر ساده فقط "جزئیات خرید شما" چسبیده به راست -->
+            <div class="invoice-final-header">
+              <div class="invoice-final-header-content">
                 <div class="invoice-icon"><i class="fa-solid fa-file-invoice"></i></div>
                 <div>
-                  <h2>فاکتور نهایی</h2>
+                  <h2>جزئیات خرید شما</h2>
                   <span class="invoice-number">#<span id="invoiceNumber">PTZ-1404-0087</span></span>
                 </div>
               </div>
-              <div style="display:flex; align-items:center; gap:12px;">
-                <div class="invoice-status">
-                  <span class="status-badge success"><i class="fa-solid fa-circle-check"></i> قابل پرداخت</span>
-                </div>
-                <button class="os-pay-btn" id="finalPayBtn" style="margin:0; padding:10px 24px; font-size:14px;">
-                  <span id="finalPayLabel">پرداخت نهایی</span>
-                </button>
-              </div>
             </div>
 
-            <!-- اطلاعات خریدار و روش پرداخت -->
             <div class="invoice-info-grid">
-              <!-- اطلاعات خریدار -->
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-user"></i> اطلاعات خریدار</div>
-                <div style="display: flex; justify-content: space-between; gap: 12px;">
-                  <div class="invoice-info-body" style="flex: 1;">
+                <div style="display:flex; justify-content:space-between; gap:12px;">
+                  <div class="invoice-info-body" style="flex:1;">
                     <div><span>نام:</span> <span id="finalFname">—</span></div>
                     <div><span>نام خانوادگی:</span> <span id="finalLname">—</span></div>
                   </div>
-                  <div class="invoice-info-body" style="flex: 1;">
+                  <div class="invoice-info-body" style="flex:1;">
                     <div><span>موبایل:</span> <span id="finalPhone">—</span></div>
                     <div><span>ایمیل:</span> <span id="finalEmail">—</span></div>
                   </div>
                 </div>
               </div>
-
-              <!-- روش پرداخت -->
               <div class="invoice-info-box">
                 <div class="invoice-info-title"><i class="fa-solid fa-credit-card"></i> روش پرداخت</div>
-                <div style="display: flex; gap: 12px; align-items: flex-start;">
-                  <div style="flex: 1;">
-                    <div id="finalReceiptInfo" style="display: grid; grid-template-columns: auto auto; gap: 2px 16px;"></div>
-                  </div>
-                  <div style="flex-shrink: 0;">
-                  </div>
+                <div style="flex:1;">
+                  <div id="finalReceiptInfo" style="display:grid; grid-template-columns:auto auto; gap:2px 16px;"></div>
                 </div>
               </div>
             </div>
 
-            <!-- جدول دوره‌ها -->
             <div class="invoice-table-wrap">
-              <div class="invoice-table-title">
-                <i class="fa-solid fa-list"></i> جزئیات دوره‌های خریداری‌شده
-              </div>
               <table class="invoice-items-table">
                 <thead>
                   <tr>
-                    <th style="width:25%;">دوره آموزشی</th>
-                    <th style="width:18%;">قیمت اصلی</th>
-                    <th style="width:15%;">تخفیف</th>
-                    <th style="width:17%;">قیمت نهایی</th>
+                    <th style="width:40%;">جزئیات دوره‌های خریداری‌شده</th>
+                    <th style="width:30%;">قیمت اصلی</th>
+                    <th style="width:30%;">قیمت نهایی</th>
                   </tr>
                 </thead>
                 <tbody id="finalInvoiceItems"></tbody>
               </table>
             </div>
 
-            <!-- خلاصه فاکتور -->
             <div class="invoice-summary">
-              <div class="invoice-summary-row">
-                <span>جمع قیمت اصلی دوره‌ها</span>
-                <span id="invoiceOrigTotal">۰ ت</span>
+              <div class="invoice-summary-row"><span>جمع قیمت اصلی دوره‌ها</span><span id="invoiceOrigTotal">۰ ت</span>
               </div>
-              <div class="invoice-summary-row" id="invoiceCouponRow" style="display:none;">
-                <span><i class="fa-solid fa-ticket"></i> تخفیف کد</span>
-                <span class="text-red" id="invoiceCouponDisc">—</span>
-              </div>
-              <div class="invoice-summary-row discount">
-                <span>تخفیف کل دوره‌ها</span>
-                <span class="text-red" id="invoiceDiscTotal">− ۰ ت</span>
-              </div>
+              <div class="invoice-summary-row" id="invoiceCouponRow" style="display:none;"><span><i
+                    class="fa-solid fa-ticket"></i> تخفیف کد</span><span class="text-red"
+                  id="invoiceCouponDisc">—</span></div>
+              <div class="invoice-summary-row discount"><span>تخفیف کل دوره‌ها</span><span class="text-red"
+                  id="invoiceDiscTotal">− ۰ ت</span></div>
               <div class="invoice-summary-divider"></div>
-              <div class="invoice-summary-row grand-total">
-                <span>مبلغ قابل پرداخت</span>
-                <span>
-                  <span id="invoiceFinalTotal">۰</span>
-                  <span style="font-size:13px;color:var(--text-mute);"> تومان</span>
-                </span>
-              </div>
+              <div class="invoice-summary-row grand-total"><span>مبلغ قابل پرداخت</span><span><span
+                    id="invoiceFinalTotal">۰</span><span style="font-size:13px;color:var(--text-mute);">
+                    تومان</span></span></div>
               <div class="invoice-summary-words" id="invoiceTotalWords">صفر تومان</div>
             </div>
 
-            <!-- تاریخ و ساعت + دکمه‌های عملیات (بدون دکمه پرداخت نهایی) -->
-            <div
-              style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
+            <div class="invoice-footer-block">
               <div
-                style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
-                <i class="fa-regular fa-clock" style="color:var(--purple);"></i>
-                <span style="font-weight:600; font-size:13px;">تاریخ و ساعت پرداخت: <strong id="invoicePaymentDateTime"
-                    style="color:var(--purple);">—</strong></span>
+                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
+                <div
+                  style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
+                  <i class="fa-regular fa-clock" style="color:var(--purple);"></i>
+                  <span style="font-weight:600; font-size:13px;">تاریخ و ساعت پرداخت: <strong
+                      id="invoicePaymentDateTime" style="color:var(--purple);">—</strong></span>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <button class="step-prev-btn" data-prev="3"
+                    style="margin:0;background:var(--bg);color:var(--text-mid);border:1.5px solid var(--border);"><i
+                      class="fa-solid fa-chevron-right"></i> قبلی</button>
+                </div>
               </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                <button id="cancelCouponOnlyBtn" class="step-prev-btn"
-                  style="margin:0; background:#fef3c7; border-color:#f59e0b; color:#92400e;">
-                  <i class="fa-solid fa-ticket"></i> لغو کد تخفیف
-                </button>
-                <button class="step-prev-btn" data-prev="3" style="margin:0;">
-                  <i class="fa-solid fa-chevron-right"></i> قبلی
+
+              <div class="invoice-actions" style="margin-top:16px;">
+                <div class="terms-box">
+                  <input type="checkbox" id="termsChk" checked />
+                  <label for="termsChk">
+                    با خرید این دوره‌ها، <a href="#"
+                      onclick="showToast('قوانین و مقررات', 'info'); return false;">قوانین و
+                      مقررات</a> آموزشگاه پیشتاز را مطالعه کرده و می‌پذیرم.
+                  </label>
+                </div>
+              </div>
+
+              <div class="invoice-final-pay-row">
+                <button class="os-pay-btn invoice-final-pay-btn" id="finalPayBtn">
+                  <i class="fa-solid fa-lock"></i>
+                  <span id="finalPayLabel">پرداخت نهایی و تکمیل سفارش</span>
                 </button>
               </div>
             </div>
-
-            <!-- شرط قوانین -->
-            <div class="invoice-actions" style="margin-top:16px;">
-              <div class="terms-box">
-                <input type="checkbox" id="termsChk" checked />
-                <label for="termsChk">
-                  با خرید این دوره‌ها، <a href="#" onclick="showToast('قوانین و مقررات', 'info'); return false;">قوانین
-                    و مقررات</a> آموزشگاه پیشتاز را مطالعه کرده و می‌پذیرم.
-                </label>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
 
     </main>
 
-    <!-- ============================================================
-      ستون راست: خلاصه سفارش
-      ============================================================ -->
+    <!-- SIDEBAR -->
     <aside class="checkout-sidebar" id="checkoutSidebar">
       <div class="order-summary">
         <div class="os-head">
@@ -484,18 +436,12 @@
         </div>
         <div class="os-items" id="sidebarItems"></div>
         <div class="os-breakdown">
-          <div class="os-line">
-            <span class="osl-label">قیمت اصلی:</span>
-            <span class="osl-val" style="text-decoration:line-through;color:#cbd5e1;" id="sideOrigPrice">۰ ت</span>
-          </div>
-          <div class="os-line" id="sideCouponLine" style="display:none;">
-            <span class="osl-label"><i class="fa-solid fa-ticket"></i> کد تخفیف:</span>
-            <span class="osl-red" id="sideCouponDisc">—</span>
-          </div>
-          <div class="os-line">
-            <span class="osl-label">تخفیف دوره‌ها:</span>
-            <span class="osl-red" id="sideDisc">− ۰ ت</span>
-          </div>
+          <div class="os-line"><span class="osl-label">قیمت اصلی:</span><span class="osl-val"
+              style="text-decoration:line-through;color:#cbd5e1;" id="sideOrigPrice">۰ ت</span></div>
+          <div class="os-line" id="sideCouponLine" style="display:none;"><span class="osl-label"><i
+                class="fa-solid fa-ticket"></i> کد تخفیف:</span><span class="osl-red" id="sideCouponDisc">—</span></div>
+          <div class="os-line"><span class="osl-label">تخفیف دوره‌ها:</span><span class="osl-red" id="sideDisc">− ۰
+              ت</span></div>
           <div class="os-divider"></div>
         </div>
         <div class="os-total">
@@ -508,18 +454,13 @@
             <div class="ost-unit">تومان</div>
           </div>
         </div>
-        <div class="os-saving">
-          <i class="fa-solid fa-piggy-bank"></i>
-          در این خرید <strong id="sideSaving">۰</strong> تومان صرفه‌جویی کردید!
-        </div>
+        <div class="os-saving"><i class="fa-solid fa-piggy-bank"></i> در این خرید <strong id="sideSaving">۰</strong>
+          تومان صرفه‌جویی کردید!</div>
       </div>
     </aside>
+  </div>
 
-  </div><!-- /checkout-wrap -->
-
-  <!-- ============================================================
-    FOOTER
-    ============================================================ -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-overlay"></div>
     <div class="footer-content">
@@ -528,49 +469,48 @@
         <ul>
           <li><a href="#" onclick="showToast('فتوشاپ و طراحی', 'info'); return false;">فتوشاپ و طراحی</a></li>
           <li><a href="#" onclick="showToast('پریمیر و تدوین', 'info'); return false;">پریمیر و تدوین</a></li>
-          <li><a href="#" onclick="showToast('افتر افکت و موشن', 'info'); return false;">افتر افکت و موشن</a></li>
+          <li><a href="#" onclick="showToast('افتر افکت و موشن', 'info'); return false;">افتر افکت و موشن</a>
+          </li>
           <li><a href="#" onclick="showToast('هوش مصنوعی‌ها', 'info'); return false;">هوش مصنوعی‌ها</a></li>
           <li><a href="#" onclick="showToast('ادیت با موبایل', 'info'); return false;">ادیت با موبایل</a></li>
         </ul>
       </div>
       <div class="footer-col center">
         <h2>MOHSENGFX.IR</h2>
-        <p><a href="#" onclick="showToast('بازگشت به صفحه اصلی', 'info'); return false;">بازگشت به صفحه اصلی</a></p>
+        <p><a href="#" onclick="showToast('بازگشت به صفحه اصلی', 'info'); return false;">بازگشت به صفحه اصلی</a>
+        </p>
         <div class="socials">
-          <a href="#" onclick="showToast('یوتیوب', 'info'); return false;" aria-label="یوتیوب"><i
-              class="fa-brands fa-youtube"></i></a>
-          <a href="#" onclick="showToast('تلگرام', 'info'); return false;" aria-label="تلگرام"><i
-              class="fa-brands fa-telegram"></i></a>
-          <a href="#" onclick="showToast('اینستاگرام', 'info'); return false;" aria-label="اینستاگرام"><i
+          <a href="#" onclick="showToast('یوتیوب', 'info'); return false;"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" onclick="showToast('تلگرام', 'info'); return false;"><i class="fa-brands fa-telegram"></i></a>
+          <a href="#" onclick="showToast('اینستاگرام', 'info'); return false;"><i
               class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
       <div class="footer-col">
         <h3>لینک‌های مهم</h3>
         <ul>
-          <li><a href="#" onclick="showToast('دوره‌های پروژه محور', 'info'); return false;">دوره‌های پروژه محور</a></li>
+          <li><a href="#" onclick="showToast('دوره‌های پروژه محور', 'info'); return false;">دوره‌های پروژه
+              محور</a></li>
           <li><a href="#" onclick="showToast('فایل لایه باز', 'info'); return false;">فایل لایه باز</a></li>
-          <li><a href="#" onclick="showToast('جعبه ابزار طراحی و ادیت', 'info'); return false;">جعبه ابزار طراحی و
-              ادیت</a></li>
-          <li><a href="#" onclick="showToast('نمونه کارهای هنرجویان', 'info'); return false;">نمونه کارهای هنرجویان</a>
-          </li>
+          <li><a href="#" onclick="showToast('جعبه ابزار طراحی و ادیت', 'info'); return false;">جعبه ابزار
+              طراحی و ادیت</a></li>
+          <li><a href="#" onclick="showToast('نمونه کارهای هنرجویان', 'info'); return false;">نمونه کارهای
+              هنرجویان</a></li>
           <li><a href="#" onclick="showToast('تماس با ما', 'info'); return false;">تماس با ما</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
-  <!-- ============================================================
-    MODAL & TOAST
-    ============================================================ -->
+  <!-- MODAL & TOAST -->
   <div class="modal-ov" id="modalOv">
     <div class="modal-box">
       <div class="modal-circle"><i class="fa-solid fa-circle-check"></i></div>
       <h2>پرداخت با موفقیت انجام شد!</h2>
       <p>خرید شما تأیید شد.<br />دسترسی به دوره‌ها از طریق پنل کاربری فعال می‌باشد.</p>
       <div class="track-code-box">
-        <div class="track-code-label">کد پیگیری سفارش</div>
-        <strong class="track-code-val" id="trackCode">PTZ-1404-00087</strong>
+        <div class="track-code-label">کد پیگیری سفارش</div><strong class="track-code-val"
+          id="trackCode">PTZ-1404-00087</strong>
       </div>
       <div class="modal-actions">
         <button class="modal-cta-primary" onclick="goToPanel()"><i class="fa-solid fa-graduation-cap"></i> پنل
@@ -580,15 +520,12 @@
       <div class="modal-note"><i class="fa-solid fa-envelope"></i> پیامک تأییدیه به شماره ثبت‌شده ارسال شد</div>
     </div>
   </div>
-
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fa.js"></script>
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
   <script src="./js/script.js"></script>
 
 
