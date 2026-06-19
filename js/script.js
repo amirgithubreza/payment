@@ -345,7 +345,6 @@ function updateSidebar() {
 
 
 
-
 function updateInvoiceFinal() {
     const now = getPersianDate();
     $('invoiceNumber').textContent = 'PTZ-' + Date.now().toString().slice(-8);
@@ -359,13 +358,10 @@ function updateInvoiceFinal() {
     const methodMap = { offline: 'کارت به کارت', online: 'پرداخت آنلاین' };
     const methodText = methodMap[S.method] || 'کارت به کارت';
 
-    // مخفی کردن المان finalMethod (چون در grid نمایش داده می‌شود)
     const finalMethodEl = $('finalMethod');
     if (finalMethodEl) finalMethodEl.style.display = 'none';
 
     const receiptInfo = $('finalReceiptInfo');
-
-    // ساخت آیتم‌های grid (۴ ردیف)
     let items = [];
     items.push(`<div><span>روش:</span> <span>${methodText}</span></div>`);
 
@@ -376,11 +372,7 @@ function updateInvoiceFinal() {
         items.push(`<div><span>تاریخ واریز:</span> <span>${date}</span></div>`);
         items.push(`<div><span>ساعت واریز:</span> <span>${time}</span></div>`);
         items.push(`<div><span>کد پیگیری:</span> <span>${ref}</span></div>`);
-
-        // نمایش عکس اگر موجود باشد
-
     } else {
-        // پرداخت آنلاین: سه ردیف خالی برای هماهنگی grid
         items.push(`<div><span>تاریخ واریز:</span> <span>—</span></div>`);
         items.push(`<div><span>ساعت واریز:</span> <span>—</span></div>`);
         items.push(`<div><span>کد پیگیری:</span> <span>—</span></div>`);
@@ -388,7 +380,6 @@ function updateInvoiceFinal() {
 
     receiptInfo.innerHTML = items.join('');
 
-    // بقیه کدها (جدول و جمع‌ها) بدون تغییر
     const tbody = $('finalInvoiceItems');
     if (!tbody) return;
     if (cartItems.length === 0) {
@@ -397,12 +388,21 @@ function updateInvoiceFinal() {
         tbody.innerHTML = cartItems.map((item) => {
             const isFree = item.finalPrice === 0;
             const hasDiscount = item.discount > 0 && !isFree;
+            // نمایش نام دوره + مدرس (مانند سبد خرید)
+            const courseDisplay = item.name + (item.instructor ? ` — ${item.instructor}` : '');
+            // اگر تعداد بیشتر از ۱ باشد، آن را هم نمایش می‌دهیم
+            const qtyDisplay = item.qty > 1 ? ` ×${item.qty}` : '';
             return `
                 <tr>
-                    <td>${item.duration}</td>
+                    <td>
+                        <div style="font-weight:700;font-size:12.5px;">
+                            ${courseDisplay}
+                            ${qtyDisplay}
+                        </div>
+                    </td>
                     <td>${hasDiscount || isFree ? `<span class="inv-price-orig">${toman(item.origPrice)} ت</span>` : `<span>${toman(item.origPrice)} ت</span>`}</td>
                     <td>${item.discount > 0 ? `<span class="inv-discount-badge">${item.discount}%</span>` : '<span class="inv-discount-badge zero">۰%</span>'}</td>
-                    <td><span class="inv-price-final ${isFree ? 'free' : ''}">${isFree ? 'رایگان' : toman(item.finalPrice) + ' ت'}</span></td>
+                    <td><span class="inv-price-final ${isFree ? 'free' : ''}">${isFree ? 'رایگان' : toman(item.finalPrice * item.qty) + ' ت'}</span></td>
                 </tr>
             `;
         }).join('');
@@ -427,8 +427,6 @@ function updateInvoiceFinal() {
     const couponRow = $('invoiceCouponRow');
     if (couponRow) couponRow.style.display = 'none';
 }
-
-
 
 
 
