@@ -2290,6 +2290,12 @@ body {
     font-family: var(--font-primary);
 }
 
+.finalReceiptInfo div span:first-child {
+    color: var(--text-mute);
+    font-weight: 500;
+
+}
+
 .invoice-info-body div {
     display: flex;
     align-items: center;

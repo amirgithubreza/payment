@@ -368,6 +368,22 @@
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function updateInvoiceFinal() {
         var now = getPersianDate();
         $('invoiceNumber').textContent = 'PTZ-' + Date.now().toString().slice(-8);
@@ -381,23 +397,37 @@
         var methodMap = { offline: 'کارت به کارت', online: 'پرداخت آنلاین' };
         var methodText = methodMap[S.method] || 'کارت به کارت';
 
-        var receiptInfo = $('finalReceiptInfo');
-        var items = [];
-        items.push('<div><span>روش:</span> <span>' + methodText + '</span></div>');
-        if (S.method === 'offline') {
-            var date = $('offDate') ? $('offDate').value : '—';
-            var time = $('offTime') ? $('offTime').value : '—';
-            var ref = $('offRef') ? $('offRef').value : '—';
-            items.push('<div><span>تاریخ واریز:</span> <span>' + date + '</span></div>');
-            items.push('<div><span>ساعت واریز:</span> <span>' + time + '</span></div>');
-            items.push('<div><span>کد پیگیری:</span> <span>' + ref + '</span></div>');
-        } else {
-            items.push('<div><span>تاریخ واریز:</span> <span>—</span></div>');
-            items.push('<div><span>ساعت واریز:</span> <span>—</span></div>');
-            items.push('<div><span>کد پیگیری:</span> <span>—</span></div>');
-        }
-        receiptInfo.innerHTML = items.join('');
 
+
+
+
+
+
+
+
+
+        var receiptInfo = $('finalReceiptInfo');
+        var methodMap = { offline: 'کارت به کارت', online: 'پرداخت آنلاین' };
+        var methodText = methodMap[S.method] || 'کارت به کارت';
+
+        // دریافت مقادیر (در صورت وجود)
+        var date = (S.method === 'offline' && $('offDate')) ? $('offDate').value : '—';
+        var time = (S.method === 'offline' && $('offTime')) ? $('offTime').value : '—';
+        var ref = (S.method === 'offline' && $('offRef')) ? $('offRef').value : '—';
+
+        // ساختار دو ستونی مشابه بخش کاربر
+        receiptInfo.innerHTML = `
+  <div style="display:flex; justify-content:space-between; gap:12px;">
+    <div class="invoice-info-body" style="flex:1;">
+      <div><span>روش:</span> <span>${methodText}</span></div>
+      <div><span>تاریخ واریز:</span> <span>${date}</span></div>
+    </div>
+    <div class="invoice-info-body" style="flex:1;">
+      <div><span>ساعت واریز:</span> <span>${time}</span></div>
+      <div><span>کد پیگیری:</span> <span>${ref}</span></div>
+    </div>
+  </div>
+`;
         var tbody = $('finalInvoiceItems');
         if (!tbody) return;
         if (cartItems.length === 0) {
@@ -442,6 +472,26 @@
 
         updateFinalInvoiceScroll();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // ---- CART EVENTS ----
     document.addEventListener('click', function (e) {
