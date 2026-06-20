@@ -330,7 +330,7 @@
         var discText =  toman(totalDiscAll) + ' - ت';
         if (S.couponApplied && S.couponAmt) {
             discText +=
-                ' <span style="font-size:10px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +
+                ' <span style="font-size:10px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: ' +
                 toman(S.couponAmt) + ' ت)</span>';
         }
         $('sideDisc').innerHTML = discText;
@@ -460,7 +460,7 @@
         var discText = toman(totalDiscAll) + '- ت';
         if (S.couponApplied && S.couponAmt) {
             discText +=
-                ' <span style="font-size:11px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +
+                ' <span style="font-size:11px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: ' +
                 toman(S.couponAmt) + ' ت)</span>';
         }
         $('invoiceDiscTotal').innerHTML = discText;
