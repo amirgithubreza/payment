@@ -327,7 +327,7 @@
 
         $('sideOrigPrice').textContent = toman(totalOrig) + ' ت';
         var totalDiscAll = totalDisc + disc;
-        var discText = '− ' + toman(totalDiscAll) + ' ت';
+        var discText =  toman(totalDiscAll) + ' - ت';
         if (S.couponApplied && S.couponAmt) {
             discText +=
                 ' <span style="font-size:10px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +
@@ -457,7 +457,7 @@
 
         $('invoiceOrigTotal').textContent = toman(totalOrig) + ' ت';
         var totalDiscAll = totalDisc + disc;
-        var discText = '− ' + toman(totalDiscAll) + ' ت';
+        var discText = toman(totalDiscAll) + '- ت';
         if (S.couponApplied && S.couponAmt) {
             discText +=
                 ' <span style="font-size:11px;color:var(--text-mute);font-family:var(--font-primary);">(شامل تخفیف کد: − ' +

@@ -301,13 +301,13 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label" style="font-size:12px;">
-                       ساعت واریز
+                      ساعت واریز
                       <span class="req">*</span></label>
                     <div class="time-picker-wrapper">
                       <input type="text" class="form-input" id="offTime" placeholder="HH:MM" autocomplete="off"
                         maxlength="5" />
                       <button type="button" class="time-picker-icon" id="offTimeIconBtn" aria-label="باز کردن ساعت">
-                        
+                        <i class="fa-regular fa-clock"></i>
                       </button>
                     </div>
                     <span class="field-err" id="offTime-err"><i class="fa-solid fa-triangle-exclamation"></i> لطفاً ساعت
@@ -398,7 +398,7 @@
                       class="fa-solid fa-ticket"></i> تخفیف کد</span><span class="text-red"
                     id="invoiceCouponDisc">—</span></div>
                 <div class="invoice-summary-row discount"><span>تخفیف کل دوره‌ها</span><span class="text-red"
-                    id="invoiceDiscTotal">− ۰ ت</span></div>
+                    id="invoiceDiscTotal">- ۰ ت</span></div>
                 <div class="invoice-summary-divider"></div>
                 <div class="invoice-summary-row grand-total"><span>مبلغ قابل پرداخت</span><span><span
                       id="invoiceFinalTotal">۰</span><span
@@ -412,7 +412,7 @@
                   style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:12px; padding:12px 0; border-top:1px solid var(--border-light);">
                   <div
                     style="display:flex; align-items:center; gap:8px; background:var(--lavender); padding:8px 16px; border-radius:10px;">
-                    
+
                     <span style="font-weight:600; font-size:13px;font-family:var(--font-primary);">تاریخ
                       و ساعت پرداخت: <strong id="invoicePaymentDateTime" style="color:var(--purple);">—</strong></span>
                   </div>
@@ -463,7 +463,7 @@
             <div class="os-line" id="sideCouponLine" style="display:none;"><span class="osl-label"><i
                   class="fa-solid fa-ticket"></i> کد تخفیف:</span><span class="osl-red" id="sideCouponDisc">—</span>
             </div>
-            <div class="os-line"><span class="osl-label">تخفیف دوره‌ها:</span><span class="osl-red" id="sideDisc">− ۰
+            <div class="os-line"><span class="osl-label">تخفیف دوره‌ها:</span><span class="osl-red" id="sideDisc">- ۰
                 ت</span></div>
             <div class="os-divider"></div>
           </div>
@@ -474,7 +474,7 @@
             </div>
             <div style="text-align:left;">
               <div class="ost-amt" id="sideTotalAmount">۰</div>
-              <div class="ost-unit">تومان</div>
+              <!-- <div class="ost-unit">تومان</div> -->
             </div>
           </div>
           <div class="os-saving"> در این خرید <strong id="sideSaving">۰</strong>
